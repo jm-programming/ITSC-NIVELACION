@@ -1,16 +1,15 @@
 # README #
+Proyecto Nivelacion academica para el Instituto Técnico Superior Comunitario ITSC
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-To have a control with our proyect
+### Que es este repositorio? ###
+Este es el proyecto de nivelacion academica para el ITSC el cual actualmente esta en etapa de desarrollo
 * Quick summary
-* Version
+Version en desarrollo
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
 
-* Summary of set up
+Clonar el repositorio y correr en la consola el comando php artisan migrate para hacer la migracion de la base de datos del sistema.
 * Configuration
 * Dependencies
 * Database configuration
