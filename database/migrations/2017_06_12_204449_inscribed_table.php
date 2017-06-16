@@ -21,6 +21,7 @@ class InscribedTable extends Migration
             $table->double('final_exam');
             $table->double('score');
             $table->string('literal', 5);
+            $table->integer('assistance');
 
             $table->integer('teachers_id')->unsigned();
             $table->foreign('teachers_id')->references('id')->on('teachers');
