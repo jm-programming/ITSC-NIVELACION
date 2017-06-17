@@ -9,7 +9,7 @@ use App\Students;
 class StudentsController extends Controller
 {
 
-    /  
+     
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +17,9 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        $studentsList = App\Students::all();
+        $studentsList = Students::all();
 
-        return view('students.students_view', ['studentList' => $studentsList]);
+        return view('students.student', ['studentList' => $studentsList]);
     }
 
     /**
@@ -87,7 +87,7 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = App\Students::find($id);
-        return view('students.student_edit',['student' => $student])
+        return view('students.student_edit',['student' => $student]);
     }
 
     /**
@@ -109,7 +109,7 @@ class StudentsController extends Controller
             'shift' => 'alpha|max:20',
         ]);
 
-        App\Students::where('id'=> $id)
+        App\Students::where('id', $id)
             ->update([
                 'names'=> $request->input('names'),
                 'last_name' => $request->input('last_name'),
