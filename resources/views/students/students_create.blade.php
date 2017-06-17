@@ -3,7 +3,7 @@
 @section('title', 'Crear Estudiante')
 
 @section('content')
-	<div class="jumbotron main">
+	<div id="content" class="jumbotron main">
 		<h1 class="text-center padding ">Estudiantes</h1>
 		<div class="container">
 			<div class="row">

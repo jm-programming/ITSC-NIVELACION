@@ -50,7 +50,7 @@
 </nav>
   
     <div id="miMenuDerecho" class="menuDerecho">
-    <a href="" id="botonCerrar" class="closebtn">&times;</a>
+    <a href="#" id="botonCerrar" class="closebtn">&times;</a>
     <a href="/student">Estudiantes</a>
     <a href="">Profesores</a>
     <a href="">Historico</a>
