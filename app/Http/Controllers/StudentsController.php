@@ -87,7 +87,7 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = App\Students::find($id);
-        return view('students.student_edit',['student' => $student]);
+        return view('students.student',['student' => $student]);
     }
 
     /**
