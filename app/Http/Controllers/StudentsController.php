@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\validation\validator;
 use App\Students;
+use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
@@ -17,9 +18,9 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        $studentsList = Students::all();
+        $studentsList = Students::orderBy('names', 'asc')->paginate(8);
 
-        return view('students.student', ['studentList' => $studentsList]);
+        return view('students.student', ['studentsList' => $studentsList]);
     }
 
     /**
@@ -45,37 +46,48 @@ class StudentsController extends Controller
             'last_name' => 'required|alpha|max:45',
             'career' => 'required|max:45',
             'birthday' => 'required|date',
-            'identity_card' => 'required|alpha_num',
-            'email' => 'email',
+            'identity_card' => 'required|max:14',
+            'email' => 'unique:email',
             'shift' => 'alpha|max:20',
         ]);
-
-        if($validate){
-            App\Students::create([
+            Students::create([
             
                 'names'=> $request->input('names'),
                 'last_name' => $request->input('last_name'),
                 'career' => $request->input('career'),
                 'birthday' => $request->input('birthday'),
                 'identity_card' => $request->input('identity_card'),
-                'email'=> $request->input('identity_card'),
+                'civil_status' => $request->input('civil_status'),
+                'email'=> $request->input('email'),
                 'shift'=> $request->input('shift'),
-
+                'condition'=> $request->input('condition'),
+                'debt'=> 0,
+                'inscribed_opportunity'=> 0,
             ]);
-        }
-        
+
+        return redirect('/students');
     }
 
+
+    public function search(Request $request){
+
+        $studentSearch = \Request::get('studentSearch');
+        $studentsList = Students::where('students.names', 'like', '%'.$studentSearch.'%')
+        ->orwhere('students.last_name', 'like', '%'.$studentSearch.'%')
+        ->orderBy('students.names')
+        ->paginate(8);
+        
+        return view('students.student', ['studentsList' => $studentsList]);
+    }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $student = App\Students::find($id);
-        return view('students.student', ['student' => $student]);
+        
     }
 
     /**
@@ -86,8 +98,8 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        $student = App\Students::find($id);
-        return view('students.student',['student' => $student]);
+        $student = Students::find($id);
+        return view('students.students_edit', ['student' => $student]);
     }
 
     /**
@@ -99,26 +111,11 @@ class StudentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'names' => 'required|alpha|max:45',
-            'last_name' => 'required|alpha|max:45',
-            'career' => 'required|max:45',
-            'birthday' => 'required|date',
-            'identity_card' => 'required|alpha_num',
-            'email' => 'email',
-            'shift' => 'alpha|max:20',
-        ]);
+        $student = Students::find($id);
+        $student->fill($request->all());
+        $student->save();
 
-        App\Students::where('id', $id)
-            ->update([
-                'names'=> $request->input('names'),
-                'last_name' => $request->input('last_name'),
-                'career' => $request->input('career'),
-                'birthday' => $request->input('birthday'),
-                'identity_card' => $request->input('identity_card'),
-                'email'=> $request->input('identity_card'),
-                'shift'=> $request->input('shift'),
-            ]);
+        return redirect('/students');
     }
 
     /**
@@ -129,8 +126,8 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        $student = App\Students::find($id);
 
-        $student->delete();
+        Students::destroy($id);
+        return redirect('/students');
     }
 }

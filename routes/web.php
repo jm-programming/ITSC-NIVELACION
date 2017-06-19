@@ -20,5 +20,7 @@ Auth::routes();
 Route::get('/home', function(){
 	return view('layouts.landingPage');
 });
+//routes manteniemiento estudiante
+Route::get('students_s', 'StudentsController@search');
+Route::resource('students', 'StudentsController');
 
-Route::resource('/student', 'StudentsController');

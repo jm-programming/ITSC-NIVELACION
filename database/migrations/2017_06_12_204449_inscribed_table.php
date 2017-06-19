@@ -15,13 +15,13 @@ class InscribedTable extends Migration
     {
         Schema::create('inscribed', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('first_midterm');
-            $table->double('second_midterm');
-            $table->double('pratice_score');
-            $table->double('final_exam');
-            $table->double('score');
-            $table->string('literal', 5);
-            $table->integer('assistance');
+            $table->double('first_midterm')->nullable();
+            $table->double('second_midterm')->nullable();
+            $table->double('pratice_score')->nullable();
+            $table->double('final_exam')->nullable();
+            $table->double('score')->nullable();
+            $table->string('literal', 5)->nullable();
+            $table->integer('assistance')->nullable();
 
             $table->integer('teachers_id')->unsigned();
             $table->foreign('teachers_id')->references('id')->on('teachers');

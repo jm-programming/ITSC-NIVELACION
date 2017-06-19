@@ -24,7 +24,7 @@ class StudentsTable extends Migration
             $table->string('email', 180)->unique();
             $table->string('shift', 20);
             $table->integer('inscribed_opportunity');
-            $table->longText('opportunity_comment');
+            $table->longText('opportunity_comment')->nullable();
             $table->boolean('debt');
             $table->string('condition', 180);
             $table->timestamps();

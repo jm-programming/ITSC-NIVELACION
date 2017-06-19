@@ -17,10 +17,10 @@ class EmployeesTable extends Migration
             $table->increments('id');
             $table->string('names', 45);
             $table->string('last_name', 45);
-            $table->string('job', 45);
-            $table->string('office_phone', 20);
-            $table->string('personal_phone', 20);
-            $table->string('cellphone', 20);
+            $table->string('job', 45)->nullable();
+            $table->string('office_phone', 20)->nullable();
+            $table->string('personal_phone', 20)->nullable();
+            $table->string('cellphone', 20)->nullable();
             $table->longText('addresss');
             $table->string('identity_card', 15);
             $table->string('civil_status', 25);

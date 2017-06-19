@@ -20,8 +20,8 @@ class TeachersTable extends Migration
             $table->boolean('teacher_status');
             $table->string('teacher_code', 15);
             $table->string('identity_card', 15);
-            $table->string('personal_phone');
-            $table->string('cellphone');
+            $table->string('personal_phone')->nullable();
+            $table->string('cellphone')->nullable();
 
             $table->integer('users_id')->unsigned();
 
