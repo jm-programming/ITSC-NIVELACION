@@ -2,6 +2,7 @@
 @section('title', 'Estudiantes')
 @section('title-content', 'Estudiantes')
 @section('content')
+
   <div class="row padding">
     <div class="col-lg-4 col-md-4">
       <div class="input-group">
@@ -100,48 +101,48 @@
                     <h4>Información personal del estudiante</h4>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Nombres</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="names" name="names" value="">
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Apellidos</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="">
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Carrera</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="career" name="career" value="">
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Fecha Nacimiento</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="birthday" name="birthday" value="" >
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Identificación</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="identity_card" name="identity_card" value="" >
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Estado Civil</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="civil_status" name="civil_status" value="" >
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Email</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="email" class="form-control" id="email" name="email" value="" >
                     </div>
                     <h4>Información escolar de estudiante</h4>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Tanda</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="shift" name="shift" value="">
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Condición</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="condition" name="condition" value="">
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Oportunidades</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="inscribed_opportunity" name="inscribed_opportunity" value="">
                     </div>
                     <div class="form-group col-sm-10 col-sm-offset-1">
                         <label class="control-label" for="nombres">Deuda</label>
-                        <input type="text" class="form-control" id="names" name="names" value="" placeholder="Nombres del estudiante">
+                        <input type="text" class="form-control" id="debt" name="debt" value="">
                     </div>
                     <!-- Button -->
                     {{-- @endforeach --}}
