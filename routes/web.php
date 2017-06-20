@@ -18,9 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', function(){
-	return view('layouts.landingPage');
+	return view('home');
 });
 //routes manteniemiento estudiante
 Route::get('students_s', 'StudentsController@search');
 Route::resource('students', 'StudentsController');
+
+//routes mantenimiento secciones
+Route::get('sections_s', 'SectionsController@search');
+Route::resource('sections', 'SectionsController');
 

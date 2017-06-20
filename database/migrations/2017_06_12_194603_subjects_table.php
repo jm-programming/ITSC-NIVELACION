@@ -15,10 +15,9 @@ class SubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('code_subject');
             $table->string('subject');
             $table->integer('credits');
-            $table->integer('inscribed');
             $table->timestamps();
         });
     }

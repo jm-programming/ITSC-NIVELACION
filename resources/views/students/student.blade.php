@@ -17,14 +17,7 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
-
+  
     @if (count($studentsList) > 0)
 
       <div class="table-responsive">
