@@ -9,19 +9,19 @@ class Sections extends Model
     protected $table = 'sections';
 
     public function subjects(){
-    	return $this->hasMany('App\Subjects');
+    	return $this->hasOne('App\Subjects');
     }
 
     public function classrooms(){
-    	return $this->hasMany('App\Classrooms');
+    	return $this->hasOne('App\Classrooms');
     }
 
     public function teachers(){
-    	return $this->hasMany('App\Teachers');
+    	return $this->hasOne('App\Teachers');
     }
 
     public function academic_periods(){
-    	return $this->hasMany('App\Academic_periods');
+    	return $this->hasOne('App\Academic_periods');
     }
 
     public function inscribed(){

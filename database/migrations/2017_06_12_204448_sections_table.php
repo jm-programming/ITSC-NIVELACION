@@ -18,6 +18,7 @@ class SectionsTable extends Migration
             $table->string('code', 15);
             $table->boolean('status');
             $table->timeTz('time');
+            $table->integer('quota');
             $table->string('day', 20);
             $table->string('shift', 20);
 

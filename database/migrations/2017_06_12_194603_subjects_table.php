@@ -18,7 +18,6 @@ class SubjectsTable extends Migration
             $table->string('code');
             $table->string('subject');
             $table->integer('credits');
-            $table->integer('quota');
             $table->integer('inscribed');
             $table->timestamps();
         });

@@ -9,7 +9,7 @@ class Inscribed extends Model
     protected $table = 'inscribed';
 
     public function sections(){
-    	return $this->hasMany('App\Sections');
+    	return $this->hasOne('App\Sections');
     }
 
     public function students(){
