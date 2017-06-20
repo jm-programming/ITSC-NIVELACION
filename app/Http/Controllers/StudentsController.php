@@ -41,15 +41,6 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $this->validate($request, [
-            'names' => 'required|alpha|max:45',
-            'last_name' => 'required|alpha|max:45',
-            'career' => 'required|max:45',
-            'birthday' => 'required|date',
-            'identity_card' => 'required|max:14',
-            'email' => 'unique:email',
-            'shift' => 'alpha|max:20',
-        ]);
             Students::create([
             
                 'names'=> $request->input('names'),
