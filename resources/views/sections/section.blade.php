@@ -10,8 +10,9 @@
         <div class="input-group">
           {!!Form::open(['method'=>'GET','url'=>'sections_s','role'=>'search'])!!}
           <div class="input-group-btn">
-            <input type="text" class="form-control" name="sectionSearch" placeholder="Buscar por nombre y apellido">
+            <input type="text" class="form-control" name="sectionSearch" placeholder="Buscar por numero de sección">
             {!! Form::submit('Buscar', ['class' => 'btn btn-danger']) !!}
+          {!!Form::close()!!}
           </div>
         </div>
       @endif
@@ -32,10 +33,7 @@
             <tr class="headings">
               <th>#</th>
               <th class="column-title">Sección </th>
-              <th class="column-title">Docente </th>
-              <th class="column-title">Asignatura  </th>
-              <th class="column-title">Aula </th>
-              <th class="column-title">Periodo academico </th>
+              <th class="column-title">Cupos </th>
               <th class="column-title">Dias </th>
               <th class="column-title">Hora </th>
               <th class="column-title">Tanda </th>
@@ -52,12 +50,9 @@
             @foreach ($sections as $section)
               <?php $contador++?>
               <tr class="even pointer">
-                <td class="a-center ">{{$contador}}</td>
-                <td class=" ">{{$section->section}}</td>
-                <td class=" ">{{$section->names}} {{$section->last_name}}</td>
-                <td class=" ">{{$section->subject}}</td>
-                <td class=" ">{{$section->location}}</i></td>
-                <td class=" ">{{$section->academic_period}}</td>
+                <td class="a-center ">{{$contador}} </td>
+                <td class=" ">{{$section->section}} </td>
+                <td class=" ">{{$section->quota}} </td>
                 <td class=" ">{{$section->day_one}} / {{$section->day_two}}</td>
                 <td class=" ">{{$section->time_first}} / {{$section->time_last}}</td>
                 <td class=" ">{{$section->shift}}</td>
@@ -73,7 +68,7 @@
       </div>
       <nav aria-label="Page navigation example">
         <ul class="pagination text-center">
-        {{-- {!! $sections->links() !!} --}}
+        {!! $sections->links() !!}
         </ul>
       </nav>
       <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>

@@ -8,6 +8,10 @@ class Sections extends Model
 {
     protected $table = 'sections';
 
+    protected $fillable = [
+        'section','status','time_first','time_last', 'quota','day_one','day_two','shift','classrooms_id','subjects_id','academic_periods_id','teachers_id',
+    ];
+
     public function subjects(){
     	return $this->hasOne('App\Subjects');
     }

@@ -41,20 +41,30 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-            Students::create([
-            
-                'names'=> $request->input('names'),
-                'last_name' => $request->input('last_name'),
-                'career' => $request->input('career'),
-                'birthday' => $request->input('birthday'),
-                'identity_card' => $request->input('identity_card'),
-                'civil_status' => $request->input('civil_status'),
-                'email'=> $request->input('email'),
-                'shift'=> $request->input('shift'),
-                'condition'=> $request->input('condition'),
-                'debt'=> 0,
-                'inscribed_opportunity'=> 0,
-            ]);
+        $this->validate($request, [
+             'names' => 'required|max:45',
+             'last_name' => 'required|max:45',
+             'career' => 'required',
+             'email' => 'email',
+             'shift' => 'required',
+             'identity_card' => 'required',
+             'condition' => 'required',
+         ]);
+
+        Students::create([
+        
+            'names'=> $request->input('names'),
+            'last_name' => $request->input('last_name'),
+            'career' => $request->input('career'),
+            'birthday' => $request->input('birthday'),
+            'identity_card' => $request->input('identity_card'),
+            'civil_status' => $request->input('civil_status'),
+            'email'=> $request->input('email'),
+            'shift'=> $request->input('shift'),
+            'condition'=> $request->input('condition'),
+            'debt'=> 0,
+            'inscribed_opportunity'=> 0,
+        ]);
 
         return redirect('/students');
     }
@@ -101,7 +111,7 @@ class StudentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
         $student = Students::find($id);
         $student->fill($request->all());
         $student->save();

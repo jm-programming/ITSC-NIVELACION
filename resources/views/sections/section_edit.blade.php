@@ -1,7 +1,7 @@
 @extends('layouts.landingPage');
 
 @section('title', 'Crear Sección')
-@section('title-content', 'Crear Sección')
+@section('title-content', 'Editar Sección')
 @section('content')
 	<div id="content" class="jumbotron main">
 		<h1 class="text-center padding ">Sección</h1>
@@ -9,10 +9,10 @@
 			<div class="row">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
-						<h2 class="panel-title">Crear Sección</h2>
+						<h2 class="panel-title">Editar Sección</h2>
 					</div>
 					<div class="panel-body">
-						{!! Form::open(['route' => 'sections.store', 'method' => 'POST']) !!}
+						{!! Form::open(['route' => ['sections.update', $section->id], 'method' => 'PUT']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
 			                    <!-- Prepended text-->
@@ -21,7 +21,6 @@
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="teachers_id">Docentes</label>
 			                        <select id="teachers_id" name="teachers_id" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($teacher as $teachers)
 				                        	<option value="{{$teachers->id}}">{{$teachers->names}} {{$teachers->last_name}}</option>
 			                        	@endforeach
@@ -30,15 +29,13 @@
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="shift">Tanda</label>
 			                        <select id="shift" name="shift" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	<option>Matutina</option>
-			                        	<option>Nocturna</option>
+			                        		<option>Nocturna</option>
+				                        	<option>Matutina</option>
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="classrooms_id">Aula</label>
 			                        <select id="classrooms_id" name="classrooms_id" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($classroom as $classrooms)
 			                        	<option value="{{$classrooms->id}}">{{$classrooms->location}} </option>
 			                        	@endforeach
@@ -47,9 +44,8 @@
 								<div class="form-group col-sm-6">
 			                        <label class="control-label" for="subjects_id">Asignatura</label>
 			                        <select id="subjects_id" name="subjects_id" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($subject as $subjects)
-			                        	<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
+			                        		<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
 			                        	@endforeach
 			                        </select>
 			                    </div>
