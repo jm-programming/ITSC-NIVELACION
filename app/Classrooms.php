@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Classrooms extends Model
-{
-    protected $table = 'classrooms';
+class Classrooms extends Model {
+	protected $table = 'classrooms';
+	protected $fillable = ['location'];
 
-    public function sections(){
-    	return $this->belongsTo('App\Sections');
-    }
+	public function sections() {
+		return $this->belongsTo('App\Sections');
+	}
 }

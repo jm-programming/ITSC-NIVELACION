@@ -7,7 +7,7 @@
     <div class="col-lg-4 col-md-4">
       <div class="input-group">
       @if (count($studentsList) > 0)
-        @include('forms.search',['url'=>'students','link'=>'students']);
+        @include('forms.search',['url'=>'students','link'=>'students'])
       @endif
       </div>
     </div>
@@ -44,7 +44,7 @@
               </th>
             </tr>
           </thead>
-          
+
           <tbody>
             <?php $contador = 0;?>
             @foreach ($studentsList as $students)
@@ -81,7 +81,7 @@
         </figure>
         <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
     </div>
-    
+
   @endif
 
 @endsection

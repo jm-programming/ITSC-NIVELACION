@@ -42,11 +42,11 @@
             </div>
 
             <div class="clearfix"></div>
-            <?php 
-              //obtener los caracteres que estan antes del @ y poner la primera letra en mayuscula
-              $email = Auth::user()->email; 
-              $name = ucfirst(strtok($email, '@'));
-            ?>
+            <?php
+//obtener los caracteres que estan antes del @ y poner la primera letra en mayuscula
+$email = Auth::user()->email;
+$name = ucfirst(strtok($email, '@'));
+?>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_info">
@@ -83,6 +83,13 @@
                   <li><a><i class="fa fa-bar-chart-o"></i> Citas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Examen de idiomas</a></li>
+                    </ul>
+                  </li>
+                   <li><a><i class="fa fa-table"></i> Empleados <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('/employees', $title = 'Ver empleados', $secure = null)!!}
+                      </li>
                     </ul>
                   </li>
                 </ul>
@@ -170,7 +177,7 @@
         <!-- /footer content -->
       </div>
     </div>
-    
+
     <!-- jQuery -->
     <script src="{{ URL::asset('/vendors/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
