@@ -128,7 +128,8 @@ class StudentsController extends Controller
     public function destroy($id)
     {
 
-        Students::destroy($id);
+        $students = Students::find($id);
+        $students->delete();
         return redirect('/students');
     }
 }

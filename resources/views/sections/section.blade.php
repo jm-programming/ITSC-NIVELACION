@@ -8,12 +8,7 @@
       <div class="input-group">
       @if (count($sections) > 0)
         <div class="input-group">
-          {!!Form::open(['method'=>'GET','url'=>'sections_s','role'=>'search'])!!}
-          <div class="input-group-btn">
-            <input type="text" class="form-control" name="sectionSearch" placeholder="Buscar por numero de sección">
-            {!! Form::submit('Buscar', ['class' => 'btn btn-danger']) !!}
-          {!!Form::close()!!}
-          </div>
+          @include('forms.search_section',['url'=>'students','link'=>'students'])
         </div>
       @endif
       </div>

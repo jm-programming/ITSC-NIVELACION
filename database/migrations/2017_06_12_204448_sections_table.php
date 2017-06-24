@@ -33,8 +33,8 @@ class SectionsTable extends Migration
             $table->integer('academic_periods_id')->unsigned();
             $table->foreign('academic_periods_id')->references('id')->on('academic_periods');
 
-            $table->integer('teachers_id')->unsigned();
-            $table->foreign('teachers_id')->references('id')->on('teachers');
+            $table->integer('users_id')->unsigned();
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

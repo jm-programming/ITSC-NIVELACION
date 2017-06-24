@@ -109,13 +109,25 @@ class SectionsController extends Controller
      */
     public function edit($id)
     {
-        $classrooms = Classrooms::all();
-        $academic_periods = Academic_periods::all();
-        $subjects = Subjects::all();
-        $teachers = Teachers::all();
-        $sections = Sections::find($id);
+        // $classrooms = Classrooms::all();
+        // $academic_periods = Academic_periods::all();
+        // $subjects = Subjects::all();
+        // $teachers = Teachers::all();
+        // $sections = Sections::find($id);
         
-        return view('sections.section_edit', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects, 'teacher' => $teachers]);
+
+        // return view('sections.section_edit', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects, 'teacher' => $teachers]);
+        
+        $sections = DB::table('teachers')
+            ->where('sections.id', '=', $id)
+            ->join('sections', 'sections.teachers_id','=','teachers.id')
+            ->join('academic_periods', 'sections.academic_periods_id','=','academic_periods.id')
+            ->join('classrooms', 'sections.classrooms_id','=','classrooms.id')
+            ->join('subjects', 'sections.subjects_id','=','teachers.id')
+            ->get();
+
+        $a = print_r($sections);
+        return $a;
 
     }
 

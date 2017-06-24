@@ -7,7 +7,7 @@
     <div class="col-lg-4 col-md-4">
       <div class="input-group">
       @if (count($studentsList) > 0)
-        @include('forms.search',['url'=>'students','link'=>'students']);
+        @include('forms.search_student',['url'=>'students','link'=>'students'])
       @endif
       </div>
     </div>
