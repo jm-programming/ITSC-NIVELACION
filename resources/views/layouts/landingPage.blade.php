@@ -97,6 +97,20 @@ $name = ucfirst(strtok($email, '@'));
                       </li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-table"></i> Aulas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('classrooms', $title = 'Ver aulas', $secure = null)!!}
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Periodos Academicos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('academic_periods', $title = 'Ver periodos academicos', $secure = null)!!}
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
