@@ -75,7 +75,7 @@
 			                    <div class="form-group col-sm-7">
 			                        {!! Form::label('debt', 'Deuda') !!}
 			                        	@if($student->debt)
-				                        	{!! Form::checkbox('debt', 'value', true, ['class' => 'flat'])!!} 
+				                        	{!! Form::checkbox('debt', 'value', true, ['class' => 'flat'])!!}
 				                        @else
 				                        	{!! Form::checkbox('debt', 'value', false, ['class' => 'flat'])!!}
 				                        @endif
@@ -134,7 +134,7 @@
 @section('script')
 	<script>
 		$(document).ready(function(){
-        	$('#identity_card').inputmask({"mask": "999-9999999-9"}); 
+        	$('#identity_card').inputmask({"mask": "999-9999999-9"});
       	});
 	</script>
 @endsection

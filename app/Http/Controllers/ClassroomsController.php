@@ -39,6 +39,7 @@ class ClassroomsController extends Controller {
 
 		Classrooms::create([
 			'location' => $request['location'],
+			'capacity' => $request['capacity'],
 		]);
 		return redirect('/classrooms')->with('message', 'Aula creada con exito...');
 	}
