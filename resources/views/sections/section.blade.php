@@ -1,39 +1,37 @@
 @extends('layouts.landingPage')
-@section('title', 'Estudiantes')
-@section('title-content', 'Estudiantes')
+@section('title', 'Secciones')
+@section('title-content', 'Secciones')
 @section('content')
 
   <div class="row padding">
     <div class="col-lg-4 col-md-4">
       <div class="input-group">
-      @if (count($studentsList) > 0)
-<<<<<<< HEAD
-        @include('forms.search',['url'=>'students','link'=>'students'])
-=======
-        @include('forms.search_student',['url'=>'students','link'=>'students'])
->>>>>>> origin/Development
+      @if (count($sections) > 0)
+        <div class="input-group">
+          @include('forms.search_section',['url'=>'students','link'=>'students'])
+        </div>
       @endif
       </div>
     </div>
 
     <div class="col-lg-8 col-md-8 text-right ">
-      {!!link_to('students/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
+      {!!link_to('sections/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
   </div>
 
   
-    @if (count($studentsList) > 0)
+    @if (count($sections) > 0)
 
       <div class="table-responsive">
         <table class="table table-striped jambo_table bulk_action">
           <thead>
             <tr class="headings">
               <th>#</th>
-              <th class="column-title">Nombres </th>
-              <th class="column-title">Apellidos </th>
-              <th class="column-title">Carrera </th>
+              <th class="column-title">Sección </th>
+              <th class="column-title">Cupos </th>
+              <th class="column-title">Dias </th>
+              <th class="column-title">Hora </th>
               <th class="column-title">Tanda </th>
-              <th class="column-title">Condición </th>
               <th class="column-title no-link last"><span class="nobr">Acción</span>
               </th>
               <th class="bulk-actions" colspan="7">
@@ -41,21 +39,21 @@
               </th>
             </tr>
           </thead>
-
+          
           <tbody>
             <?php $contador = 0;?>
-            @foreach ($studentsList as $students)
+            @foreach ($sections as $section)
               <?php $contador++?>
               <tr class="even pointer">
-                <td class="a-center ">{{$contador}}</td>
-                <td class=" ">{{$students->names}}</td>
-                <td class=" ">{{$students->last_name}}</td>
-                <td class=" ">{{$students->career}}</i></td>
-                <td class=" ">{{$students->shift}}</td>
-                <td class=" ">{{$students->condition}}</td>
+                <td class="a-center ">{{$contador}} </td>
+                <td class=" ">{{$section->section}} </td>
+                <td class=" ">{{$section->quota}} </td>
+                <td class=" ">{{$section->day_one}} / {{$section->day_two}}</td>
+                <td class=" ">{{$section->time_first}} / {{$section->time_last}}</td>
+                <td class=" ">{{$section->shift}}</td>
                 <td class=" last">
-                  {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'label label-info']) !!}
-                  {!! link_to_route('students.edit', $title = 'Editar', $parameters = $students->id, $attributes = ['class' => 'label label-warning']) !!}
+                  {!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}
+                  {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'label label-warning']) !!}
                   <a href="#" data-toggle="modal" data-target="#delete-modal"><span class="label label-danger">Eliminar</span></a>
                 </td>
               </tr>
@@ -64,13 +62,13 @@
         </table>
       </div>
       <nav aria-label="Page navigation example">
-        <ul class="pagination">
-        {!! $studentsList->links() !!}
+        <ul class="pagination text-center">
+        {!! $sections->links() !!}
         </ul>
       </nav>
       <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
         {{-- modal --}}
-        @include('modals.delete_modal', ['r' => 'students.destroy', 'id' => $students->id])
+        @include('modals.delete_modal', ['r' => 'sections.destroy', 'id' => $section->id])
     @else
     <div class="container" id="error">
         <figure id="img-error">
@@ -78,7 +76,7 @@
         </figure>
         <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
     </div>
-
+    
   @endif
 
 @endsection

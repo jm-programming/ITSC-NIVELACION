@@ -10,10 +10,16 @@ class UsersTableSeeder extends Seeder {
 	 */
 	public function run() {
 		DB::table('users')->insert([
-			'job' => 'admin',
+			'names' => 'Administrador',
+			'last_name' => 'Administrador2',
+			'identity_card' => '223-0155545-5',
+			'civil_status' => 'Soltero',
+			'gender' => 'Femenino',
 			'email' => 'admin@itsc.com',
 			'password' => bcrypt('123456'),
 			'status' => 1,
+			'rolls_id' => 1,
 		]);
 	}
+
 }

@@ -38,7 +38,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Nivelación ITSC</span></a>
+              <a href="/home" class="site_title"><img src="{{ URL::asset('img/itsc_logo.png')}}" width="51px" alt=""> <span>Nivelación ITSC</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -63,7 +63,7 @@ $name = ucfirst(strtok($email, '@'));
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="#"><i class="fa fa-home"></i> Home</a>
+                  <li><a href="/home"><i class="fa fa-home"></i> Home</a>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Estudiantes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -73,6 +73,11 @@ $name = ucfirst(strtok($email, '@'));
                   <li><a><i class="fa fa-desktop"></i> Docentes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="general_elements.html">Ver Docentes</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Secciones <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/sections">Ver Secciones</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Auditoria <span class="fa fa-chevron-down"></span></a>

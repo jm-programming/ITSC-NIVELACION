@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SubjectsTable extends Migration
+class RollsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class SubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subjects', function (Blueprint $table) {
+         Schema::create('rolls', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code_subject');
-            $table->string('subject');
-            $table->integer('credits');
+            $table->string('roll',20);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class SubjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('rolls');
     }
 }

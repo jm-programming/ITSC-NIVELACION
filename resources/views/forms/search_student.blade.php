@@ -4,4 +4,5 @@
 		<input type="text" class="form-control" name="studentSearch" placeholder="Buscar por nombre y apellido">
 		{!! Form::submit('Buscar', ['class' => 'btn btn-danger']) !!}
 	</div>
+	{!!Form::close()!!}
 </div>

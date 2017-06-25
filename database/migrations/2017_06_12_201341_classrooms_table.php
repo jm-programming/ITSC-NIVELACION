@@ -16,6 +16,7 @@ class ClassroomsTable extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('location', 90);
+            $table->integer('capacity');
             $table->timestamps();
         });
     }

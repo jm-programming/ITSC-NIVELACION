@@ -23,9 +23,6 @@ class InscribedTable extends Migration
             $table->string('literal', 5)->nullable();
             $table->integer('assistance')->nullable();
 
-            $table->integer('teachers_id')->unsigned();
-            $table->foreign('teachers_id')->references('id')->on('teachers');
-
             $table->integer('sections_id')->unsigned();
             $table->foreign('sections_id')->references('id')->on('sections');
             $table->timestamps();

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password','status',
+        'names','last_name','office_phone','cellphone', 'address','identity_card','civil_status','email', 'password','status',
     ];
 
     /**
@@ -31,11 +31,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\Historical_activities');
     }
 
-    public function teachers(){
-        return $this->belongsTo('App\Teachers');
-    }
-
-    public function employees(){
-        return $this->belongsTo('App\Employees');
+    public function rolls(){
+        return $this->hasOne('App\Rolls');
     }
 }

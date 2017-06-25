@@ -15,15 +15,26 @@ class SectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code', 15);
+            $table->string('section', 15);
             $table->boolean('status');
-            $table->timeTz('time');
+            $table->timeTz('time_first');
+            $table->timeTz('time_last');
             $table->integer('quota');
-            $table->string('day', 20);
+            $table->string('day_one', 20);
+            $table->string('day_two', 20)->nullable();
             $table->string('shift', 20);
 
             $table->integer('classrooms_id')->unsigned();
             $table->foreign('classrooms_id')->references('id')->on('classrooms');
+
+            $table->integer('subjects_id')->unsigned();
+            $table->foreign('subjects_id')->references('id')->on('subjects');
+
+            $table->integer('academic_periods_id')->unsigned();
+            $table->foreign('academic_periods_id')->references('id')->on('academic_periods');
+
+            $table->integer('users_id')->unsigned();
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

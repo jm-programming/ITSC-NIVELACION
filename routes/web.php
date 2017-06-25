@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', function () {
-	return view('layouts.landingPage');
+	return view('home');
+
 });
 //routes manteniemiento estudiante
 Route::get('students_s', 'StudentsController@search');
@@ -35,3 +36,7 @@ Route::resource('classrooms', 'ClassroomsController');
 //routes mantenimiento periodos academicos
 Route::get('academic_periods_s', 'Academic_PeriodsController@search');
 Route::resource('academic_periods', 'Academic_PeriodsController');
+
+//routes mantenimiento secciones
+Route::get('sections_s', 'SectionsController@search');
+Route::resource('sections', 'SectionsController');

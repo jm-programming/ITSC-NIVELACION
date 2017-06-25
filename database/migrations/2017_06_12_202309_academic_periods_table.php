@@ -16,6 +16,9 @@ class AcademicPeriodsTable extends Migration
         Schema::create('academic_periods', function (Blueprint $table) {
             $table->increments('id');
             $table->string('academic_period', 20);
+            $table->date('date_first');
+            $table->date('date_last');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
