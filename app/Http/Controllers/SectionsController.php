@@ -6,7 +6,7 @@ use App\Academic_periods;
 use App\Classrooms;
 use App\Sections;
 use App\Subjects;
-use App\Teachers;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,9 +42,17 @@ class SectionsController extends Controller {
 		$sections = Sections::all();
 		$academic_periods = Academic_periods::all();
 		$subjects = Subjects::all();
-		$teachers = Teachers::all();
+		$teachers = DB::table('users')
+			->join('rolls', function($join){
+				$join->on('users.rolls_id','=','rolls.id');
+			})
+			->where([
+				['users.status','=',1],
+				['rolls.roll','=','Profesor']
+				])
+			->get();
 
-		return view('sections.section_create', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects, 'teacher' => $teachers]);
+		return view('sections.section_create', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects,'teacher'=> $teachers]);
 
 	}
 
@@ -56,7 +64,7 @@ class SectionsController extends Controller {
 	 */
 	public function store(Request $request) {
 		$this->validate($request, [
-			'teachers_id' => 'required',
+			'users_id' => 'required',
 			'shift' => 'required',
 			'classrooms_id' => 'required',
 			'day_one' => 'required',
@@ -69,7 +77,7 @@ class SectionsController extends Controller {
 		]);
 
 		Sections::create([
-			'teachers_id' => $request->input('teachers_id'),
+			
 			'shift' => $request->input('shift'),
 			'classrooms_id' => $request->input('classrooms_id'),
 			'day_one' => $request->input('day_one'),
@@ -81,6 +89,7 @@ class SectionsController extends Controller {
 			'section' => $request->input('section'),
 			'quota' => $request->input('quota'),
 			'status' => $request->input('status'),
+			'users_id' => $request->input('users_id'),
 
 		]);
 		return redirect("/sections");
@@ -103,24 +112,47 @@ class SectionsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		// $classrooms = Classrooms::all();
-		// $academic_periods = Academic_periods::all();
-		// $subjects = Subjects::all();
-		// $teachers = Teachers::all();
-		// $sections = Sections::find($id);
-
-		// return view('sections.section_edit', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects, 'teacher' => $teachers]);
-
-		$sections = DB::table('teachers')
-			->where('sections.id', '=', $id)
-			->join('sections', 'sections.teachers_id', '=', 'teachers.id')
-			->join('academic_periods', 'sections.academic_periods_id', '=', 'academic_periods.id')
-			->join('classrooms', 'sections.classrooms_id', '=', 'classrooms.id')
-			->join('subjects', 'sections.subjects_id', '=', 'teachers.id')
+		$classrooms = Classrooms::all();
+		$academic_periods = Academic_periods::all();
+		$subjects = Subjects::all();
+		$section = Sections::find($id);
+		$teachers = $teachers = DB::table('users')
+			->join('rolls', function($join){
+				$join->on('users.rolls_id','=','rolls.id');
+			})
+			->where([
+				['users.status','=',1],
+				['rolls.roll','=','Profesor']
+				])
 			->get();
 
-		$a = print_r($sections);
-		return $a;
+		$sectionsTeacher = DB::table('sections')->where('sections.id',"=",$id)
+			->join('users', 'sections.users_id','=','users.id')
+			->get();
+		$sectionsSubject = DB::table('sections')->where('sections.id',"=",$id)
+			->join('subjects', 'sections.subjects_id','=','subjects.id')
+			->get();
+		$sectionsAcademic_period = DB::table('academic_periods')->where('sections.id',"=",$id)
+			->join('sections', 'sections.academic_periods_id','=','academic_periods.id')
+			->get();
+		$sectionsClassrooms = DB::table('classrooms')->where('sections.id',"=",$id)
+			->join('sections', 'sections.classrooms_id','=','classrooms.id')
+			->get();
+
+		
+		return view('sections.section_edit', [
+			'section' => $section,
+			'classroom' => $classrooms, 
+			'academic_period' => $academic_periods, 
+			'subject' => $subjects, 
+			'teacher' => $teachers,
+			'sectionsTeacher' => $sectionsTeacher, 
+			'sectionsSubject' => $sectionsSubject, 
+			'sectionsAcademic_period' => $sectionsAcademic_period, 
+			'sectionsClassrooms' => $sectionsClassrooms, 
+			]);
+
+		
 
 	}
 
