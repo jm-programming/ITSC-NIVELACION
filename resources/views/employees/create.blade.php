@@ -5,11 +5,6 @@
 @section('content')
 
 
-
-
-
-
-
 <div id="content" class="jumbotron main">
 		<h1 class="text-center padding ">Empleado</h1>
 		<div class="container">
