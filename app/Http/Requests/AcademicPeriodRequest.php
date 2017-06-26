@@ -22,6 +22,9 @@ class AcademicPeriodRequest extends FormRequest {
 	public function rules() {
 		return [
 			'academic_period' => 'required|unique:Academic_periods',
+			'date_first' => 'required',
+			'date_last' => 'required',
+			'status' => 'required',
 		];
 	}
 }

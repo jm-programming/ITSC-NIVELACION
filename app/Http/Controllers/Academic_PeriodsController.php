@@ -38,6 +38,9 @@ class Academic_PeriodsController extends Controller {
 	public function store(AcademicPeriodRequest $request) {
 		Academic_periods::create([
 			'academic_period' => $request['academic_period'],
+			'date_first' => $request['date_first'],
+			'date_last' => $request['date_last'],
+			'status' => $request['status'],
 		]);
 		return redirect('/academic_periods')->with('message', 'Periodo academico creado con exito...');
 	}

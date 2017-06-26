@@ -33,7 +33,9 @@
 <thead>
 <tr class="headings">
 		<th>#</th>
-		<th class="column-title">Periodo Academico </th>
+		<th>Periodo Academico </th>
+		<th>Fecha de Inicio</th>
+		<th>Fecha de Finalidad</th>
 		<th class="column-title no-link last"><span class="nobr">Acción</span></th>
 <th class="bulk-actions" colspan="7">
 <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -47,6 +49,8 @@
 
 <td>{{ $academic_period->id }}</td>
 <td>{{ $academic_period->academic_period }}</td>
+<td>{{ $academic_period->date_first }}</td>
+<td>{{ $academic_period->date_last }}</td>
 <td class=" last">
 
 {{ Form::open(['route'=>['academic_periods.destroy', $academic_period->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
