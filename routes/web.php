@@ -29,6 +29,11 @@ Route::resource('students', 'StudentsController');
 Route::get('employees_s', 'EmployeesController@search');
 Route::resource('employees', 'EmployeesController');
 
+//routes para el mantenimiento de profesores
+Route::get('teachers_s','TeacherController@search');
+Route::resource('teachers','TeacherController');
+
+
 //routes mantenimiento aulas
 Route::get('classrooms_s', 'ClassroomsController@search');
 Route::resource('classrooms', 'ClassroomsController');
@@ -40,3 +45,5 @@ Route::resource('academic_periods', 'Academic_PeriodsController');
 //routes mantenimiento secciones
 Route::get('sections_s', 'SectionsController@search');
 Route::resource('sections', 'SectionsController');
+
+

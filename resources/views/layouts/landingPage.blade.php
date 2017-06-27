@@ -72,7 +72,7 @@ $name = ucfirst(strtok($email, '@'));
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Docentes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">Ver Docentes</a></li>
+                      <li><a href="/teachers">Ver Docentes</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Secciones <span class="fa fa-chevron-down"></span></a>
