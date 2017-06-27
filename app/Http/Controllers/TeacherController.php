@@ -200,17 +200,15 @@ class TeacherController extends Controller
  
         return redirect('/teachers');
 
+       
+    }
 
+    public function destroy($id)
+    {
 
-
-
-
-
-       /* $student = Students::find($id);
-        $student->fill($request->all());
-        $student->save();
-
-        return redirect('/students');*/
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/teachers');
     }
 
 }

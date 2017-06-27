@@ -69,6 +69,7 @@
         @include('modals.delete_modal', ['r' => 'students.destroy', 'id' => $students->id])
     @else
     <div class="container" id="error">
+    @include('forms.search_student',['url'=>'students','link'=>'students'])
         <figure id="img-error">
           <img src="img/sad-face.png" alt="sad-face">
         </figure>
