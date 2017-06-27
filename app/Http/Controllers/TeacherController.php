@@ -44,8 +44,8 @@ class TeacherController extends Controller
         
         /*se declaro una variable status para obtener el estado del select en la url*/
 
-        /*en esta condicion validamos que si el valor de la variable status es igual a all
-          que ejecute la consulta hacia todos los datos de la base de datos, permitiendo filtrar
+        /*en esta condicion validamos que si el valor de la variable status es igual a all y el
+        teachersSearch no es vacio que ejecute la consulta hacia todos los datos de la base de datos, permitiendo filtrar
           por el nombre que se introdusca en la variable teacherSearch y los pagine en 8*/
 
    if($Status == 'All' && !empty($teachersSearch))
@@ -115,22 +115,7 @@ class TeacherController extends Controller
             return view('teachers.teachers', ['teachersList' => $teachersList]);
         
         }
-    
-    
-    /*else
-        {
-   
-        $query = ['users.names' => $teachersSearch,'users.rolls_id' => 2];
-
-        $teachersList = User::where($query)
-        ->orderBy('users.names')
-        ->paginate(8);
-
-        return view('teachers.teachers', ['teachersList' => $teachersList]);
-        
-        }*/
-        
-
+ 
         
      }
 
@@ -138,7 +123,7 @@ class TeacherController extends Controller
 
     /*esta funcion es para cuando se puse el boton crear nos redirija 
       a la vista de creacion de profesores(a la parte de creacion de usuario)*/
-  /*  public function create ()
+    public function create ()
     {
         return view('teachers.teachers_create');
     }
@@ -151,35 +136,33 @@ class TeacherController extends Controller
               password para encryptar esa informacion y se le pasa como valor al modelo de User 
               para que la password sea igual a la clave encryptada*/
  
-       /*     $user = new User;
-            $teacher = new Teachers;
-
-            $user->email = $request->email;
-            $user->job = $request->job;
-            $user->status = $request->status;
-            
+            $user = new User;
             $pw = $request->password;
             $bpw = bcrypt($pw);
             
-            $user->password = $bpw;
-            $user->save();
-            $id = $user->id;
 
-            $teacher->names = $request->names;
-            $teacher->last_name = $request->last_name;
-            $teacher->teacher_status = $request->status;
-            $teacher->teacher_code = $request->teacher_code;
-            $teacher->identity_card = $request->identity_card;
-            $teacher->personal_phone = $request->personal_phone;
-            $teacher->cellphone = $request->cellphone;
-            $teacher->users_id = $id;
-            $teacher->save();
+
+            $user->names = $request->names;
+            $user->last_name = $request->last_name;
+            $user->personal_phone = $request->personal_phone;
+            $user->cellphone = $request->cellphone;
+            $user->addresss = $request->addresss;
+            $user->identity_card = $request->identity_card;
+            $user->gender = $request->gender;
+            $user->civil_status = $request->civil_status;
+            $user->email = $request->email;
+            $user->password = $bpw;
+            $user->status = $request->status;
+            $user->rolls_id = 2;
+
+            $user->save();
          
+             
             return redirect('/teachers');
         } 
 
 
-    public function edit($id){
+   /* public function edit($id){
 
       /* $users = DB::table('users')
             ->join('contacts', 'users.id', '=', 'contacts.user_id')
