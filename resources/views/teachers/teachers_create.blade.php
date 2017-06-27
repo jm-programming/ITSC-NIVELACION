@@ -41,7 +41,7 @@
 			                    <select id="status" name="gender" class="form-control">
 			                        	<option disabled selected value> -- Genero -- </option>
 			                        	<option value='Hombre'>Hombre</option>
-			                        	<option value='mujer'>Mujer</option>
+			                        	<option value='Mujer'>Mujer</option>
 			                        </select>
 								</div>
 			                    <div class="form-group col-sm-6">
@@ -68,8 +68,8 @@
 			                        </select>
 			                    </div>
 								<div class="form-group col-sm-6">
-			                        <label class="control-label" for="adresss">Direccion</label>
-			                        <input type="text" class="form-control" id="adresss" name="adresss" placeholder="Direccion del profesor">
+			                        <label class="control-label" for="addresss">Direccion</label>
+			                        <input type="text" class="form-control" id="addresss" name="addresss" placeholder="Direccion del profesor">
 			                    </div>
 
                                 <!--Usuario-->

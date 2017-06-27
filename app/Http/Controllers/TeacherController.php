@@ -162,29 +162,9 @@ class TeacherController extends Controller
         } 
 
 
-   /* public function edit($id){
+    public function edit($id){
 
-      /* $users = DB::table('users')
-            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();
-
-
-            $text = DB::table('pages')->where('pages.id', '=', $id)
-            ->join('texts', 'pages.id', '=', 'texts.page_id')
-            ->join('users', 'pages.user_id', '=', 'users.id')->where('users.id', '=', Auth::user()->id)
-            ->get();
-
-    return view('app.text', compact('text'));*/
-
-  
-        /*    $users = DB::table('teachers')
-            ->where('teachers.id', '=' , $id)
-            ->join ('users', 'teachers.users_id', '=' , 'users.id' )
-            ->get();
-            
-
+     $users = User::find($id);
         return view('teachers.teachers_edit', ['users' => $users]);
 
 
@@ -194,30 +174,27 @@ class TeacherController extends Controller
     public function update(Request $request, $id){
 
 
-        $teacher = Teachers::find($id);
         $user = User::find($id);
         $pw = $request->password;
         $bpw = bcrypt($pw);
 
-        $teacher->fill([
-            'names' => $request->names,
-            'last_name' => $request->last_name,
-            'teacher_status' => $request->status,
-            'teacher_code' => $request->teacher_code,
-            'identity_card' => $request->identity_card,
-            'personal_phone' => $request->personal_phone,
-            'cellphone' => $request->cellphone,
-            'users_id' => $id
-        ]);
 
         $user->fill([
+            'names' => $request->names,
+            'last_name' => $request->last_name,
+            'personal_phone' => $request->personal_phone,
+            'cellphone' => $request->cellphone,
+            'addresss' => $request->addresss,
+            'identity_card' => $request->identity_card,
+            'gender' => $request->gender,
+            'civil_status' =>$request->civil_status,
             'email' => $request->email,
-            'job' => $request->job,
+            'password' => $bpw,
             'status' => $request->status,
-            'password' => $bpw
+            'rolls_id' => 2
+            
         ]);
 
-        $teacher->save();
         $user->save();
 
  
@@ -234,6 +211,6 @@ class TeacherController extends Controller
         $student->save();
 
         return redirect('/students');*/
-   /* }*/
+    }
 
 }
