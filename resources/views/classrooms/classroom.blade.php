@@ -73,7 +73,7 @@
                         </span>
                     </a>
                     {{ Form::close() }}
-@include('employees.modal_delete', ['r' => 'classrooms.destroy', 'id' => $classroom->id])
+@include('modals.delete_modal', ['r' => 'classrooms.destroy', 'id' => $classroom->id])
                 </td>
             </tr>
             @endforeach

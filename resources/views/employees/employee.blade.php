@@ -127,7 +127,7 @@
                     {{ Form::close() }}
 
 
-@include('employees.modal_delete', ['r' => 'employees.destroy', 'id' => $employee->id])
+@include('modals.delete_modal', ['r' => 'employees.destroy', 'id' => $employee->id])
                 </td>
             </tr>
             @endforeach

@@ -81,7 +81,7 @@
                         </span>
                     </a>
                     {{ Form::close() }}
-@include('employees.modal_delete', ['r' => 'academic_periods.destroy', 'id' => $academic_period->id])
+@include('modals.delete_modal', ['r' => 'academic_periods.destroy', 'id' => $academic_period->id])
                 </td>
             </tr>
             @endforeach
