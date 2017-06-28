@@ -14,8 +14,8 @@
     <div class="col-lg-4 col-md-4">
         <div class="input-group">
             @if (count($employees) > 0)
-						@include('forms.search_employee',['url'=>'employees','link'=>'employees'])
-					@endif
+@include('forms.search_employee',['url'=>'employees','link'=>'employees'])
+@endif
         </div>
     </div>
     <div class="text-right ">

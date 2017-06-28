@@ -2,22 +2,18 @@
 @section('title', 'Aulas')
 
 @section('title-content', 'Aulas')
-
-
 @if(Session::has('message'))
 <div class="alert alert-success">
     {{ session::get('message') }}
 </div>
 @endif
-
-
 @section('content')
 <div class="row padding">
     <div class="col-lg-4 col-md-4">
         <div class="input-group">
             @if (count($classrooms) > 0)
-						@include('forms.search_classroom',['url'=>'classrooms','link'=>'classrooms'])
-					@endif
+    @include('forms.search_classroom',['url'=>'classrooms','link'=>'classrooms'])
+@endif
         </div>
     </div>
     <div class="text-right ">
@@ -77,8 +73,6 @@
                         </span>
                     </a>
                     {{ Form::close() }}
-
-
 @include('employees.modal_delete', ['r' => 'classrooms.destroy', 'id' => $classroom->id])
                 </td>
             </tr>
@@ -105,7 +99,4 @@
     </h2>
 </div>
 @endif
-
-
-
 @endsection
