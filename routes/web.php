@@ -17,10 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', function () {
-	return view('home');
 
-});
+Route::get('home_s','HomeController@search');
+Route::resource('home','HomeController');
+
 //routes manteniemiento estudiante
 Route::get('students_s', 'StudentsController@search');
 Route::resource('students', 'StudentsController');
