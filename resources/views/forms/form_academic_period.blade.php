@@ -9,16 +9,16 @@
 Periodo Academico
 </label>
 
-{{ Form::text('academic_period',null,['class'=>'form-control','placeholder'=>"Ingrese el periodo academico"]) }}
+{{ Form::text('academic_period',null,['class'=>'form-control col-md-7 col-xs-12','placeholder'=>"Ingrese el periodo academico"]) }}
 </div>
 
 <div class="form-group col-sm-6">
 <label class="control-label" for="nombres">Fecha de Inicio</label>
-<input type="date" class="form-control" name="date_first" placeholder="Fecha Nacimiento" >
+<input type="date" class="form-control col-md-7 col-xs-12" name="date_first" placeholder="Fecha Nacimiento" >
 </div>
 <div class="form-group col-sm-6">
 <label class="control-label" for="nombres">Fecha de Finalización</label>
-<input type="date" class="form-control" name="date_last" placeholder="Fecha Nacimiento" >
+<input type="date" class="form-control col-md-7 col-xs-12" name="date_last" placeholder="Fecha Nacimiento" >
 </div>
 
 

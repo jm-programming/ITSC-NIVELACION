@@ -18,9 +18,18 @@
 			                    <!-- Prepended text-->
 			                    {!!Form::token()!!}
 			                    <h4>Información de sección</h4>
+								<div class="form-group col-sm-6">
+			                        <label class="control-label" for="subjects_id">Asignatura</label>
+			                        <select id="subjects_id" name="subjects_id" class="form-control">
+			                        	<option disabled selected value> -- select an option -- </option>
+			                        	@foreach($subject as $subjects)
+			                        	<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
+			                        	@endforeach
+			                        </select>
+			                    </div>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="teachers_id">Docentes</label>
-			                        <select id="teachers_id" name="teachers_id" class="form-control">
+			                        <label class="control-label" for="users_id">Docentes</label>
+			                        <select id="users_id" name="users_id" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($teacher as $teachers)
 				                        	<option value="{{$teachers->id}}">{{$teachers->names}} {{$teachers->last_name}}</option>
@@ -44,15 +53,6 @@
 			                        	@endforeach
 			                        </select>
 			                    </div>
-								<div class="form-group col-sm-6">
-			                        <label class="control-label" for="subjects_id">Asignatura</label>
-			                        <select id="subjects_id" name="subjects_id" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	@foreach($subject as $subjects)
-			                        	<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
-			                        	@endforeach
-			                        </select>
-			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="day_one">Primer dia</label>
 			                        <select id="day_one" name="day_one" class="form-control">
@@ -69,7 +69,6 @@
 			                        <label class="control-label" for="day_two">Segundo dia</label>
 			                        <select id="day_two" name="day_two" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
-			                        	<option value=""> </option>
 			                        	<option >Lunes </option>
 			                        	<option >Martes </option>
 			                        	<option >Miercoles </option>

@@ -10,13 +10,18 @@ class RollsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   
         DB::table('rolls')->insert([
-            'roll' => 'Administrador',
+            'roll' => 'Empleado',
         ]);
 
         DB::table('rolls')->insert([
             'roll' => 'Profesor',
         ]);
+
+        DB::table('rolls')->insert([
+            'roll' => 'Administrador',
+        ]);
+
     }
 }

@@ -7,7 +7,10 @@
     <div class="col-lg-4 col-md-4">
       <div class="input-group">
       @if (count($studentsList) > 0)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0e59e0fbf9657c08f3cac090dd5f0ac42d54da8e
         @include('forms.search_student',['url'=>'students','link'=>'students'])
       @endif
       </div>

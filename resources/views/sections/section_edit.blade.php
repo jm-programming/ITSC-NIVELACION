@@ -19,8 +19,24 @@
 			                    {!!Form::token()!!}
 			                    <h4>Información de sección</h4>
 			                    <div class="form-group col-sm-6">
+			                        <label class="control-label" for="subjects_id">Asignatura</label>
+			                        <select id="subjects_id" name="subjects_id" class="form-control">
+			                        	@foreach($sectionsSubject as $sectionsSubject)
+				                        	<option value="{{$sectionsSubject->id}}">{{$sectionsSubject->subject}}</option>
+			                        	@endforeach
+			                        	<option disabled value> --------------------------- </option>
+			                        	@foreach($subject as $subjects)
+			                        		<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
+			                        	@endforeach
+			                        </select>
+			                    </div>
+			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="teachers_id">Docentes</label>
 			                        <select id="teachers_id" name="teachers_id" class="form-control">
+			                        	@foreach($sectionsTeacher as $sectionsTeacher)
+				                        	<option value="{{$sectionsTeacher->id}}">{{$sectionsTeacher->names}} {{$sectionsTeacher->last_name}}</option>
+			                        	@endforeach
+			                        	<option disabled value> ------------------------------------- </option>
 			                        	@foreach($teacher as $teachers)
 				                        	<option value="{{$teachers->id}}">{{$teachers->names}} {{$teachers->last_name}}</option>
 			                        	@endforeach
@@ -29,30 +45,29 @@
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="shift">Tanda</label>
 			                        <select id="shift" name="shift" class="form-control">
-			                        		<option>Nocturna</option>
-				                        	<option>Matutina</option>
+			                        	<option>{{$section->shift}}</option>
+			                        	<option disabled value> -------------- </option>
+		                        		<option>Nocturna</option>
+			                        	<option>Matutina</option>
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="classrooms_id">Aula</label>
 			                        <select id="classrooms_id" name="classrooms_id" class="form-control">
+			                        	@foreach($sectionsClassrooms as $sectionsClassrooms)
+				                        	<option value="{{$sectionsClassrooms->id}}">{{$sectionsClassrooms->location}}</option>
+			                        	@endforeach
+			                        	<option disabled value> ----------- </option>
 			                        	@foreach($classroom as $classrooms)
 			                        	<option value="{{$classrooms->id}}">{{$classrooms->location}} </option>
-			                        	@endforeach
-			                        </select>
-			                    </div>
-								<div class="form-group col-sm-6">
-			                        <label class="control-label" for="subjects_id">Asignatura</label>
-			                        <select id="subjects_id" name="subjects_id" class="form-control">
-			                        	@foreach($subject as $subjects)
-			                        		<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
 			                        	@endforeach
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="day_one">Primer dia</label>
 			                        <select id="day_one" name="day_one" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
+			                        	<option >{{$section->day_one}}</option>
+			                        	<option disabled value> ------- </option>
 			                        	<option >Lunes </option>
 			                        	<option >Martes </option>
 			                        	<option >Miercoles </option>
@@ -64,7 +79,8 @@
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="day_two">Segundo dia</label>
 			                        <select id="day_two" name="day_two" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
+			                        	<option >{{$section->day_two}}</option>
+			                        	<option disabled value> ------- </option>
 			                        	<option value=""> </option>
 			                        	<option >Lunes </option>
 			                        	<option >Martes </option>
@@ -77,7 +93,10 @@
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="academic_periods_id">Periodo Academico</label>
 			                        <select id="academic_periods_id" name="academic_periods_id" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
+			                        	@foreach($sectionsAcademic_period as $sectionsAcademic_period)
+				                        	<option value="{{$sectionsAcademic_period->id}}">{{$sectionsAcademic_period->academic_period}}</option>
+			                        	@endforeach
+			                        	<option disabled value> -------- </option>
 			                        	@foreach($academic_period as $academic_periods)
 			                        	<option value="{{$academic_periods->id}}">{{$academic_periods->academic_period}} </option>
 			                        	@endforeach
@@ -85,24 +104,24 @@
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_first">Hora inicio de clase</label>
-			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="">
+			                        <input type="time" class="form-control" id="time_first" name="time_first" value="{{$section->time_first}}" pattern="">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_last">Hora final de clase</label>
-			                        <input type="time" class="form-control" id="time_last" name="time_last">
+			                        <input type="time" class="form-control" id="time_last" name="time_last" value="{{$section->time_last}}">
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="section">Numero de Sección</label>
-			                        <input type="text" class="form-control" id="section" name="section" placeholder="Numero de Sección">
+			                        <input type="text" class="form-control" id="section" name="section" placeholder="Numero de Sección" value="{{$section->section}}">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="quota">Cupo</label>
-			                        <input type="text" class="form-control" id="quota" name="quota">
+			                        <input type="text" class="form-control" id="quota" name="quota" value="{{$section->quota}}">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                    	<label class="control-label" for="status">Estatus de sección</label><br>
-			                    	<input type="radio" name="status" class="flat" id="status" value="1" checked> Activada<br>
-  									<input type="radio" name="status" class="flat" id="status" value="0"> Desactivada
+			                    	<input type="radio" name="status" class="flat" id="status" value="1" @if($section->status == 1) checked @endif> Activada<br>
+  									<input type="radio" name="status" class="flat" id="status" value="0" @if($section->status == 0) checked @endif> Desactivada
 			                    </div>
 			                    <!-- Button -->
 			                    {!! Form::submit('Crear Sección',['class' => 'btn btn-primary btn-block']) !!}
