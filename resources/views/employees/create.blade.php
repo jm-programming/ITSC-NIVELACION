@@ -4,7 +4,7 @@
 @section('title-content', 'Empleados')
 @section('content')
 
-
+@include('alerts.requets')
 {{ Form::open(['route'=>'employees.store', 'method'=>'POST',
 'class'=>'form-horizontal form-label-left"']) }}
 

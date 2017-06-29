@@ -4,6 +4,7 @@
 @section('content')
 @include('alerts.requets')
 
+@include('alerts.requets')
 {{ Form::open(['route'=>'classrooms.store', 'method'=>'POST', 'class'=>'form-horizontal form-label-left"']) }}
 		@include('forms.form_classroom')
 {{ Form::close() }}

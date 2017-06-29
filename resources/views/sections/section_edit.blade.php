@@ -12,6 +12,7 @@
 						<h2 class="panel-title">Editar Sección</h2>
 					</div>
 					<div class="panel-body">
+						@include('alerts.requets')
 						{!! Form::open(['route' => ['sections.update', $section->id], 'method' => 'PUT']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
@@ -31,8 +32,8 @@
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="teachers_id">Docentes</label>
-			                        <select id="teachers_id" name="teachers_id" class="form-control">
+			                        <label class="control-label" for="users_id">Docentes</label>
+			                        <select id="users_id" name="users_id" class="form-control">
 			                        	@foreach($sectionsTeacher as $sectionsTeacher)
 				                        	<option value="{{$sectionsTeacher->id}}">{{$sectionsTeacher->names}} {{$sectionsTeacher->last_name}}</option>
 			                        	@endforeach

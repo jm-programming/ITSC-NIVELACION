@@ -12,11 +12,11 @@ class RollsTableSeeder extends Seeder
     public function run()
     {   
         DB::table('rolls')->insert([
-            'roll' => 'Empleado',
+            'roll' => 'Profesor',
         ]);
 
         DB::table('rolls')->insert([
-            'roll' => 'Profesor',
+            'roll' => 'Empleado',
         ]);
 
         DB::table('rolls')->insert([

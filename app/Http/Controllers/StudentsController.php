@@ -6,6 +6,7 @@ use App\Students;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class StudentsController extends Controller
 {
@@ -45,10 +46,11 @@ class StudentsController extends Controller
              'names' => 'required|max:45',
              'last_name' => 'required|max:45',
              'career' => 'required',
-             'email' => 'email',
+             'email' => 'email|unique:students,email',
              'shift' => 'required',
              'identity_card' => 'required',
              'condition' => 'required',
+             'birthday' => 'before:today',
          ]);
 
         Students::create([
@@ -66,6 +68,7 @@ class StudentsController extends Controller
             'inscribed_opportunity'=> 0,
         ]);
 
+        session::flash('message', 'Estudiante creado correctamente...');
         return redirect('/students');
     }
 
@@ -112,9 +115,23 @@ class StudentsController extends Controller
      */
     public function update(Request $request, $id)
     {   
+
+        $this->validate($request, [
+             'names' => 'required|max:45',
+             'last_name' => 'required|max:45',
+             'career' => 'required',
+             'email' => 'email',
+             'shift' => 'required',
+             'identity_card' => 'required',
+             'condition' => 'required',
+             'birthday' => 'before:today',
+         ]);
+
         $student = Students::find($id);
         $student->fill($request->all());
         $student->save();
+
+        session::flash('message', 'Estudiante editado correctamente...');
 
         return redirect('/students');
     }
@@ -130,6 +147,8 @@ class StudentsController extends Controller
 
         $students = Students::find($id);
         $students->delete();
+
+        session::flash('message', 'Estudiante Eliminado correctamente...');
         return redirect('/students');
     }
 }

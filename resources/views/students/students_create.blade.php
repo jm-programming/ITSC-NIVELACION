@@ -12,6 +12,7 @@
 						<h2 class="panel-title">Crear Estudiante</h2>
 					</div>
 					<div class="panel-body">
+						@include('alerts.requets')
 						{!! Form::open(['route' => 'students.store', 'method' => 'POST']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
@@ -39,7 +40,7 @@
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Fecha Nacimiento</label>
-			                        <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Fecha Nacimiento" >
+			                        <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Fecha Nacimiento" min="01/01/1900">
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Identificación</label>
@@ -127,9 +128,7 @@
 @endsection
 @section('script')
 	<script>
-		$(document).ready(function(){
-        	$('#identity_card').inputmask({"mask": "999-9999999-9"}); 
-      	});
+		$('#identity_card').inputmask({"mask": "999-9999999-9"}); 
 	</script>
 @endsection
 

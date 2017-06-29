@@ -9,6 +9,7 @@ use App\Subjects;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class SectionsController extends Controller {
 	/**
@@ -51,7 +52,7 @@ class SectionsController extends Controller {
 				['rolls.roll','=','Profesor']
 				])
 			->get();
-
+			
 		return view('sections.section_create', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects,'teacher'=> $teachers]);
 
 	}
@@ -92,6 +93,8 @@ class SectionsController extends Controller {
 			'users_id' => $request->input('users_id'),
 
 		]);
+
+		session::flash('message', 'Sección creado correctamente...');
 		return redirect("/sections");
 	}
 
@@ -164,10 +167,25 @@ class SectionsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		
+		$this->validate($request, [
+			'users_id' => 'required',
+			'shift' => 'required',
+			'classrooms_id' => 'required',
+			'day_one' => 'required',
+			'academic_periods_id' => 'required',
+			'time_first' => 'required',
+			'subjects_id' => 'required',
+			'time_last' => 'required',
+			'section' => 'required',
+			'quota' => 'required',
+		]);
+
 		$section = Sections::find($id);
 		$section->fill($request->all());
 		$section->save();
 
+		session::flash('message', 'Sección editada correctamente...');
 		return redirect('/students');
 	}
 
@@ -181,6 +199,7 @@ class SectionsController extends Controller {
 		$section = Sections::find($id);
 		$section->delete();
 
+		session::flash('message', 'Sección eliminada correctamente...');
 		return redirect('/sections');
 	}
 }

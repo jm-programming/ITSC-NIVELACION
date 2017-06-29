@@ -43,10 +43,10 @@
 
             <div class="clearfix"></div>
             <?php
-//obtener los caracteres que estan antes del @ y poner la primera letra en mayuscula
-$email = Auth::user()->email;
-$name = ucfirst(strtok($email, '@'));
-?>
+              //obtener los caracteres que estan antes del @ y poner la primera letra en mayuscula
+              $email = Auth::user()->email;
+              $name = ucfirst(strtok($email, '@'));
+            ?>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_info">
@@ -101,6 +101,13 @@ $name = ucfirst(strtok($email, '@'));
                     <ul class="nav child_menu">
                       <li>
                         {!!link_to('classrooms', $title = 'Ver aulas', $secure = null)!!}
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-user"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('users', $title = 'Ver usuarios', $secure = null)!!}
                       </li>
                     </ul>
                   </li>
@@ -202,7 +209,7 @@ $name = ucfirst(strtok($email, '@'));
     <!-- Bootstrap -->
     <script src="{{ URL::asset('/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     {{-- input mask --}}
-    <script src="{{ URL::asset('/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.inputmask.bundle.min.js') }}"></script>
     <!-- FastClick -->
     <script src="{{ URL::asset('/vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- switch -->
@@ -238,10 +245,10 @@ $name = ucfirst(strtok($email, '@'));
     <!-- bootstrap-daterangepicker -->
     <script src="{{ URL::asset('/vendors/moment/min/moment.min.js') }}"></script>
     <script src="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-
+    
     <!-- Custom Theme Scripts -->
     <script src="{{ URL::asset('js/custom.js') }}"></script>
-    <script src="{{ URL::asset('js/app.js') }}"></script>
+    {{-- <script src="{{ URL::asset('js/app.js') }}"></script> --}}
     @yield('script')
   </body>
 </html>

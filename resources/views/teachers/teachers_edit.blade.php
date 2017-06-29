@@ -12,6 +12,7 @@
 						<h2 class="panel-title">editar Profesor</h2>
 					</div>
 					<div class="panel-body">
+					@include('alerts.requets')
                 <?php $contador = 0;?>
                         @foreach ($users as $user)
               <?php $contador++?>

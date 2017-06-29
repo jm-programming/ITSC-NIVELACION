@@ -3,6 +3,15 @@
 @section('title-content', 'Estudiantes')
 @section('content')
 
+
+  @if(Session::has('message'))
+
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ session::get('message') }}
+    </div>
+  @endif
+
   <div class="row padding">
     <div class="col-lg-4 col-md-4">
       <div class="input-group">
@@ -65,8 +74,6 @@
         </ul>
       </nav>
       <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-        {{-- modal --}}
-        @include('modals.delete_modal', ['r' => 'students.destroy', 'id' => $students->id])
     @else
     <div class="container" id="error">
         <figure id="img-error">

@@ -12,6 +12,7 @@
 						<h2 class="panel-title">Crear Sección</h2>
 					</div>
 					<div class="panel-body">
+						@include('alerts.requets')
 						{!! Form::open(['route' => 'sections.store', 'method' => 'POST']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->

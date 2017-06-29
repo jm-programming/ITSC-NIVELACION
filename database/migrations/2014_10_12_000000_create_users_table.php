@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('office_phone', 20)->nullable();
             $table->string('personal_phone', 20)->nullable();
             $table->string('cellphone', 20)->nullable();
-            $table->longText('addresss')->nullable();
+            $table->longText('address')->nullable();
             $table->string('identity_card', 15);
             $table->string('gender', 15);
             $table->string('civil_status', 25);
