@@ -97,44 +97,22 @@
                         </span>
                     </a>
                 </td>
+                @endforeach
             </tr>
         </tbody>
     </table>
-</div>
-@endforeach
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        {!! $studentsList->links() !!}
-<<<<<<< HEAD
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {!! $studentsList->links() !!}
         </ul>
-      </nav>
-      <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-=======
-    </ul>
-</nav>
-<button class="btn btn-default" onclick="window.print();">
-    <i class="fa fa-print">
-    </i>
-    Print
-</button>
-{{-- modal --}}
-        @include('modals.delete_modal', ['r' => 'students.destroy', 'id' => $students->id])
->>>>>>> 537333bfd869b240529f720a6ba7d1dbcb48bd16
+    </nav>
+    <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+
     @else
-<<<<<<< HEAD
-<div class="container" id="error">
-    <figure id="img-error">
-        <img alt="sad-face" src="img/sad-face.png">
-        </img>
-    </figure>
-    <h2 class="text-center">
-        Oops, no se encontro ningun dato.
-    </h2>
-</div>
-@endif
-=======
     <div class="container" id="error">
-    @include('forms.search_student',['url'=>'students','link'=>'students'])
+        @include('forms.search_student',['url'=>'students','link'=>'students'])
         <figure id="img-error">
           <img src="img/sad-face.png" alt="sad-face">
         </figure>
@@ -142,6 +120,6 @@
     </div>
 
   @endif
->>>>>>> origin/Development
+
 
 @endsection

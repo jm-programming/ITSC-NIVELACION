@@ -231,7 +231,7 @@
         <script src="{{ URL::asset('/vendors/bootstrap/dist/js/bootstrap.min.js') }}">
         </script>
         {{-- input mask --}}
-        <script src="{{ URL::asset('/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}">
+        <script src="{{ URL::asset('js/jquery.inputmask.bundle.min.js') }}">
         </script>
         <!-- FastClick -->
         <script src="{{ URL::asset('/vendors/fastclick/lib/fastclick.js') }}">
@@ -292,7 +292,7 @@
             <!-- Custom Theme Scripts -->
             <script src="{{ URL::asset('js/custom.js') }}">
             </script>
-            <script src="{{ URL::asset('js/app.js') }}">
+            <!-- <script src="{{ URL::asset('js/app.js') }}">-->
             </script>
             @yield('script')
         </link>

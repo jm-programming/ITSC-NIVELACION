@@ -21,11 +21,11 @@
 			                    <h4>Información personal del estudiante</h4>
 			                    <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="nombres">Nombres</label>
-			                        <input type="text" class="form-control" id="names" name="names" placeholder="Nombres estudiante">
+			                        <input type="text" class="form-control" id="names" name="names" value="{{ old('names')}}" placeholder="Nombres estudiante">
 			                    </div>
 			                    <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="nombres">Apellidos</label>
-			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos estudiante">
+			                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name')}}" placeholder="Apellidos estudiante">
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Estado Civil</label>
@@ -40,15 +40,15 @@
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Fecha Nacimiento</label>
-			                        <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Fecha Nacimiento" min="01/01/1900">
+			                        <input type="date" class="form-control" id="birthday" name="birthday" value="{{ old('birthday')}}" placeholder="Fecha Nacimiento" min="01/01/1900">
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Identificación</label>
-			                        <input type="text" class="form-control" id="identity_card" name="identity_card" >
+			                        <input type="text" class="form-control" id="identity_card" name="identity_card" value="{{ old('identity_card')}}">
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Email</label>
-			                        <input type="email" class="form-control" id="email" name="email" placeholder="Email estudiante">
+			                        <input type="email" class="form-control" id="email" name="email" placeholder="Email estudiante" value="{{ old('email')}}">
 			                    </div>
 			                    <h4>Información Universitaria del estudiante</h4>
 			                    <div class="form-group col-sm-6">
