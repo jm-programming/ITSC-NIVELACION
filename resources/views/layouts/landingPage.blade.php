@@ -67,6 +67,7 @@ $email = Auth::user()->
 	email;
 $name = ucfirst(strtok($email, '@'));
 ?>
+<<<<<<< HEAD
                         <!-- menu profile quick info -->
                         <div class="profile clearfix">
                             <div class="profile_info">
@@ -262,6 +263,112 @@ $name = ucfirst(strtok($email, '@'));
                                         </li>
                                         <li>
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
+=======
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_info">
+                <span>Bienvenido,</span>
+                <h2>{{ $name }}</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li><a href="/home"><i class="fa fa-home"></i> Home</a>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Estudiantes <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/students">Ver Estudiantes</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-desktop"></i> Docentes <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/teachers">Ver Docentes</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Secciones <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/sections">Ver Secciones</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Auditoria <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="tables.html">Ver historico</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Citas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="chartjs.html">Examen de idiomas</a></li>
+                    </ul>
+                  </li>
+                   <li><a><i class="fa fa-table"></i> Empleados <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('/employees', $title = 'Ver empleados', $secure = null)!!}
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Aulas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('classrooms', $title = 'Ver aulas', $secure = null)!!}
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> Periodos Academicos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        {!!link_to('academic_periods', $title = 'Ver periodos academicos', $secure = null)!!}
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Editar cuenta">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true" href="#"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    {{ $name }}
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Editar cuenta</a></li>
+                    <li>
+                      <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+>>>>>>> origin/Development
                              document.getElementById('logout-form').submit();">
                                                 Cerrar sesión
                                                 <i class="fa fa-sign-out pull-right">

@@ -104,6 +104,7 @@
 {{-- modal --}}
         @include('modals.delete_modal', ['r' => 'students.destroy', 'id' => $students->id])
     @else
+<<<<<<< HEAD
 <div class="container" id="error">
     <figure id="img-error">
         <img alt="sad-face" src="img/sad-face.png">
@@ -114,5 +115,16 @@
     </h2>
 </div>
 @endif
+=======
+    <div class="container" id="error">
+    @include('forms.search_student',['url'=>'students','link'=>'students'])
+        <figure id="img-error">
+          <img src="img/sad-face.png" alt="sad-face">
+        </figure>
+        <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
+    </div>
+
+  @endif
+>>>>>>> origin/Development
 
 @endsection

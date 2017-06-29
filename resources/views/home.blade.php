@@ -2,7 +2,23 @@
 @section('title', 'home')
 @section('title-content', 'Home')
 @section('content')
-    <div class="container">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, omnis! Perspiciatis omnis cumque illo modi similique suscipit quod ex quaerat distinctio aspernatur reiciendis eius labore amet, nisi provident ut illum!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius incidunt pariatur magnam? Iste laborum quia, possimus accusamus nisi corporis nobis eum dolorum molestiae perspiciatis nostrum velit iure, fugit voluptas omnis!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure odit asperiores dolorem aliquid porro eaque nulla, ullam autem provident accusantium et eos, perspiciatis placeat sit, incidunt non. Ullam, magnam, at.
+<div class="row padding">
+    <div class="col-lg-4 col-md-4">
+      <div class="">
+      @if (count($query) > 0)
+        @include('forms.home_search',['url'=>'home','link'=>'home'])
+
+@else
+    <div class="container" id="error">
+    @include('forms.home_search',['url'=>'home','link'=>'home'])
+        <figure id="img-error">
+          <img src="img/sad-face.png" alt="sad-face">
+        </figure>
+        <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
+    </div>
+
+      @endif
+      </div>
     </div>
 @endsection
+
