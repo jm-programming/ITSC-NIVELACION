@@ -25,6 +25,8 @@ class InscribedTable extends Migration
 
             $table->integer('sections_id')->unsigned();
             $table->foreign('sections_id')->references('id')->on('sections');
+            $table->integer('students_id')->unsigned();
+            $table->foreign('students_id')->references('id')->on('students');
             $table->timestamps();
         });
     }
