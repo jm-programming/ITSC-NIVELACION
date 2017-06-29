@@ -14,13 +14,9 @@
             </div>
 
             <div class="modal-footer">
-
-
-                {!! Form::open(['route' => [$r, $id,'method'=>'POST']]) !!}
-                {{ method_field('DELETE') }}
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                {!! Form::open(['route' => [$ruta, $id],'method'=>'DELETE']) !!}
                   {!!Form::submit('Si, Quiero eliminar', ['class' => 'btn btn-danger btn-ok'])!!}
-
                 {!!Form::close()!!}
             </div>
         </div>

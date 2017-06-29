@@ -78,8 +78,12 @@
 
       <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
         {{-- modal --}}
-        <!--@include('modals.delete_modal', ['r' => 'teachers.destroy', 'id' => $teachers->id])-->
+        @include('modals.teacher_deletemodal', ['ruta' => 'teachers.destroy', 'id' => $teachers->id])
+
+
+
 @else
+@include('forms.teacherSearch',['url'=>'teachers','link'=>'teachers'])
     <div class="container" id="error">
         <figure id="img-error">
           <img src="img/sad-face.png" alt="sad-face">

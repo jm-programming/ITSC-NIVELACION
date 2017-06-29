@@ -1,16 +1,31 @@
 @extends('layouts.landingPage')
 @section('title', 'Periodo Academico')
 @section('title-content', 'Periodo Academico')
-
-
-
 @section('content')
-
 @include('alerts.requets')
-{{ Form::model($academic_periods,['route'=>['academic_periods.update', $academic_periods->id, 'method'=>'POST'],
- 'class'=>'form-horizontal form-label-left"']) }}
+<div class="jumbotron main" id="content">
+    <h1 class="text-center padding ">
+        Periodo Academico
+    </h1>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        Editar Periodo Academico
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    @include('alerts.requets')
+                    {{ Form::model($academic_periods,['route'=>['academic_periods.update', $academic_periods->id, 'method'=>'POST']]) }}
 {{ method_field('PUT') }}
 @include('forms.form_academic_period')
-{{ Form::close() }}
-
+{!! Form::close() !!}
+                    <hr>
+                    </hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

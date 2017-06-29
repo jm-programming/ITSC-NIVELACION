@@ -39,6 +39,7 @@ class ClassroomsController extends Controller {
 
 		Classrooms::create([
 			'location' => $request['location'],
+			'capacity' => $request['capacity'],
 		]);
 		return redirect('/classrooms')->with('message', 'Aula creada con exito...');
 	}
@@ -81,7 +82,7 @@ class ClassroomsController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(ClassroomRequest $request, $id) {
+	public function update(Request $request, $id) {
 		$classrooms = Classrooms::find($id);
 		$classrooms->fill($request->all());
 		$classrooms->save();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Academic_periods;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AcademicPeriodRequest;
+use App\Http\Requests\Academic_period_editRequest;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
@@ -38,6 +39,9 @@ class Academic_PeriodsController extends Controller {
 	public function store(AcademicPeriodRequest $request) {
 		Academic_periods::create([
 			'academic_period' => $request['academic_period'],
+			'date_first' => $request['date_first'],
+			'date_last' => $request['date_last'],
+			'status' => $request['status'],
 		]);
 		return redirect('/academic_periods')->with('message', 'Periodo academico creado con exito...');
 	}
@@ -81,7 +85,7 @@ class Academic_PeriodsController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(AcademicPeriodRequest $request, $id) {
+	public function update(Academic_period_editRequest $request, $id) {
 		$academic_periods = Academic_periods::find($id);
 		$academic_periods->fill($request->all());
 		$academic_periods->save();

@@ -5,5 +5,4 @@
             {!! Form::submit('Buscar', ['class' => 'btn btn-danger']) !!}
         </input>
     </div>
-    {!!Form::close()!!}
 </div>
