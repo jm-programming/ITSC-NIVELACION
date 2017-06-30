@@ -59,10 +59,11 @@
                 <td class=" ">{{$teachers->personal_phone}}</td>
                 <td class=" ">{{$teachers->cellphone}}</td>
                 <td class=" ">{{$teachers->gender}}</td>
-                <td class=" ">{{$teachers->addresss}}</td>
+                <td class=" ">{{$teachers->address}}</td>
                 <td class=" last">
                   {!! link_to_route('teachers.edit', $title = 'Ver', $parameters = $teachers->id, $attributes = ['class' => 'label label-info']) !!}
                   {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'label label-warning']) !!}
+                  
                   <a href="#" data-toggle="modal" data-target="#delete-modal"><span class="label label-danger">Eliminar</span></a>
                 </td>
               </tr>

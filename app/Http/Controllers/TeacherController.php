@@ -29,6 +29,7 @@ class TeacherController extends Controller
         return view('teachers.teachers', ['teachersList' => $teachersList]);
     }
 
+ 
 
     
     /*se pasa el parametro request a la funcion,se almacena una peticion get con el nombre del 
@@ -146,7 +147,7 @@ class TeacherController extends Controller
             $user->last_name = $request->last_name;
             $user->personal_phone = $request->personal_phone;
             $user->cellphone = $request->cellphone;
-            $user->addresss = $request->addresss;
+            $user->address = $request->address;
             $user->identity_card = $request->identity_card;
             $user->gender = $request->gender;
             $user->civil_status = $request->civil_status;
@@ -184,7 +185,7 @@ class TeacherController extends Controller
             'last_name' => $request->last_name,
             'personal_phone' => $request->personal_phone,
             'cellphone' => $request->cellphone,
-            'addresss' => $request->addresss,
+            'address' => $request->address,
             'identity_card' => $request->identity_card,
             'gender' => $request->gender,
             'civil_status' =>$request->civil_status,
@@ -210,5 +211,10 @@ class TeacherController extends Controller
         $user->delete();
         return redirect('/teachers');
     }
+
+
+   
+
+
 
 }

@@ -88,8 +88,8 @@
 			                        </select>
 			                    </div>
 								<div class="form-group col-sm-6">
-			                        <label class="control-label" for="addresss">Direccion</label>
-			                        <input type="text" class="form-control" id="addresss" name="addresss" placeholder="Direccion del profesor" value='{{$users->addresss}}'>
+			                        <label class="control-label" for="address">Direccion</label>
+			                        <input type="text" class="form-control" id="address" name="address" placeholder="Direccion del profesor" value='{{$users->address}}'>
 			                    </div>
 
                                 <!--Usuario-->
