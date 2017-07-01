@@ -20,17 +20,11 @@
                 </p>
             </div>
             <div class="modal-footer">
-<<<<<<< HEAD
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                {!! Form::open(['route' => [$r, $id],'method'=>'DELETE', 'id' => ]) !!}
-                  {!!Form::submit('Si, Quiero eliminar', ['class' => 'btn btn-danger btn-ok'])!!}
-=======
                 {!! Form::open(['route' => [$r, $id],'method'=>'DELETE']) !!}
                 <button class="btn btn-default" data-dismiss="modal" type="button">
                     Cancelar
                 </button>
                 {!!Form::submit('Si, Quiero eliminar', ['class' => 'btn btn-danger btn-ok'])!!}
->>>>>>> 537333bfd869b240529f720a6ba7d1dbcb48bd16
                 {!!Form::close()!!}
             </div>
         </div>
