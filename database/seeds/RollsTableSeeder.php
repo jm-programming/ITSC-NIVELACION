@@ -12,6 +12,10 @@ class RollsTableSeeder extends Seeder
     public function run()
     {   
         DB::table('rolls')->insert([
+            'roll' => 'Administrador',
+        ]);
+        
+        DB::table('rolls')->insert([
             'roll' => 'Profesor',
         ]);
 
@@ -19,9 +23,7 @@ class RollsTableSeeder extends Seeder
             'roll' => 'Empleado',
         ]);
 
-        DB::table('rolls')->insert([
-            'roll' => 'Administrador',
-        ]);
+        
 
     }
 }
