@@ -86,20 +86,29 @@ class SectionsController extends Controller {
 				  ];
 
 
-		if(!empty($request->input('day_two'))){
+	if(!empty($request->input('day_two'))){
 
 			$Section = Sections::where($query)
-			->whereBetween('sections.time_first',array($request->input('time_first'),$request->input('time_last')))
-			->whereBetween('sections.time_last',array($request->input('time_first'),$request->input('time_last')))
 			->orwhere($query2)
-		 	->whereBetween('sections.second_time_first',array($request->input('second_time_first'),$request->input('second_time_last')))
-			->whereBetween('sections.second_time_last',array($request->input('second_time_first'),$request->input('second_time_last')))
             ->get();
 
-			if(count($Section) == 1){
+
+			$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$request->input('time_last')])
+			->orwhereBetween('sections.time_last',[$request->input('time_first'),$request->input('time_last')])
+			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'),$request->input('second_time_last')])
+			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'),$request->input('second_time_last')])
+			->get();
+
+
+				
+			if(count($Section) > 0){
 				session::flash('message', 'la seccion que intenta crear ya existe');
 				return redirect("/sections/create");
 			}
+		elseif(count($Section2)> 0){
+			session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
+				return redirect("/sections/create");
+		}
 		else{
 
 			$this->validate($request, [
@@ -155,14 +164,22 @@ class SectionsController extends Controller {
 
 
 		 $Section = Sections::where($query)
-		 	->whereBetween('sections.time_first',array($request->input('time_first'),$request->input('time_last')))
-			->whereBetween('sections.time_last',array($request->input('time_first'),$request->input('time_last')))
+		 	->whereBetween('sections.time_first',[$request->input('time_first'),$request->input('time_last')])
+			->whereBetween('sections.time_last',[$request->input('time_first'),$request->input('time_last')])
             ->get();
 
-			if(count($Section) == 1){
+		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$request->input('time_last')])
+			->orwhereBetween('sections.time_last',[$request->input('time_first'),$request->input('time_last')])
+			->get();
+
+			if(count($Section) > 0){
 				session::flash('message', 'la seccion que intenta crear ya existe');
 				return redirect("/sections/create");
 			}
+		elseif(count($Section2) > 0){
+				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
+				return redirect("/sections/create");
+		}
 		else{
 			$this->validate($request, [
 			'users_id' => 'required',
