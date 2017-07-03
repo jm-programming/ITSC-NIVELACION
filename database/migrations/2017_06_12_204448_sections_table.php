@@ -19,6 +19,8 @@ class SectionsTable extends Migration
             $table->boolean('status');
             $table->timeTz('time_first');
             $table->timeTz('time_last');
+            $table->timeTz('second_time_first');
+            $table->timeTz('second_time_last');
             $table->integer('quota');
             $table->string('day_one', 20);
             $table->string('day_two', 20)->nullable();

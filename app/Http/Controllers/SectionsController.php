@@ -64,6 +64,9 @@ class SectionsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+
+		
+
 		$this->validate($request, [
 			'users_id' => 'required',
 			'shift' => 'required',
@@ -91,7 +94,9 @@ class SectionsController extends Controller {
 			'quota' => $request->input('quota'),
 			'status' => $request->input('status'),
 			'users_id' => $request->input('users_id'),
-
+			'second_time_first'=> $request->input('second_time_first'),
+			'second_time_last'=> $request->input('second_time_last'),
+					
 		]);
 
 		session::flash('message', 'Sección creado correctamente...');
