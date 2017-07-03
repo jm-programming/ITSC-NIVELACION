@@ -9,7 +9,7 @@ class Sections extends Model
     protected $table = 'sections';
 
     protected $fillable = [
-        'section','status','time_first','time_last', 'quota','day_one','day_two','shift','classrooms_id','subjects_id','academic_periods_id','users_id',
+        'section','status','time_first','time_last','second_time_first','second_time_last', 'quota','day_one','day_two','shift','classrooms_id','subjects_id','academic_periods_id','users_id',
     ];
 
     public function subjects(){
