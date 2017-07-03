@@ -65,9 +65,44 @@ class SectionsController extends Controller {
 	 */
 	public function store(Request $request) {
 
-		
 
-		$this->validate($request, [
+		$query = ['sections.status' =>$request->input('status'),
+				  'sections.day_one'=>$request->input('day_one'),
+				  'sections.time_first' =>$request->input('time_first'),
+				  'sections.time_last' =>$request->input('time_last'),
+				  'sections.classrooms_id'=>$request->input('classrooms_id'),
+				  'sections.shift'=>$request->input('shift'),		  
+				  ];
+		
+		$query2 = ['sections.status' =>$request->input('status'),
+				   'sections.day_one'=>$request->input('day_one'),
+				  'sections.day_two'=>$request->input('day_two'),
+				  'sections.time_first' =>$request->input('time_first'),
+				  'sections.time_last' =>$request->input('time_last'),
+				  'sections.second_time_first' =>$request->input('second_time_first'),
+				  'sections.second_time_last' =>$request->input('second_time_last'),
+				  'sections.classrooms_id'=>$request->input('classrooms_id'),
+				  'sections.shift'=>$request->input('shift'),	  
+				  ];
+
+
+		if(!empty($request->input('day_two'))){
+
+			$Section = Sections::where($query)
+			->whereBetween('sections.time_first',array($request->input('time_first'),$request->input('time_last')))
+			->whereBetween('sections.time_last',array($request->input('time_first'),$request->input('time_last')))
+			->orwhere($query2)
+		 	->whereBetween('sections.second_time_first',array($request->input('second_time_first'),$request->input('second_time_last')))
+			->whereBetween('sections.second_time_last',array($request->input('second_time_first'),$request->input('second_time_last')))
+            ->get();
+
+			if(count($Section) == 1){
+				session::flash('message', 'la seccion que intenta crear ya existe');
+				return redirect("/sections/create");
+			}
+		else{
+
+			$this->validate($request, [
 			'users_id' => 'required',
 			'shift' => 'required',
 			'classrooms_id' => 'required',
@@ -78,8 +113,73 @@ class SectionsController extends Controller {
 			'time_last' => 'required',
 			'section' => 'required',
 			'quota' => 'required',
+			'second_time_first'=> 'required',
+			'second_time_last'=> 'required'
+			]);
+			Sections::create([
+			
+			'shift' => $request->input('shift'),
+			'classrooms_id' => $request->input('classrooms_id'),
+			'day_one' => $request->input('day_one'),
+			'day_two' => $request->input('day_two'),
+			'academic_periods_id' => $request->input('academic_periods_id'),
+			'time_first' => $request->input('time_first'),
+			'subjects_id' => $request->input('subjects_id'),
+			'time_last' => $request->input('time_last'),
+			'section' => $request->input('section'),
+			'quota' => $request->input('quota'),
+			'status' => $request->input('status'),
+			'users_id' => $request->input('users_id'),
+			'second_time_first'=> $request->input('second_time_first'),
+			'second_time_last'=> $request->input('second_time_last'),
+					
 		]);
 
+		session::flash('message', 'Sección creado correctamente...');
+		return redirect("/sections");
+		}
+		}
+
+
+
+
+
+
+
+
+		 
+		 
+		 
+		 if(empty($request->input('day_two')))
+		 {
+
+
+		 $Section = Sections::where($query)
+		 	->whereBetween('sections.time_first',array($request->input('time_first'),$request->input('time_last')))
+			->whereBetween('sections.time_last',array($request->input('time_first'),$request->input('time_last')))
+            ->get();
+
+			if(count($Section) == 1){
+				session::flash('message', 'la seccion que intenta crear ya existe');
+				return redirect("/sections/create");
+			}
+		else{
+			$this->validate($request, [
+			'users_id' => 'required',
+			'shift' => 'required',
+			'classrooms_id' => 'required',
+			'day_one' => 'required',
+			'academic_periods_id' => 'required',
+			'time_first' => 'required',
+			'subjects_id' => 'required',
+			'time_last' => 'required',
+			'section' => 'required',
+			'quota' => 'required',
+			]);
+
+		
+		
+		
 		Sections::create([
 			
 			'shift' => $request->input('shift'),
@@ -101,6 +201,8 @@ class SectionsController extends Controller {
 
 		session::flash('message', 'Sección creado correctamente...');
 		return redirect("/sections");
+		}
+	  }
 	}
 
 	/**

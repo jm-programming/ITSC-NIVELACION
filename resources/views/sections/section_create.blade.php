@@ -3,6 +3,11 @@
 @section('title', 'Crear Sección')
 @section('title-content', 'Crear Sección')
 @section('content')
+@if(Session::has('message'))
+<div class="alert alert-danger">
+    {{ session::get('message') }}
+</div>
+@endif
 	<div id="content" class="jumbotron main">
 		<h1 class="text-center padding ">Sección</h1>
 		<div class="container">
@@ -98,8 +103,8 @@
 
 
 								<div class="form-group col-sm-3">
-			                        <label class="control-label" for="second_time_last">2da Hora inicio de clase</label>
-			                        <input type="time" class="form-control" id="second_time_last" name="second_time_last" pattern="">
+			                        <label class="control-label" for="second_time_first">2da Hora inicio de clase</label>
+			                        <input type="time" class="form-control" id="second_time_first" name="second_time_first" pattern="">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="second_time_last">2da Hora final de clase</label>

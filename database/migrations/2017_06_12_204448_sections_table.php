@@ -15,12 +15,12 @@ class SectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('section', 15);
+            $table->string('section', 15)->unique();
             $table->boolean('status');
             $table->timeTz('time_first');
             $table->timeTz('time_last');
-            $table->timeTz('second_time_first');
-            $table->timeTz('second_time_last');
+            $table->timeTz('second_time_first')->nullable();
+            $table->timeTz('second_time_last')->nullable();
             $table->integer('quota');
             $table->string('day_one', 20);
             $table->string('day_two', 20)->nullable();
