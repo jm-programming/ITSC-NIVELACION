@@ -47,6 +47,9 @@
                     Hora
                 </th>
                 <th class="column-title">
+                    Hora2
+                </th>
+                <th class="column-title">
                     Tanda
                 </th>
                 <th class="column-title no-link last">
@@ -85,6 +88,9 @@
                 </td>
                 <td class=" ">
                     {{$section->time_first}} / {{$section->time_last}}
+                </td>
+                <td class=" ">
+                    {{$section->second_time_first}} / {{$section->second_time_last}}
                 </td>
                 <td class=" ">
                     {{$section->shift}}

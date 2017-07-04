@@ -65,7 +65,20 @@ class SectionsController extends Controller {
 	 */
 	public function store(Request $request) {
 
+		 $timelast =$request->input('time_last');
+		 $secondTimeLast = $request->input('second_time_last');
+		 $timeToSubtract= 10;
+		 
+		 $timelastHourToSecond = strtotime($timelast);
+		 $secondTimelastHourToSecond = strtotime($secondTimeLast);
 
+		 $minutesToSubtract = $timeToSubtract*60;
+
+		 $timeLastNewHour = date('H:i',$timelastHourToSecond-$minutesToSubtract);
+		 $secondTimelastNewHour =date('H:i',$secondTimelastHourToSecond-$minutesToSubtract);
+
+		 
+		 
 		$query = ['sections.status' =>$request->input('status'),
 				  'sections.day_one'=>$request->input('day_one'),
 				  'sections.time_first' =>$request->input('time_first'),
@@ -134,14 +147,14 @@ class SectionsController extends Controller {
 			'academic_periods_id' => $request->input('academic_periods_id'),
 			'time_first' => $request->input('time_first'),
 			'subjects_id' => $request->input('subjects_id'),
-			'time_last' => $request->input('time_last'),
+			'time_last' =>$timeLastNewHour,
 			'section' => $request->input('section'),
 			'quota' => $request->input('quota'),
 			'status' => $request->input('status'),
 			'users_id' => $request->input('users_id'),
 			'second_time_first'=> $request->input('second_time_first'),
-			'second_time_last'=> $request->input('second_time_last'),
-					
+			'second_time_last'=>$secondTimelastNewHour,
+					  
 		]);
 
 		session::flash('message', 'Sección creado correctamente...');
@@ -206,13 +219,14 @@ class SectionsController extends Controller {
 			'academic_periods_id' => $request->input('academic_periods_id'),
 			'time_first' => $request->input('time_first'),
 			'subjects_id' => $request->input('subjects_id'),
-			'time_last' => $request->input('time_last'),
+			'time_last' =>$timeLastNewHour,
 			'section' => $request->input('section'),
 			'quota' => $request->input('quota'),
 			'status' => $request->input('status'),
 			'users_id' => $request->input('users_id'),
 			'second_time_first'=> $request->input('second_time_first'),
-			'second_time_last'=> $request->input('second_time_last'),
+			'second_time_last'=>$secondTimelastNewHour,
+			
 					
 		]);
 
