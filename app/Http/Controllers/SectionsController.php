@@ -82,7 +82,7 @@ class SectionsController extends Controller {
 		$query = ['sections.status' =>$request->input('status'),
 				  'sections.day_one'=>$request->input('day_one'),
 				  'sections.time_first' =>$request->input('time_first'),
-				  'sections.time_last' =>$request->input('time_last'),
+				  'sections.time_last' =>$timeLastNewHour,
 				  'sections.classrooms_id'=>$request->input('classrooms_id'),
 				  'sections.shift'=>$request->input('shift'),		  
 				  ];
@@ -91,9 +91,9 @@ class SectionsController extends Controller {
 				   'sections.day_one'=>$request->input('day_one'),
 				  'sections.day_two'=>$request->input('day_two'),
 				  'sections.time_first' =>$request->input('time_first'),
-				  'sections.time_last' =>$request->input('time_last'),
+				  'sections.time_last' =>$timeLastNewHour,
 				  'sections.second_time_first' =>$request->input('second_time_first'),
-				  'sections.second_time_last' =>$request->input('second_time_last'),
+				  'sections.second_time_last' => $secondTimelastNewHour,
 				  'sections.classrooms_id'=>$request->input('classrooms_id'),
 				  'sections.shift'=>$request->input('shift'),	  
 				  ];
@@ -106,10 +106,10 @@ class SectionsController extends Controller {
             ->get();
 
 
-			$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$request->input('time_last')])
-			->orwhereBetween('sections.time_last',[$request->input('time_first'),$request->input('time_last')])
-			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'),$request->input('second_time_last')])
-			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'),$request->input('second_time_last')])
+			$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
+			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'), $secondTimelastNewHour])
+			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
 			->get();
 
 
@@ -177,12 +177,12 @@ class SectionsController extends Controller {
 
 
 		 $Section = Sections::where($query)
-		 	->whereBetween('sections.time_first',[$request->input('time_first'),$request->input('time_last')])
-			->whereBetween('sections.time_last',[$request->input('time_first'),$request->input('time_last')])
+		 	->whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
+			->whereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
             ->get();
 
-		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$request->input('time_last')])
-			->orwhereBetween('sections.time_last',[$request->input('time_first'),$request->input('time_last')])
+		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
+			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
 			->get();
 
 			if(count($Section) > 0){
