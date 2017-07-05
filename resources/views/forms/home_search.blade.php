@@ -7,7 +7,11 @@
 	</div>
 	<!--el select con un array asociativo para los diferentes valores que obtendremos de la url
 	al enviar el metodo submit-->
-	{{ Form::select('user', ['teacher'=>'Profesor','student'=>'Estudiante','employee'=>'Empleado']) }}
+	<select name="user" id="user">
+		<option value="Profesor">Profesor</option>
+		<option value="Estudiante">Estudiante</option>
+		<option value="Empleado">Empleado</option>
+	</select>
 	<!--se agrego el form::close para cerrar el formulario-->
 	{{ Form::close() }}
 </div>
