@@ -20,16 +20,37 @@ class SectionsController extends Controller {
 	public function index() {
 
 		$section = DB::table('sections')
+			->join('subjects',function($join){
+				$join->on('sections.subjects_id','=','subjects.id');
+			})
+			->join('classrooms',function($join){
+				$join->on('sections.classrooms_id','=','classrooms.id');
+			})
 			->paginate(8);
 
 		return view('sections.section', ['sections' => $section]);
 	}
 
+
+
+
+
+
+
 	public function search(Request $request) {
 
 		$sectionSearch = \Request::get('sectionSearch');
 		$sections = Sections::where('sections.section', 'like', '%' . $sectionSearch . '%')
-			->paginate(8);
+			->join('subjects',function($join){
+				$join->on('sections.subjects_id','=','subjects.id');
+			})
+			->join('classrooms',function($join){
+				$join->on('sections.classrooms_id','=','classrooms.id');
+			})
+			->paginate(8)
+			;
+		
+		
 
 		return view('sections.section', ['sections' => $sections]);
 	}
@@ -64,7 +85,7 @@ class SectionsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-
+	/*para restarle 10 minutos a la hora introducida*/	
 		 $timelast =$request->input('time_last');
 		 $secondTimeLast = $request->input('second_time_last');
 		 $timeToSubtract= 10;
@@ -76,7 +97,7 @@ class SectionsController extends Controller {
 
 		 $timeLastNewHour = date('H:i',$timelastHourToSecond-$minutesToSubtract);
 		 $secondTimelastNewHour =date('H:i',$secondTimelastHourToSecond-$minutesToSubtract);
-
+	/*********************************************************************************/
 		 
 		 
 		$query = ['sections.status' =>$request->input('status'),
@@ -88,7 +109,7 @@ class SectionsController extends Controller {
 				  ];
 		
 		$query2 = ['sections.status' =>$request->input('status'),
-				   'sections.day_one'=>$request->input('day_one'),
+				  'sections.day_one'=>$request->input('day_one'),
 				  'sections.day_two'=>$request->input('day_two'),
 				  'sections.time_first' =>$request->input('time_first'),
 				  'sections.time_last' =>$timeLastNewHour,
@@ -98,18 +119,24 @@ class SectionsController extends Controller {
 				  'sections.shift'=>$request->input('shift'),	  
 				  ];
 
+		$query3 = [
+				'sections.classrooms_id'=>$request->input('classrooms_id'),
+				'sections.shift'=>$request->input('shift')
+		];
+
 
 	if(!empty($request->input('day_two'))){
 
-			$Section = Sections::where($query)
-			->orwhere($query2)
+			$Section = Sections::where($query2)
             ->get();
 
 
 			$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
-			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->whereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->where($query3)
 			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'), $secondTimelastNewHour])
-			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
+			->whereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
+			->where($query3)
 			->get();
 
 
@@ -118,7 +145,7 @@ class SectionsController extends Controller {
 				session::flash('message', 'la seccion que intenta crear ya existe');
 				return redirect("/sections/create");
 			}
-		elseif(count($Section2)> 0){
+			if(count($Section2)> 0){
 			session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
 				return redirect("/sections/create");
 		}
@@ -177,13 +204,17 @@ class SectionsController extends Controller {
 
 
 		 $Section = Sections::where($query)
-		 	->whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
-			->whereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
             ->get();
 
 		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
-			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->whereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->where($query3)
+			->orwhereBetween('sections.second_time_first',[$request->input('time_first'),$timeLastNewHour])
+			->whereBetween('sections.second_time_last',[$request->input('time_first'),$timeLastNewHour])
+			->where($query3)
 			->get();
+	
+
 
 			if(count($Section) > 0){
 				session::flash('message', 'la seccion que intenta crear ya existe');
@@ -225,7 +256,7 @@ class SectionsController extends Controller {
 			'status' => $request->input('status'),
 			'users_id' => $request->input('users_id'),
 			'second_time_first'=> $request->input('second_time_first'),
-			'second_time_last'=>$secondTimelastNewHour,
+			'second_time_last'=>$request->input('second_time_last'),
 			
 					
 		]);

@@ -41,6 +41,12 @@
                     Cupos
                 </th>
                 <th class="column-title">
+                    Asignatura
+                </th>
+                <th class="column-title">
+                    Aula
+                </th>
+                <th class="column-title">
                     Dias
                 </th>
                 <th class="column-title">
@@ -82,6 +88,12 @@
                 </td>
                 <td class=" ">
                     {{$section->quota}}
+                </td>
+                <td class=" ">
+                    {{$section->subject}}
+                </td>
+                <td class=" ">
+                    {{$section->location}}
                 </td>
                 <td class=" ">
                     {{$section->day_one}} / {{$section->day_two}}
