@@ -23,15 +23,16 @@ class CreateEmployeeRequest extends FormRequest {
 		return [
 			'names' => 'required',
 			'last_name' => 'required',
-			'email' => 'required|unique:employees',
-			'job' => 'required',
+			'email' => 'required|unique:users',
 			'office_phone' => 'required',
 			'personal_phone' => 'required',
 			'cellphone' => 'required',
+			'gender' => 'required',
 			'address' => 'required',
 			'identity_card' => 'required',
 			'civil_status' => 'required',
-			'users_id' => 'required|unique:employees',
+			'password' => 'required',
+			'status' => 'required',
 		];
 	}
 }

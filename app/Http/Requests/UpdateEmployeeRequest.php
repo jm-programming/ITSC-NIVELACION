@@ -24,14 +24,15 @@ class UpdateEmployeeRequest extends FormRequest {
 			'names' => 'required',
 			'last_name' => 'required',
 			'email' => 'required',
-			'job' => 'required',
 			'office_phone' => 'required',
 			'personal_phone' => 'required',
 			'cellphone' => 'required',
+			'gender' => 'required',
 			'address' => 'required',
 			'identity_card' => 'required',
 			'civil_status' => 'required',
-			'users_id' => 'required',
+			'password' => 'required',
+			'status' => 'required',
 		];
 	}
 }
