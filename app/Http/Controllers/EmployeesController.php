@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Employees;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Rolls;
+use App\User;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
@@ -17,7 +18,7 @@ class EmployeesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$employees = Employees::paginate(8);
+		$employees = User::paginate(8);
 		return view('employees.employee', ['employees' => $employees]);
 	}
 
@@ -27,7 +28,8 @@ class EmployeesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		return view('employees.create');
+		$rolls = Rolls::all();
+		return view('employees.create', ['rolls' => $rolls]);
 	}
 
 	/**
@@ -38,18 +40,20 @@ class EmployeesController extends Controller {
 	 */
 	public function store(CreateEmployeeRequest $request) {
 
-		Employees::create([
+		User::create([
 			'names' => $request['names'],
 			'last_name' => $request['last_name'],
 			'email' => $request['email'],
-			'job' => $request['job'],
 			'office_phone' => $request['office_phone'],
 			'personal_phone' => $request['personal_phone'],
 			'cellphone' => $request['cellphone'],
 			'address' => $request['address'],
+			'gender' => $request['gender'],
 			'identity_card' => $request['identity_card'],
 			'civil_status' => $request['civil_status'],
-			'users_id' => $request['users_id'],
+			'password' => bcrypt($request['password']),
+			'status' => $request['status'],
+			'rolls_id' => '2',
 		]);
 
 		return redirect('/employees')->with('message', 'Empleado creado con exito...');
@@ -59,9 +63,9 @@ class EmployeesController extends Controller {
 	public function search(Request $request) {
 
 		$employeeSearch = \Request::get('employeeSearch');
-		$employees = Employees::where('employees.names', 'like', '%' . $employeeSearch . '%')
-			->orwhere('employees.last_name', 'like', '%' . $employeeSearch . '%')
-			->orderBy('employees.names')
+		$employees = User::where('users.names', 'like', '%' . $employeeSearch . '%')
+			->orwhere('users.last_name', 'like', '%' . $employeeSearch . '%')
+			->orderBy('users.names')
 			->paginate(8);
 
 		return view('employees.employee', ['employees' => $employees]);
@@ -84,7 +88,7 @@ class EmployeesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		$employees = Employees::find($id);
+		$employees = User::find($id);
 		return view('employees.edit', ['employees' => $employees]);
 	}
 
@@ -96,7 +100,7 @@ class EmployeesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update($id, UpdateEmployeeRequest $request) {
-		$employees = Employees::find($id);
+		$employees = User::find($id);
 		$employees->fill($request->all());
 		$employees->save();
 		session::flash('message', 'Empleado editado correctamente...');
@@ -110,7 +114,7 @@ class EmployeesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
-		Employees::destroy($id);
+		User::destroy($id);
 		session::flash('message', 'Empleado eliminado correctamente...');
 		return Redirect::to('/employees');
 	}
