@@ -83,54 +83,33 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="/home"><i class="fa fa-home"></i> Home</a>
+                  <li>
+                  <a href="/home"><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Estudiantes <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/students">Ver Estudiantes</a></li>
-                    </ul>
+                  <li>
+                  <a href="/students"><i class="fa fa-edit"></i>Estudiantes</a>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> Docentes <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/teachers">Ver Docentes</a></li>
-                    </ul>
+                  <li>
+                  <a href="/teachers"><i class="fa fa-desktop"></i>Docentes</a>  
                   </li>
-                  <li><a><i class="fa fa-table"></i> Secciones <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/sections">Ver Secciones</a></li>
-                    </ul>
+                  <li>
+                  <a href="/sections"><i class="fa fa-table"></i> Secciones</a> 
                   </li>
-                  <li><a><i class="fa fa-table"></i> Auditoria <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Ver historico</a></li>
-                    </ul>
+                  <li>
+                  <a href="#"><i class="fa fa-table"></i> Auditoria</a>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Citas <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Examen de idiomas</a></li>
-                    </ul>
+                  <li>
+                  <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
                   </li>
-                   <li><a><i class="fa fa-table"></i> Empleados <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li>
-                        {!!link_to('/employees', $title = 'Ver empleados', $secure = null)!!}
-                      </li>
-                    </ul>
+                   <li>
+                   <a href="/employees"><i class="fa fa-table"></i> Empleados</a>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Aulas <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li>
-                        {!!link_to('classrooms', $title = 'Ver aulas', $secure = null)!!}
-                      </li>
-                    </ul>
+                  <li>
+                  <a href="/classrooms"><i class="fa fa-table"></i> Aulas</a>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Periodos Academicos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li>
-                        {!!link_to('academic_periods', $title = 'Ver periodos academicos', $secure = null)!!}
-                      </li>
-                    </ul>
-                  </li>
+                  <li>
+                  <a href="/academic_periods"><i class="fa fa-table"></i> Periodos Academicos</a> 
+                 </li>
                 </ul>
               </div>
 
