@@ -53,7 +53,7 @@ class EmployeesController extends Controller {
 			'civil_status' => $request['civil_status'],
 			'password' => bcrypt($request['password']),
 			'status' => $request['status'],
-			'rolls_id' => '2',
+			'rolls_id' => '3',
 		]);
 
 		return redirect('/employees')->with('message', 'Empleado creado con exito...');

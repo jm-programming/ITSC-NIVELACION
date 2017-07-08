@@ -37,9 +37,7 @@
                 <th class="column-title">
                     Apellidos
                 </th>
-                <th class="column-title">
-                    Cargo
-                </th>
+
                 <th class="column-title">
                     Correo
                 </th>
@@ -90,9 +88,7 @@
                 <td>
                     {{ $employee->last_name }}
                 </td>
-                <td>
-                    {{ $employee->job }}
-                </td>
+
                 <td>
                     {{ $employee->email }}
                 </td>
