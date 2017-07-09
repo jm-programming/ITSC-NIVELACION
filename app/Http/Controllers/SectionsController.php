@@ -146,7 +146,7 @@ class SectionsController extends Controller {
 
 		$this->validate($request, $rules);*/
 
-
+			
 
 	
 	
@@ -159,12 +159,15 @@ class SectionsController extends Controller {
 
 
 			$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
-			->whereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->where($query3)
+			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
 			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'), $secondTimelastNewHour])
-			->whereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
+			->where($query3)
+			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
 			->where($query3)
 			->get();
+			
 
 
 				
@@ -238,10 +241,12 @@ class SectionsController extends Controller {
             ->get();
 
 		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
-			->whereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
+			->where($query3)
+			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
 			->orwhereBetween('sections.second_time_first',[$request->input('time_first'),$timeLastNewHour])
-			->whereBetween('sections.second_time_last',[$request->input('time_first'),$timeLastNewHour])
+			->where($query3)
+			->orwhereBetween('sections.second_time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
 			->get();
 	
@@ -252,7 +257,7 @@ class SectionsController extends Controller {
 				return redirect("/sections/create")->withInput($request->input());
 				
 			}
-		elseif(count($Section2) > 0){
+			elseif(count($Section2) > 0){
 				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
 				return redirect("/sections/create")->withInput($request->input());
 		}
