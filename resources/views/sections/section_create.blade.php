@@ -18,7 +18,7 @@
 					</div>
 					<div class="panel-body">
 						@include('alerts.requets')
-						{!! Form::open(['route' => 'sections.store', 'method' => 'POST']) !!}
+						{!! Form::open(['route' => 'sections.store', 'method' => 'POST','autocomplete' => 'on']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
 			                    <!-- Prepended text-->
@@ -94,7 +94,7 @@
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_first">Hora inicio de clase</label>
-			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="">
+			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="" >
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_last">Hora final de clase</label>

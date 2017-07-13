@@ -76,18 +76,20 @@
     <div class="form-group col-sm-6">
         {!!Form::label('gender', 'Genero',['class'=>'control-label']) !!}
         <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default btn-sm">
+            <label class="btn btn-default btn-sm ">
                 <input name="gender" type="radio" value="1">
                     Hombre
                 </input>
             </label>
-            <label class="btn btn-primary btn-sm">
+            <label class="btn btn-primary btn-sm ">
                 <input name="gender" type="radio" value="0">
                     Mujer
                 </input>
             </label>
         </div>
     </div>
+
+
     <div class="form-group col-sm-6">
         {!!Form::label('status', 'Status',['class'=>'control-label']) !!}
         <div class="btn-group" data-toggle="buttons">
@@ -106,6 +108,8 @@
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>
 </fieldset>
+
+
 @section('script')
 <script>
     $(document).ready(function(){

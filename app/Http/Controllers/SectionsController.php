@@ -9,6 +9,7 @@ use App\Subjects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 
 class SectionsController extends Controller {
 	/**
@@ -106,12 +107,43 @@ class SectionsController extends Controller {
 			'sections.shift' => $request->input('shift'),
 		];
 
+<<<<<<< HEAD
 		$query3 = [
 			'sections.classrooms_id' => $request->input('classrooms_id'),
 			'sections.shift' => $request->input('shift'),
 		];
 
 		if (!empty($request->input('day_two'))) {
+=======
+		
+
+		/*$rules = array(
+			'section'=>'required'|'unique',
+			'status'=> 'required',
+			'time_first'=>'required',
+			'time_last'=> 'required',
+			'second_time_first',
+			'second_time_last',
+			'quota'=> 'required',
+			'day_one'=> 'required',
+			'day_two',
+			'shift'=> 'required',
+			'classrooms_id'=> 'required',
+			'subjects_id'=> 'required',
+			'academic_periods_id'=> 'required',
+			'users_id'=> 'required'
+		);
+
+		$this->validate($request, $rules);*/
+
+
+
+	
+	
+	
+	
+	if(!empty($request->input('day_two'))){
+>>>>>>> d753bd22a918a739dde71b1a52466ae931569a6c
 
 			$Section = Sections::where($query2)
 				->get();
@@ -126,8 +158,11 @@ class SectionsController extends Controller {
 
 			if (count($Section) > 0) {
 				session::flash('message', 'la seccion que intenta crear ya existe');
-				return redirect("/sections/create");
+				return redirect()
+				->back()
+				->withInput();
 			}
+<<<<<<< HEAD
 			if (count($Section2) > 0) {
 				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
 				return redirect("/sections/create");
@@ -169,6 +204,13 @@ class SectionsController extends Controller {
 				session::flash('message', 'Sección creado correctamente...');
 				return redirect("/sections");
 			}
+=======
+			if(count($Section2)> 0){
+			session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
+				return redirect()
+				->back()
+				->withInput();
+>>>>>>> d753bd22a918a739dde71b1a52466ae931569a6c
 		}
 
 		if (empty($request->input('day_two'))) {
@@ -186,6 +228,7 @@ class SectionsController extends Controller {
 
 			if (count($Section) > 0) {
 				session::flash('message', 'la seccion que intenta crear ya existe');
+<<<<<<< HEAD
 				return redirect("/sections/create");
 			} elseif (count($Section2) > 0) {
 				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
@@ -226,6 +269,14 @@ class SectionsController extends Controller {
 				session::flash('message', 'Sección creado correctamente...');
 				return redirect("/sections");
 			}
+=======
+				return redirect("/sections/create")->withInput($request->input());
+				
+			}
+		elseif(count($Section2) > 0){
+				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
+				return redirect("/sections/create")->withInput($request->input());
+>>>>>>> d753bd22a918a739dde71b1a52466ae931569a6c
 		}
 	}
 

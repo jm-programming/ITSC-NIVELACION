@@ -18,7 +18,11 @@ class EmployeesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$employees = User::paginate(8);
+
+		$employees = User::orderBy('names', 'asc')
+			->where('users.rolls_id', '=', 3)
+			->paginate(8);
+
 		return view('employees.employee', ['employees' => $employees]);
 	}
 
@@ -53,7 +57,9 @@ class EmployeesController extends Controller {
 			'civil_status' => $request['civil_status'],
 			'password' => bcrypt($request['password']),
 			'status' => $request['status'],
+
 			'rolls_id' => '3',
+
 		]);
 
 		return redirect('/employees')->with('message', 'Empleado creado con exito...');
