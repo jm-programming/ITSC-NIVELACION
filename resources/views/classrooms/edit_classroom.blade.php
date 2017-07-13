@@ -2,7 +2,6 @@
 @section('title', 'Aulas')
 @section('title-content', 'Aulas')
 @section('content')
-@include('alerts.requets')
 <div class="jumbotron main" id="content">
     <h1 class="text-center padding ">
         Aula

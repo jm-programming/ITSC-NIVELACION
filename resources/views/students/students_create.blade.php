@@ -128,7 +128,7 @@
 @endsection
 @section('script')
 	<script>
-		$('#identity_card').inputmask({"mask": "999-9999999-9"}); 
+		$('#identity_card').inputmask({"mask": "999-9999999-9"});
 	</script>
 @endsection
 

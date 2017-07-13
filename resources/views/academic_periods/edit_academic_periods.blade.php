@@ -2,7 +2,7 @@
 @section('title', 'Periodo Academico')
 @section('title-content', 'Periodo Academico')
 @section('content')
-@include('alerts.requets')
+
 <div class="jumbotron main" id="content">
     <h1 class="text-center padding ">
         Periodo Academico

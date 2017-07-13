@@ -1,7 +1,6 @@
 @extends('layouts.landingPage')
 @section('title', 'Aulas')
 @section('title-content', 'Crear Aula')
-@include('alerts.requets')
 
 @section('content')
 <div class="jumbotron main" id="content">
@@ -29,4 +28,4 @@
     </div>
 </div>
 @endsection
->>>>>>> 537333bfd869b240529f720a6ba7d1dbcb48bd16
+

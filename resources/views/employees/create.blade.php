@@ -1,4 +1,4 @@
-@include('alerts.requets');
+
 @extends('layouts.landingPage')
 @section('title', 'Empleados')
 @section('title-content', 'Crear Empleado')

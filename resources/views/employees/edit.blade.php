@@ -1,7 +1,6 @@
 @extends('layouts.landingPage')
 @section('title', 'Empleados')
 @section('title-content', 'Editar Empleado')
-@include('alerts.requets');
 @section('content')
 
 <div class="jumbotron main" id="content">
