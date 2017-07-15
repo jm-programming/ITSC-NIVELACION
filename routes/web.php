@@ -34,8 +34,8 @@ Route::get('teachers_s','TeacherController@search');
 Route::resource('teachers','TeacherController');
 
 //routes mantenimiento de usuarios
-Route::get('users_s', 'UsersController@search');
-Route::resource('users','UsersController');
+// Route::get('users_s', 'UsersController@search');
+// Route::resource('users','UsersController');
 
 //routes mantenimiento aulas
 Route::get('classrooms_s', 'ClassroomsController@search');

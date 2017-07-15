@@ -72,16 +72,23 @@
                     {{ $academic_period->date_last }}
                 </td>
                 <td class=" last">
-                    {{ Form::open(['route'=>['academic_periods.destroy', $academic_period->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
-{!! link_to_route('academic_periods.edit', $title = 'Ver', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
-{!! link_to_route('academic_periods.edit', $title = 'Editar', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                    {{-- {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+                    {!! link_to_route('academic_periods.edit', $title = 'Editar', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $academic_period->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['academic_periods.destroy', $academic_period->id], 'method' => 'DELETE'])!!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
+
+                    {{-- {{ Form::open(['route'=>['academic_periods.destroy', $academic_period->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
+                    {!! link_to_route('academic_periods.edit', $title = 'Ver', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
+                    {!! link_to_route('academic_periods.edit', $title = 'Editar', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     <a data-target="#delete-modal" data-toggle="modal" href="#">
                         <span class="btn btn-danger btn-xs">
                             Eliminar
                         </span>
                     </a>
                     {{ Form::close() }}
-@include('modals.delete_modal', ['r' => 'academic_periods.destroy', 'id' => $academic_period->id])
+                    @include('modals.delete_modal', ['r' => 'academic_periods.destroy', 'id' => $academic_period->id]) --}}
                 </td>
             </tr>
             @endforeach

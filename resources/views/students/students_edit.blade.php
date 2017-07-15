@@ -65,10 +65,6 @@
 			                        	'Nocturna' => 'Nocturna',
 			                        ],null,['class' => 'form-control'])!!}
 			                    </div>
-			                    <div class="form-group col-sm-12">
-			                        <label class="control-label" for="nombres">Email</label>
-			                        <input type="email" class="form-control" id="email" name="email" value="{{$student->email}}">
-			                    </div>
 			                    <div class="form-group col-sm-5">
 			                        <label class="control-label" for="nombres">Veces Inscritos al programa</label>
 			                        <input type="text" class="form-control" id="inscribed_opportunity" name="inscribed_opportunity" value="{{$student->inscribed_opportunity}}">

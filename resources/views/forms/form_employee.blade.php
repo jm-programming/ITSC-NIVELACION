@@ -65,7 +65,7 @@
 
             {!! Form::select('civil_status',[
 
-            'Soltero/a' => 'Soltero',
+            'Soltero/a' => 'Soltero/a',
             'Casado/a' => 'Casado/a',
             'Comprometido/a' => 'Comprometido/a',
             'Divorciado/a' => 'Divorciado/a',
@@ -74,34 +74,20 @@
             ],null,['class' => 'form-control', 'placeholder'=>'-- seleccione una opción --'])!!}
     </div>
     <div class="form-group col-sm-6">
-        {!!Form::label('gender', 'Genero',['class'=>'control-label']) !!}
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default btn-sm">
-                <input name="gender" type="radio" value="1">
-                    Hombre
-                </input>
-            </label>
-            <label class="btn btn-primary btn-sm">
-                <input name="gender" type="radio" value="0">
-                    Mujer
-                </input>
-            </label>
-        </div>
+        {!! Form::label('gender', 'Genero',['class'=>'control-label']) !!}
+
+            {!! Form::select('gender',[
+
+            'Hombre' => 'Hombre',
+            'Mujer' => 'Mujer',
+
+            ],null,['class' => 'form-control', 'placeholder'=>'-- seleccione una opción --'])!!}
     </div>
     <div class="form-group col-sm-6">
-        {!!Form::label('status', 'Status',['class'=>'control-label']) !!}
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default btn-sm">
-                <input name="status" type="radio" value="1">
-                    Activo
-                </input>
-            </label>
-            <label class="btn btn-primary btn-sm">
-                <input name="status" type="radio" value="0">
-                    Inactivo
-                </input>
-            </label>
-        </div>
+        {!!Form::label('status','Estatus de Empleado',['class'=>'control-label'])!!}<br>
+        {!!Form::radio('status', '1')!!} Activo.
+        <br>
+        {!!Form::radio('status', '0')!!} Inactivo.
     </div>
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>

@@ -18,9 +18,17 @@
                 <div class="panel-body">
                     @include('alerts.requets')
                     {{ Form::model($academic_periods,['route'=>['academic_periods.update', $academic_periods->id, 'method'=>'POST']]) }}
-{{ method_field('PUT') }}
-@include('forms.form_academic_period')
-{!! Form::close() !!}
+                        {{ method_field('PUT') }}
+                        <fieldset class="col-sm-10 col-sm-offset-1">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label" for="academic_period">
+                                    Periodo Academico
+                                </label>
+                                {{ Form::text('academic_period',null,['class'=>'form-control col-md-7 col-xs-12','placeholder'=>"Ingrese el periodo academico", 'disabled'=>'disabled']) }}
+                            </div>
+                            @include('forms.form_academic_period')
+                        </fieldset>
+                    {!! Form::close() !!}
                     <hr>
                     </hr>
                 </div>

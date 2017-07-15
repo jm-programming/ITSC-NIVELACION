@@ -52,10 +52,12 @@
             </tr>
         </thead>
         <tbody>
+            <?php $contador = 0;?>
             @foreach($classrooms as $classroom)
+            <?php $contador++; ?>
             <tr class="even pointer">
                 <td>
-                    {{ $classroom->id }}
+                    {{ $contador }}
                 </td>
                 <td>
                     {{ $classroom->location }}
@@ -64,16 +66,24 @@
                     {{ $classroom->capacity }} Estudiantes
                 </td>
                 <td class=" last">
-                    {{ Form::open(['route'=>['classrooms.destroy', $classroom->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
-{!! link_to_route('classrooms.edit', $title = 'Ver', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
-{!! link_to_route('classrooms.edit', $title = 'Editar', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+
+                    {{-- {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+                    {!! link_to_route('classrooms.edit', $title = 'Editar', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['classrooms.destroy', $classroom->id], 'method' => 'DELETE'])!!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
+
+                    {{-- {{ Form::open(['route'=>['classrooms.destroy', $classroom->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
+                    {!! link_to_route('classrooms.edit', $title = 'Ver', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
+                    {!! link_to_route('classrooms.edit', $title = 'Editar', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     <a data-target="#delete-modal" data-toggle="modal" href="#">
                         <span class="btn btn-danger btn-xs">
                             Eliminar
                         </span>
                     </a>
-                    {{ Form::close() }}
-@include('modals.delete_modal', ['r' => 'classrooms.destroy', 'id' => $classroom->id])
+                    {{ Form::close() }} --}}
+                    @include('modals.delete_modal', ['r' => 'classrooms.destroy', 'id' => $classroom->id])
                 </td>
             </tr>
             @endforeach

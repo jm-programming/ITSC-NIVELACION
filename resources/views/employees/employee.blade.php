@@ -38,9 +38,6 @@
                     Apellidos
                 </th>
                 <th class="column-title">
-                    Cargo
-                </th>
-                <th class="column-title">
                     Correo
                 </th>
                 <th class="column-title">
@@ -79,19 +76,18 @@
             </tr>
         </thead>
         <tbody>
+            <?php $contador = 0;?>
             @foreach($employees as $employee)
+            <?php $contador++?>
             <tr class="even pointer">
                 <td>
-                    {{ $employee->id }}
+                    {{ $contador }}
                 </td>
                 <td>
                     {{ $employee->names }}
                 </td>
                 <td>
                     {{ $employee->last_name }}
-                </td>
-                <td>
-                    {{ $employee->job }}
                 </td>
                 <td>
                     {{ $employee->email }}
@@ -115,20 +111,28 @@
                     {{ $employee->civil_status}}
                 </td>
                 <td class=" last">
-                    {{ Form::open(['route'=>['employees.destroy', $employee->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
+
+                    {{-- {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+                    {!! link_to_route('employees.edit', $title = 'Editar', $parameters = $employee->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['employees.destroy', $employee->id], 'method' => 'DELETE'])!!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
+
+                    {{-- {{ Form::open(['route'=>['employees.destroy', $employee->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
 
 
-{!! link_to_route('employees.edit', $title = 'Ver', $parameters = $employee->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
-{!! link_to_route('employees.edit', $title = 'Editar', $parameters = $employee->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                    {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $employee->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
+                    {!! link_to_route('employees.edit', $title = 'Editar', $parameters = $employee->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     <a data-target="#delete-modal" data-toggle="modal" href="#">
                         <span class="btn btn-danger btn-xs">
                             Eliminar
                         </span>
                     </a>
-                    {{ Form::close() }}
+                    {{ Form::close() }} --}}
 
 
-@include('modals.delete_modal', ['r' => 'employees.destroy', 'id' => $employee->id])
+                    @include('modals.delete_modal', ['r' => 'employees.destroy', 'id' => $employee->id])
                 </td>
             </tr>
             @endforeach
