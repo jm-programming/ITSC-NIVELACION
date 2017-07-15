@@ -96,12 +96,6 @@
                   <a href="/sections"><i class="fa fa-table"></i> Secciones</a> 
                   </li>
                   <li>
-                  <a href="#"><i class="fa fa-table"></i> Auditoria</a>
-                  </li>
-                  <li>
-                  <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
-                  </li>
-                   <li>
                    <a href="/employees"><i class="fa fa-table"></i> Empleados</a>
                   </li>
                   <li>
@@ -109,7 +103,13 @@
                   </li>
                   <li>
                   <a href="/academic_periods"><i class="fa fa-table"></i> Periodos Academicos</a> 
-                 </li>
+                  </li>
+                  <li>
+                  <a href="#"><i class="fa fa-table"></i> Auditoria</a>
+                  </li>
+                  <li>
+                  <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+                  </li>
                 </ul>
               </div>
 
