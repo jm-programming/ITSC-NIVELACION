@@ -8,6 +8,11 @@
     {{ session::get('message') }}
 </div>
 @endif
+@if(Session::has('message2'))
+<div class="alert alert-warning">
+    {{ session::get('message') }}
+</div>
+@endif
 
 @section('content')
 <div class="row padding">

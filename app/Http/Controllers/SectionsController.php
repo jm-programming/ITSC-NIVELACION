@@ -173,15 +173,15 @@ class SectionsController extends Controller {
 				
 			if(count($Section) > 0){
 				session::flash('message', 'la seccion que intenta crear ya existe');
-				return redirect()
-				->back()
-				->withInput();
+				return redirect()->back()->withInput($request->all);
+				
+
+
+
 			}
 			if(count($Section2)> 0){
 			session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
-				return redirect()
-				->back()
-				->withInput();
+				return redirect()->back()->withInput($request->all);
 		}
 		else{
 
@@ -254,12 +254,12 @@ class SectionsController extends Controller {
 
 			if(count($Section) > 0){
 				session::flash('message', 'la seccion que intenta crear ya existe');
-				return redirect("/sections/create")->withInput($request->input());
+				return redirect()->back()->withInput($request->all);
 				
 			}
 			elseif(count($Section2) > 0){
 				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
-				return redirect("/sections/create")->withInput($request->input());
+				return redirect()->back()->withInput($request->all);
 		}
 		else{
 			$this->validate($request, [
@@ -402,6 +402,7 @@ class SectionsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
+		
 		$section = Sections::find($id);
 		$section->delete();
 

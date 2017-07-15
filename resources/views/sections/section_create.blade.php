@@ -4,7 +4,7 @@
 @section('title-content', 'Crear Sección')
 @section('content')
 @if(Session::has('message'))
-<div class="alert alert-danger">
+<div class="alert alert-danger" id='Danger'>
     {{ session::get('message') }}
 </div>
 @endif
@@ -97,7 +97,7 @@
 			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="" >
 			                    </div>
 			                    <div class="form-group col-sm-3">
-			                        <label class="control-label" for="time_last">Hora final de clase</label>
+			                        <label class="control-label" for="time_last" value="">Hora final de clase</label>
 			                        <input type="time" class="form-control" id="time_last" name="time_last">
 			                    </div>
 
@@ -143,5 +143,11 @@
 		        format: 'hh:mm A'
 		    });
       	});
+		  
+		 
+        setTimeout(function() {
+            $('#Danger').fadeToggle();
+            }, 5000); // <-- time in milliseconds
+
 	</script>
 @endsection

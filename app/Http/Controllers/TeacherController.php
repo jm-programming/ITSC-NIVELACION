@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 class TeacherController extends Controller
 {
     /**
@@ -206,9 +208,16 @@ class TeacherController extends Controller
 
     public function destroy($id)
     {
-
+    try {
         $user = User::find($id);
         $user->delete();
+
+        return redirect('/teachers');
+  //code causing exception to be thrown
+    } catch(\Exception $e) {
+  //exception handling
+    }
+        session::flash('message', 'el usuario que intenta eliminar se encuentra en una seccion');
         return redirect('/teachers');
     }
 

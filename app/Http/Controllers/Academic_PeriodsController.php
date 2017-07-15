@@ -150,8 +150,17 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
+	
+	try {
 		Academic_periods::destroy($id);
 		session::flash('message', 'Periodo academico eliminado correctamente...');
 		return Redirect::to('/academic_periods');
+	} 
+	catch(\Exception $e) 
+	{
+		session::flash('message2', 'el periodo que intenta eliminar se encuentra en una seccion');
+        return redirect('/academic_periods');
 	}
+}
+
 }

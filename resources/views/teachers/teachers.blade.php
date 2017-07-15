@@ -3,6 +3,11 @@
 @section('title-content', 'Profesores')
 @section('content')
 
+@if(Session::has('message'))
+<div class="alert alert-warning" id="Warning">
+    {{ session::get('message') }}
+</div>
+  @endif
  <div class="row padding">
     <div class="col-lg-4 col-md-4">
       <div class="">
@@ -57,10 +62,10 @@
                 @endif
                 <td class=" ">{{$teachers->identity_card}}</td>
                 <td class=" ">@if($teachers->personal_phone != "") {{$teachers->personal_phone}} @else N/A @endif</td>
-                <td class=" ">@if($teachers->cellphone != "") {{$teachers->cellphone}} @else N/A @endif{{$teachers->cellphone}}</td>
+                <td class=" ">@if($teachers->cellphone != "") {{$teachers->cellphone}} @else N/A @endif</td>
                 <td class=" ">{{$teachers->gender}}</td>
-                <td class=" ">@if($teachers->address != "") {{$teachers->address}} @else N/A @endif{{$teachers->address}}</td>
-                <td class=" last">
+                <td class=" ">@if($teachers->address != "") {{$teachers->address}} @else N/A @endif</td>
+                <td class="last">
 
                   {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
                     {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
@@ -103,4 +108,11 @@
 @endif
 
 
+@endsection
+@section('script')
+	<script>
+        setTimeout(function() {
+            $('#Warning').fadeToggle();
+            }, 5000); // <-- time in milliseconds
+  </script>
 @endsection
