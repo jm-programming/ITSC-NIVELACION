@@ -94,31 +94,31 @@
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_first">Hora inicio de clase</label>
-			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="" >
+			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="" value="{{ old('time_first')}}">
 			                    </div>
 			                    <div class="form-group col-sm-3">
-			                        <label class="control-label" for="time_last" value="">Hora final de clase</label>
-			                        <input type="time" class="form-control" id="time_last" name="time_last">
+			                        <label class="control-label" for="time_last">Hora final de clase</label>
+			                        <input type="time" class="form-control" id="time_last" name="time_last" value="{{ old('time_last')}}">
 			                    </div>
 
 
 								<div class="form-group col-sm-3">
 			                        <label class="control-label" for="second_time_first">2da Hora inicio de clase</label>
-			                        <input type="time" class="form-control" id="second_time_first" name="second_time_first" pattern="">
+			                        <input type="time" class="form-control" id="second_time_first" name="second_time_first" value="{{ old('second_time_first')}}" pattern="">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="second_time_last">2da Hora final de clase</label>
-			                        <input type="time" class="form-control" id="second_time_last" name="second_time_last">
+			                        <input type="time" class="form-control" id="second_time_last" name="second_time_last" value="{{ old('second_time_last')}}">
 			                    </div>
 
 
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="section">Numero de Sección</label>
-			                        <input type="text" class="form-control" id="section" name="section" placeholder="Numero de Sección">
+			                        <input type="text" class="form-control" id="section" name="section" placeholder="Numero de Sección" value="{{ old('section')}}">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="quota">Cupo</label>
-			                        <input type="text" class="form-control" id="quota" name="quota">
+			                        <input type="text" class="form-control" id="quota" name="quota" value="{{ old('quota')}}">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                    	<label class="control-label" for="status">Estatus de sección</label><br>

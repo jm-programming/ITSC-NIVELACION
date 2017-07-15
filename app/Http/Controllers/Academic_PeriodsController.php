@@ -50,15 +50,23 @@ class Academic_PeriodsController extends Controller {
 		
 		//if you can optimize this code do it guys..
 		if(($monthOne == 'January' || $monthOne == 'February' || $monthOne == 'March' || $monthOne == 'April') && ($monthTwo == 'January' || $monthTwo == 'February' || $monthTwo == 'March' || $monthTwo == 'April')){
+
 			$period = $thisYear.'-1';
 		}else if(($monthOne == 'May' || $monthOne == 'June' || $monthOne == 'July' || $monthOne == 'August') && ($monthTwo == 'May' || $monthTwo == 'June' || $monthTwo == 'July' || $monthTwo == 'August')){
+
 			$period = $thisYear.'-2';
 		}else if(($monthOne == 'September' || $monthOne == 'October' || $monthOne == 'November' || $monthOne == 'December') && ($monthTwo == 'September' || $monthTwo == 'October' || $monthTwo == 'November' || $monthTwo == 'December')){
+
 			$period = $thisYear.'-3';
 		}
 		
+		$aca = Academic_periods::where('academic_period', '=', $period)
+				->get();
+		if(count($aca) > 0){
+			return redirect('/academic_periods')->with('message', 'Periodo academico ya existe...');
+		}
+
 		$this->validate($request, [
-			$period => 'unique:academic_periods,academic_period',
           	'date_first' => 'required',
 			'date_last' => 'required',
 			'status' => 'required',
@@ -150,17 +158,8 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
-	
-	try {
 		Academic_periods::destroy($id);
 		session::flash('message', 'Periodo academico eliminado correctamente...');
 		return Redirect::to('/academic_periods');
-	} 
-	catch(\Exception $e) 
-	{
-		session::flash('message2', 'el periodo que intenta eliminar se encuentra en una seccion');
-        return redirect('/academic_periods');
 	}
-}
-
 }

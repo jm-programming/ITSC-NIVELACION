@@ -42,9 +42,12 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-             'date_first' => 'required',
-            'date_last' => 'required',
-            'status' => 'required',
+             'names' => 'required',
+            'last_name' => 'required',
+            'identity_card' => 'required',
+            'civil_status' => 'required',
+            'email' => 'email',
+            'shift' => 'required',
          ]);
 
         Students::create([
