@@ -3,26 +3,27 @@
 @section('title-content', 'Empleados')
 
 
-@if(Session::has('message'))
-<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	{{ session::get('message') }}
-</div>
-@endif
 
 @section('content')
 <div class="row padding">
     <div class="col-lg-4 col-md-4">
         <div class="input-group">
             @if (count($employees) > 0)
-@include('forms.search_employee',['url'=>'employees','link'=>'employees'])
-@endif
+                    @include('forms.search_employee',['url'=>'employees','link'=>'employees'])
+            @endif
         </div>
     </div>
     <div class="text-right ">
         {!!link_to('employees/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
 </div>
+
+@if(Session::has('message'))
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ session::get('message') }}
+</div>
+@endif
 @if (count($employees) > 0)
 <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
@@ -77,10 +78,12 @@
             </tr>
         </thead>
         <tbody>
+            <?php $contador = 0;?>
             @foreach($employees as $employee)
+            <?php $contador++?>
             <tr class="even pointer">
                 <td>
-                    {{ $employee->id }}
+                    {{ $contador }}
                 </td>
                 <td>
                     {{ $employee->names }}
@@ -111,20 +114,29 @@
                     {{ $employee->civil_status}}
                 </td>
                 <td class=" last">
-                    {{ Form::open(['route'=>['employees.destroy', $employee->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
+
+                    {{-- {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['employees.destroy', $employee->id], 'method' => 'DELETE'])!!}
+                    {!! link_to_route('employees.edit', $title = 'Editar', $parameters = $employee->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
+
+                    {{-- {{ Form::open(['route'=>['employees.destroy', $employee->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
 
 
-{!! link_to_route('employees.edit', $title = 'Ver', $parameters = $employee->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
-{!! link_to_route('employees.edit', $title = 'Editar', $parameters = $employee->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                    {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $employee->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
+                    {!! link_to_route('employees.edit', $title = 'Editar', $parameters = $employee->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     <a data-target="#delete-modal" data-toggle="modal" href="#">
                         <span class="btn btn-danger btn-xs">
                             Eliminar
                         </span>
                     </a>
-                    {{ Form::close() }}
+                    {{ Form::close() }} --}}
 
 
-@include('modals.delete_modal', ['r' => 'employees.destroy', 'id' => $employee->id])
+                    @include('modals.delete_modal', ['r' => 'employees.destroy', 'id' => $employee->id])
                 </td>
             </tr>
             @endforeach

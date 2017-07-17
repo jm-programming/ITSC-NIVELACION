@@ -30,8 +30,8 @@
 	<!-- bootstrap-daterangepicker -->
 	<link href="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet"/>
 	<!-- Custom Theme Style -->
-	<link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet"/></head>
-
+	<link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet"/>
+</head>
 
 
 	<body class="nav-md">
@@ -52,8 +52,7 @@
 
 						<?php
 //obtener los caracteres que estan antes del @ y poner la primera letra en mayuscula
-$email = Auth::user()->
-	email;
+$email = Auth::user()->email;
 $name = ucfirst(strtok($email, '@'));
 ?>
 
@@ -105,8 +104,7 @@ $name = ucfirst(strtok($email, '@'));
 
 						<!-- /menu footer buttons -->
 						<div class="sidebar-footer hidden-small">
-							<a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" href="{{ route('logout') }}"
-							onclick="event.preventDefault();
+							<a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión"	onclick="event.preventDefault();
 							document.getElementById('logout-form').submit();">
 							<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 						</a>
@@ -160,7 +158,7 @@ $name = ucfirst(strtok($email, '@'));
 
 
 		<!-- /page content -->
-		<div class="right_col" role="main">
+<div class="right_col" role="main">
 			<div class="">
 				<div class="clearfix">
 				</div>
@@ -175,7 +173,9 @@ $name = ucfirst(strtok($email, '@'));
 								</div>
 							</div>
 							<div class="x_content">
-								@yield('content')
+								<div class="container">
+									@yield('content')
+								</div>
 							</div>
 						</div>
 					</div>
@@ -212,7 +212,7 @@ $name = ucfirst(strtok($email, '@'));
 <script src="{{ URL::asset('/vendors/fastclick/lib/fastclick.js') }}">
 </script>
 <!-- switch -->
-<link href="{{ URL::asset('/vendors/switchery/dist/switchery.min.js') }}" rel="stylesheet">
+<link href="{{ URL::asset('/vendors/switchery/dist/switchery.min.js') }}" rel="stylesheet"/>
 <!-- NProgress -->
 <script src="{{ URL::asset('/vendors/nprogress/nprogress.js') }}">
 </script>
@@ -270,6 +270,5 @@ $name = ucfirst(strtok($email, '@'));
 <!-- <script src="{{ URL::asset('js/app.js') }}">-->
 </script>
 @yield('script')
-
 </body>
 </html>

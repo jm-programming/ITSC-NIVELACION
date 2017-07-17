@@ -2,12 +2,17 @@
 @section('title', 'Aulas')
 
 @section('title-content', 'Aulas')
+@section('content')
 @if(Session::has('message'))
-<div class="alert alert-success">
+<div class="alert alert-success" id="Success">
     {{ session::get('message') }}
 </div>
 @endif
-@section('content')
+@if(Session::has('message2'))
+<div class="alert alert-warning" id="Warning">
+    {{ session::get('message2') }}
+</div>
+@endif
 <div class="row padding">
     <div class="col-lg-4 col-md-4">
         <div class="input-group">
@@ -52,10 +57,12 @@
             </tr>
         </thead>
         <tbody>
+            <?php $contador = 0;?>
             @foreach($classrooms as $classroom)
+            <?php $contador++;?>
             <tr class="even pointer">
                 <td>
-                    {{ $classroom->id }}
+                    {{ $contador }}
                 </td>
                 <td>
                     {{ $classroom->location }}
@@ -64,16 +71,25 @@
                     {{ $classroom->capacity }} Estudiantes
                 </td>
                 <td class=" last">
-                    {{ Form::open(['route'=>['classrooms.destroy', $classroom->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
-{!! link_to_route('classrooms.edit', $title = 'Ver', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
-{!! link_to_route('classrooms.edit', $title = 'Editar', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+
+                    {{-- {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['classrooms.destroy', $classroom->id], 'method' => 'DELETE'])!!}
+                    {!! link_to_route('classrooms.edit', $title = 'Editar', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
+
+                    {{-- {{ Form::open(['route'=>['classrooms.destroy', $classroom->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
+                    {!! link_to_route('classrooms.edit', $title = 'Ver', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
+                    {!! link_to_route('classrooms.edit', $title = 'Editar', $parameters = $classroom->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     <a data-target="#delete-modal" data-toggle="modal" href="#">
                         <span class="btn btn-danger btn-xs">
                             Eliminar
                         </span>
                     </a>
-                    {{ Form::close() }}
-@include('modals.delete_modal', ['r' => 'classrooms.destroy', 'id' => $classroom->id])
+                    {{ Form::close() }} --}}
+                    {{--@include('modals.delete_modal', ['r' => 'classrooms.destroy', 'id' => $classroom->id])--}}
                 </td>
             </tr>
             @endforeach
@@ -99,4 +115,16 @@
     </h2>
 </div>
 @endif
+@endsection
+@section('script')
+	<script>
+        setTimeout(function() {
+            $('#Warning').fadeToggle();
+            }, 5000); // <-- time in milliseconds
+
+        setTimeout(function() {
+            $('#Success').fadeToggle();
+            }, 5000); // <-- time in milliseconds
+
+  </script>
 @endsection

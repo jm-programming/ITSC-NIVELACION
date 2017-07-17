@@ -3,8 +3,9 @@
 @section('title-content', 'Periodo Academico')
 
 
-@if(Session::has('message'))
-<div class="alert alert-success">
+
+@if(Session::has('message2'))
+<div class="alert alert-warning">
     {{ session::get('message') }}
 </div>
 @endif
@@ -18,10 +19,16 @@
 @endif
         </div>
     </div>
+
     <div class="text-right ">
         {!!link_to('academic_periods/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
 </div>
+@if(Session::has('message'))
+<div class="alert alert-success">
+    {{ session::get('message') }}
+</div>
+@endif
 @if (count($academic_periods) > 0)
 <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
@@ -72,16 +79,25 @@
                     {{ $academic_period->date_last }}
                 </td>
                 <td class=" last">
-                    {{ Form::open(['route'=>['academic_periods.destroy', $academic_period->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
-{!! link_to_route('academic_periods.edit', $title = 'Ver', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
-{!! link_to_route('academic_periods.edit', $title = 'Editar', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                    {{-- {!! link_to_route('employees.edit', $title = 'Ver', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $academic_period->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['academic_periods.destroy', $academic_period->id], 'method' => 'DELETE'])!!}
+                             {!! link_to_route('academic_periods.edit', $title = 'Editar', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+
+                    {!!Form::close()!!}
+
+                    {{-- {{ Form::open(['route'=>['academic_periods.destroy', $academic_period->id, 'method'=>'DELETE'], 'class'=>'form-horizontal form-label-left"']) }}
+                    {!! link_to_route('academic_periods.edit', $title = 'Ver', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!}
+                    {!! link_to_route('academic_periods.edit', $title = 'Editar', $parameters = $academic_period->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     <a data-target="#delete-modal" data-toggle="modal" href="#">
                         <span class="btn btn-danger btn-xs">
                             Eliminar
                         </span>
                     </a>
                     {{ Form::close() }}
-@include('modals.delete_modal', ['r' => 'academic_periods.destroy', 'id' => $academic_period->id])
+                    @include('modals.delete_modal', ['r' => 'academic_periods.destroy', 'id' => $academic_period->id]) --}}
                 </td>
             </tr>
             @endforeach

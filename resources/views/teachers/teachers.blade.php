@@ -3,6 +3,11 @@
 @section('title-content', 'Profesores')
 @section('content')
 
+@if(Session::has('message'))
+<div class="alert alert-warning" id="Warning">
+    {{ session::get('message') }}
+</div>
+  @endif
  <div class="row padding">
     <div class="col-lg-4 col-md-4">
       <div class="">
@@ -56,15 +61,23 @@
                 <td class=" ">Inactivo</i></td>
                 @endif
                 <td class=" ">{{$teachers->identity_card}}</td>
-                <td class=" ">{{$teachers->personal_phone}}</td>
-                <td class=" ">{{$teachers->cellphone}}</td>
+                <td class=" ">@if($teachers->personal_phone != "") {{$teachers->personal_phone}} @else N/A @endif</td>
+                <td class=" ">@if($teachers->cellphone != "") {{$teachers->cellphone}} @else N/A @endif</td>
                 <td class=" ">{{$teachers->gender}}</td>
-                <td class=" ">{{$teachers->address}}</td>
-                <td class=" last">
-                  {!! link_to_route('teachers.edit', $title = 'Ver', $parameters = $teachers->id, $attributes = ['class' => 'label label-info']) !!}
+                <td class=" ">@if($teachers->address != "") {{$teachers->address}} @else N/A @endif</td>
+                <td class="last">
+
+                  {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+                    {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                    {!!Form::open(['route'=> ['teachers.destroy', $teachers->id], 'method' => 'DELETE'])!!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
+
+                  {{-- {!! link_to_route('teachers.edit', $title = 'Ver', $parameters = $teachers->id, $attributes = ['class' => 'label label-info']) !!}
                   {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'label label-warning']) !!}
-                  
-                  <a href="#" data-toggle="modal" data-target="#delete-modal"><span class="label label-danger">Eliminar</span></a>
+
+                  <a href="#" data-toggle="modal" data-target="#delete-modal"><span class="label label-danger">Eliminar</span></a> --}}
                 </td>
               </tr>
             @endforeach
@@ -91,8 +104,15 @@
         </figure>
         <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
     </div>
-    
+
 @endif
 
 
+@endsection
+@section('script')
+	<script>
+        setTimeout(function() {
+            $('#Warning').fadeToggle();
+            }, 5000); // <-- time in milliseconds
+  </script>
 @endsection

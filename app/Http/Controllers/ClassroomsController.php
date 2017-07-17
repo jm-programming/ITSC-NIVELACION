@@ -97,8 +97,17 @@ class ClassroomsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
+	
+	try {
 		Classrooms::destroy($id);
 		session::flash('message', 'Aula eliminada correctamente...');
 		return Redirect::to('/classrooms');
+	} 
+	catch(\Exception $e) {
+  //exception handling
+        session::flash('message2', 'el aula que intenta eliminar se encuentra asignada en una seccion');
+        return redirect('/classrooms');
+    }
+
 	}
 }

@@ -111,10 +111,16 @@
 			                        <label class="control-label" for="time_last">Hora final de clase</label>
 			                        <input type="time" class="form-control" id="time_last" name="time_last" value="{{$section->time_last}}">
 			                    </div>
+<<<<<<< HEAD
 
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="second_time_first">2da Hora inicio de clase</label>
 			                        <input type="time" class="form-control" id="second_time_first" name="second_time_first" pattern="" value="{{$section->second_time_first}}">
+=======
+			                    <div class="form-group col-sm-3">
+			                        <label class="control-label" for="second_time_first">2da Hora inicio de clase</label>
+			                        <input type="time" class="form-control" id="second_time_first" name="second_time_first" value="{{$section->second_time_first}}" pattern="">
+>>>>>>> 315b67cbe37cb3d66c8ed184d95c807fe4590d88
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="second_time_last">2da Hora final de clase</label>

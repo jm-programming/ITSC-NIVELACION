@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Students;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -43,14 +42,12 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-             'names' => 'required|max:45',
-             'last_name' => 'required|max:45',
-             'career' => 'required',
-             'email' => 'email|unique:students,email',
-             'shift' => 'required',
-             'identity_card' => 'required|min:13',
-             'condition' => 'required',
-             'birthday' => 'before:today',
+             'names' => 'required',
+            'last_name' => 'required',
+            'identity_card' => 'required',
+            'civil_status' => 'required',
+            'email' => 'email',
+            'shift' => 'required',
          ]);
 
         Students::create([
@@ -145,9 +142,8 @@ class StudentsController extends Controller
     public function destroy($id)
     {
 
-        $students = Students::find($id);
-        $students->delete();
-
+        Students::destroy($id);
+        
         session::flash('message', 'Estudiante Eliminado correctamente...');
         return redirect('/students');
     }

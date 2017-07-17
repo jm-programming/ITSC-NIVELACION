@@ -17,9 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-Route::get('home_s','HomeController@search');
-Route::resource('home','HomeController');
+Route::get('home_s', 'HomeController@search');
+Route::resource('home', 'HomeController');
 
 //routes manteniemiento estudiante
 Route::get('students_s', 'StudentsController@search');
@@ -30,12 +29,12 @@ Route::get('employees_s', 'EmployeesController@search');
 Route::resource('employees', 'EmployeesController');
 
 //routes para el mantenimiento de profesores
-Route::get('teachers_s','TeacherController@search');
-Route::resource('teachers','TeacherController');
+Route::get('teachers_s', 'TeacherController@search');
+Route::resource('teachers', 'TeacherController');
 
 //routes mantenimiento de usuarios
-Route::get('users_s', 'UsersController@search');
-Route::resource('users','UsersController');
+// Route::get('users_s', 'UsersController@search');
+// Route::resource('users','UsersController');
 
 //routes mantenimiento aulas
 Route::get('classrooms_s', 'ClassroomsController@search');
@@ -49,4 +48,5 @@ Route::resource('academic_periods', 'Academic_PeriodsController');
 Route::get('sections_s', 'SectionsController@search');
 Route::resource('sections', 'SectionsController');
 
-
+//routes mantenimiento de usuarios
+Route::resource('users', 'UserController');

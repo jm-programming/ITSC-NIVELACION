@@ -80,7 +80,7 @@
 			                    </div>
                                  <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="password">Contraseña</label>
-			                        <input type="text" class="form-control" id="password" name="password" placeholder="contraseña">
+			                        <input type="password" class="form-control" id="password" name="password" placeholder="contraseña">
 			                    </div>
 
 			                    <!-- Button -->

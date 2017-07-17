@@ -21,6 +21,7 @@ class ClassroomRequest extends FormRequest {
 	 */
 	public function rules() {
 		return [
+
 			'location' => 'required|unique:classrooms',
 			'capacity' => 'required',
 		];
