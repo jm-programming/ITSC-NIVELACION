@@ -44,6 +44,7 @@
                 </meta>
             </meta>
         </meta>
+        <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-duallistbox.min.css') }}">
     </head>
     <body class="nav-md">
         <div class="container body">
@@ -87,13 +88,16 @@
                   <a href="/home"><i class="fa fa-home"></i> Home</a>
                   </li>
                   <li>
-                  <a href="/students"><i class="fa fa-edit"></i>Estudiantes</a>
+                  <a href="/students"><i class="fa fa-edit"></i> Estudiantes</a>
                   </li>
                   <li>
-                  <a href="/teachers"><i class="fa fa-desktop"></i>Docentes</a>  
+                  <a href="/teachers"><i class="fa fa-desktop"></i> Docentes</a>  
                   </li>
                   <li>
                   <a href="/sections"><i class="fa fa-table"></i> Secciones</a> 
+                  </li>
+                  <li>
+                  <a href="/inscribed"><i class="fa fa-table"></i> Selección Asignaturas</a> 
                   </li>
                   <li>
                    <a href="/employees"><i class="fa fa-table"></i> Empleados</a>
@@ -150,7 +154,6 @@
                     <li>
                       <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
->>>>>>> origin/Development
                              document.getElementById('logout-form').submit();">
                                                 Cerrar sesión
                                                 <i class="fa fa-sign-out pull-right">
@@ -268,6 +271,7 @@
             </script>
             <script src="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.js') }}">
             </script>
+            <script src="{{ URL::asset('js/jquery.bootstrap-duallistbox.min.js') }}"></script>
             <!-- Custom Theme Scripts -->
             <script src="{{ URL::asset('js/custom.js') }}">
             </script>

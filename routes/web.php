@@ -49,4 +49,7 @@ Route::resource('academic_periods', 'Academic_PeriodsController');
 Route::get('sections_s', 'SectionsController@search');
 Route::resource('sections', 'SectionsController');
 
+//routes mantenimiento inscribed
+Route::resource('inscribed', 'InscribedController');
+
 

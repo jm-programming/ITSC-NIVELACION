@@ -23,7 +23,9 @@ class StudentsTable extends Migration {
 			$table->string('shift', 20);
 			$table->integer('inscribed_opportunity');
 			$table->boolean('debt');
-			$table->string('condition', 180);
+			$table->boolean('spanish');
+			$table->boolean('mathematics');
+			$table->boolean('institutional_orientation');
 			$table->timestamps();
 		});
 	}
