@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Validator;
 
 class SectionsController extends Controller {
 	/**
@@ -25,8 +26,10 @@ class SectionsController extends Controller {
 				$join->on('sections.subjects_id','=','subjects.id');
 			})
 			->join('classrooms',function($join){
-				$join->on('sections.classrooms_id','=','classrooms.id');
+				$join->on('sections.classrooms_id','=','classrooms.id')
+				->orWhere('sections.classrooms_id', '=', NULL);
 			})
+			
 			->paginate(8);
 
 		return view('sections.section', ['sections' => $section]);
@@ -46,10 +49,10 @@ class SectionsController extends Controller {
 				$join->on('sections.subjects_id','=','subjects.id');
 			})
 			->join('classrooms',function($join){
-				$join->on('sections.classrooms_id','=','classrooms.id');
+				$join->on('sections.classrooms_id','=','classrooms.id')
+				->orWhere('sections.classrooms_id', '=', NULL);
 			})
-			->paginate(8)
-			;
+			->paginate(8);
 		
 		
 
@@ -86,7 +89,8 @@ class SectionsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-	/*para restarle 10 minutos a la hora introducida*/	
+	
+	/*para restarle 1 minuto a la hora introducida*/	
 		 $timelast =$request->input('time_last');
 		 $secondTimeLast = $request->input('second_time_last');
 		 $timeToSubtract= 1;
@@ -100,8 +104,7 @@ class SectionsController extends Controller {
 		 $secondTimelastNewHour =date('H:i',$secondTimelastHourToSecond-$minutesToSubtract);
 	/*********************************************************************************/
 		 
-		 
-		$query = ['sections.status' =>$request->input('status'),
+	$query = 	['sections.status' =>$request->input('status'),
 				  'sections.day_one'=>$request->input('day_one'),
 				  'sections.time_first' =>$request->input('time_first'),
 				  'sections.time_last' =>$timeLastNewHour,
@@ -122,38 +125,26 @@ class SectionsController extends Controller {
 
 		$query3 = [
 				'sections.classrooms_id'=>$request->input('classrooms_id'),
-				'sections.shift'=>$request->input('shift')
+				'sections.shift'=>$request->input('shift'),
+				'sections.day_one'=>$request->input('day_one'),
+				'academic_periods_id' => $request->input('academic_periods_id')
 		];
 
-		
+		$query4 = [
+				'sections.classrooms_id'=>$request->input('classrooms_id'),
+				'sections.shift'=>$request->input('shift'),
+				'sections.day_two'=>$request->input('day_two'),
+				'academic_periods_id' => $request->input('academic_periods_id')
+		];
 
-		/*$rules = array(
-			'section'=>'required'|'unique',
-			'status'=> 'required',
-			'time_first'=>'required',
-			'time_last'=> 'required',
-			'second_time_first',
-			'second_time_last',
-			'quota'=> 'required',
-			'day_one'=> 'required',
-			'day_two',
-			'shift'=> 'required',
-			'classrooms_id'=> 'required',
-			'subjects_id'=> 'required',
-			'academic_periods_id'=> 'required',
-			'users_id'=> 'required'
-		);
 
-		$this->validate($request, $rules);*/
 
-			
 
-	
-	
-	
+
 	
 	if(!empty($request->input('day_two'))){
 
+	
 			$Section = Sections::where($query2)
 			->get();
 
@@ -163,38 +154,53 @@ class SectionsController extends Controller {
 			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
 			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'), $secondTimelastNewHour])
-			->where($query3)
+			->where($query4)
 			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
-			->where($query3)
+			->where($query4)
 			->get();
 			
-
-
 				
-			if(count($Section) > 0){
-				session::flash('message', 'la seccion que intenta crear ya existe');
-				return redirect()->back()->withInput($request->all);
-				
+	if(count($Section) > 0){
 
+				 $v = Validator::make($request->all(), [
+        		'some_non_existent_field' => 'required',
+    			]);
 
+			if ($v->fails())
+    		{
+			session::flash('message', 'hay un choque entre las secciones');
+        	 return redirect('/sections/create')
+                        ->withInput();
+    		}			
+	}
+    elseif(count($Section2) > 0){
 
-			}
-			if(count($Section2)> 0){
-			session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
-				return redirect()->back()->withInput($request->all);
+		$v = Validator::make($request->all(), [
+        		'some_non_existent_field' => 'required',
+    			]);
+
+		if ($v->fails())
+    		{
+			session::flash('message', 'las horas chocan con otra seccion');
+        	 return redirect('/sections/create')
+                        ->withInput();
+    		}
 		}
-		else{
+
+
+
+
+else{
 
 			$this->validate($request, [
 			'users_id' => 'required',
 			'shift' => 'required',
-			'classrooms_id' => 'required',
 			'day_one' => 'required',
 			'academic_periods_id' => 'required',
 			'time_first' => 'required',
 			'subjects_id' => 'required',
 			'time_last' => 'required',
-			'section' => 'required',
+			'section' => 'required|unique:sections|max:255',
 			'quota' => 'required',
 			'second_time_first'=> 'required',
 			'second_time_last'=> 'required'
@@ -231,14 +237,50 @@ class SectionsController extends Controller {
 
 
 		 
-		 
-		 
 		 if(empty($request->input('day_two')))
 		 {
+		/*
+		si el campo dia 2 llega vacio , buscar una seccion donde el 
+		estado,dia uno, hora de llegada, hora de salida, id del aula y la tanda
+		sean iguales a los introducidos en el formulario , esto lo hace el query,
+		el query2 hace lo mismo pero con los campos de la segunda hora de llegada
+		y segunda hora de salida sean iguales a los campos de primera hora de llegada
+		y segunda hora de llegada. 
+		*/
+		
+		$query = ['sections.status' =>$request->input('status'),
+				  'sections.day_one'=>$request->input('day_one'),
+				  'sections.time_first' =>$request->input('time_first'),
+				  'sections.time_last' =>$timeLastNewHour,
+				  'sections.classrooms_id'=>$request->input('classrooms_id'),
+				  'sections.shift'=>$request->input('shift'),
+				  'academic_periods_id' => $request->input('academic_periods_id')		  
+				  ];
+		
+		$query2 = ['sections.status' =>$request->input('status'),
+				  'sections.day_one'=>$request->input('day_one'),
+				  'sections.second_time_first' =>$request->input('time_first'),
+				  'sections.second_time_last' => $timeLastNewHour,
+				  'sections.classrooms_id'=>$request->input('classrooms_id'),
+				  'sections.shift'=>$request->input('shift'),
+				  'academic_periods_id' => $request->input('academic_periods_id')		  
+				  ];
+
+		$query3 = [
+				'sections.classrooms_id'=>$request->input('classrooms_id'),
+				'sections.shift'=>$request->input('shift'),
+				'sections.day_one'=>$request->input('day_one'),
+				'academic_periods_id' => $request->input('academic_periods_id')
+		];
+			
+						  
 
 
 		 $Section = Sections::where($query)
+		 ->orwhere($query2)
 			->get();
+
+
 
 		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
@@ -251,27 +293,46 @@ class SectionsController extends Controller {
 			->get();
 	
 
+	if(count($Section) > 0){
 
-			if(count($Section) > 0){
-				session::flash('message', 'la seccion que intenta crear ya existe');
-				return redirect()->back()->withInput($request->all);
+				 $v = Validator::make($request->all(), [
+        		'some_non_existent_field' => 'required',
+    			]);
+
+			if ($v->fails())
+    		{
+			session::flash('message', 'hay un choque entre las secciones');
+        	 return redirect('/sections/create')
+                        ->withInput();
+    		}
 				
-			}
-			elseif(count($Section2) > 0){
-				session::flash('message', 'las horas introducidas estan ocupadas por otra seccion');
-				return redirect()->back()->withInput($request->all);
+	}
+
+	elseif(count($Section2) > 0){
+
+		$v = Validator::make($request->all(), [
+        		'some_non_existent_field' => 'required',
+    			]);
+
+		if ($v->fails())
+    		{
+			session::flash('message', 'las horas chocan con otra seccion');
+        	 return redirect('/sections/create')
+                        ->withInput();
+    		}
 		}
-		else{
-			$this->validate($request, [
+
+else{
+			
+	$this->validate($request, [
 			'users_id' => 'required',
 			'shift' => 'required',
-			'classrooms_id' => 'required',
 			'day_one' => 'required',
 			'academic_periods_id' => 'required',
 			'time_first' => 'required',
 			'subjects_id' => 'required',
 			'time_last' => 'required',
-			'section' => 'required',
+			'section' => 'required|unique:sections|max:255',
 			'quota' => 'required',
 			]);
 
@@ -360,7 +421,6 @@ class SectionsController extends Controller {
 			'sectionsAcademic_period' => $sectionsAcademic_period, 
 			'sectionsClassrooms' => $sectionsClassrooms, 
 			]);
-
 		
 
 	}
@@ -388,79 +448,34 @@ class SectionsController extends Controller {
 	/*********************************************************************************/
 		 
 		 
-		$query = ['sections.status' =>$request->input('status'),
-				  'sections.day_one'=>$request->input('day_one'),
-				  'sections.time_first' =>$request->input('time_first'),
-				  'sections.time_last' =>$timeLastNewHour,
-				  'sections.classrooms_id'=>$request->input('classrooms_id'),
-				  'sections.shift'=>$request->input('shift'),		  
-			
-				  ];
-		
-		$query2 = ['sections.status' =>$request->input('status'),
-				  'sections.day_one'=>$request->input('day_one'),
-				  'sections.day_two'=>$request->input('day_two'),
-				  'sections.time_first' =>$request->input('time_first'),
-				  'sections.time_last' =>$timeLastNewHour,
-				  'sections.second_time_first' =>$request->input('second_time_first'),
-				  'sections.second_time_last' => $secondTimelastNewHour,
-				  'sections.classrooms_id'=>$request->input('classrooms_id'),
-				  'sections.shift'=>$request->input('shift'),	  
-				  ];
 
 		$query3 = [
 				'sections.classrooms_id'=>$request->input('classrooms_id'),
-				'sections.shift'=>$request->input('shift')
+				'sections.shift'=>$request->input('shift'),
+				'sections.day_one'=>$request->input('day_one'),
+				'academic_periods_id' => $request->input('academic_periods_id')
 		];
 
+		$query4 = [
+				'sections.classrooms_id'=>$request->input('classrooms_id'),
+				'sections.shift'=>$request->input('shift'),
+				'sections.day_two'=>$request->input('day_two'),
+				'academic_periods_id' => $request->input('academic_periods_id')
+		];
 		
-
-		/*$rules = array(
-			'section'=>'required'|'unique',
-			'status'=> 'required',
-			'time_first'=>'required',
-			'time_last'=> 'required',
-			'second_time_first',
-			'second_time_last',
-			'quota'=> 'required',
-			'day_one'=> 'required',
-			'day_two',
-			'shift'=> 'required',
-			'classrooms_id'=> 'required',
-			'subjects_id'=> 'required',
-			'academic_periods_id'=> 'required',
-			'users_id'=> 'required'
-		);
-
-		$this->validate($request, $rules);*/
-
-			
-
-	
-	
 	
 	
 	if(!empty($request->input('day_two'))){
 
-			$Section = Sections::where($query2)
-			->where('sections.id','!=', $id)
-            ->get();
-
-
 			$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
-			->where('sections.id','!=', $id)
 			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
-			->where('sections.id','!=', $id)
 			->orwhereBetween('sections.second_time_first',[$request->input('second_time_first'), $secondTimelastNewHour])
-			->where($query3)
-			->where('sections.id','!=', $id)
+			->where($query4)
 			->orwhereBetween('sections.second_time_last',[$request->input('second_time_first'), $secondTimelastNewHour])
-			->where($query3)
-			->where('sections.id','!=', $id)
+			->where($query4)
 			->get();
-			
 
 
 				
@@ -512,21 +527,24 @@ class SectionsController extends Controller {
 		 {
 
 
-		 $Section = Sections::where('sections.section','=', $request->input('section'))
-            ->get();
+		 $query3 = [
+				'sections.classrooms_id'=>$request->input('classrooms_id'),
+				'sections.shift'=>$request->input('shift'),
+				'sections.day_one'=>$request->input('day_one'),
+				'academic_periods_id' => $request->input('academic_periods_id')
+		];
+			
+						  
+
 
 		$Section2 = Sections::whereBetween('sections.time_first',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
-			->where('sections.id','!=', $id)
 			->orwhereBetween('sections.time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
-			->where('sections.id','!=', $id)
 			->orwhereBetween('sections.second_time_first',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
-			->where('sections.id','!=', $id)
 			->orwhereBetween('sections.second_time_last',[$request->input('time_first'),$timeLastNewHour])
 			->where($query3)
-			->where('sections.id','!=', $id)
 			->get();
 	
 

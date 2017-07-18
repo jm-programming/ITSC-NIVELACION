@@ -29,7 +29,7 @@
 			                        <select id="subjects_id" name="subjects_id" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($subject as $subjects)
-			                        	<option value="{{$subjects->id}}">{{$subjects->subject}} </option>
+			                        	<option value="{{$subjects->id}}" @if(old('subjects_id') == $subjects->id) {{ 'selected' }} @endif>{{$subjects->subject}} </option>
 			                        	@endforeach
 			                        </select>
 			                    </div>
@@ -38,16 +38,16 @@
 			                        <select id="users_id" name="users_id" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($teacher as $teachers)
-				                        	<option value="{{$teachers->id}}">{{$teachers->names}} {{$teachers->last_name}}</option>
+				                        	<option value="{{$teachers->id}}" @if(old('users_id') == $teachers->id) {{ 'selected' }} @endif>{{$teachers->names}} {{$teachers->last_name}}</option>
 			                        	@endforeach
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="shift">Tanda</label>
 			                        <select id="shift" name="shift" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	<option>Matutina</option>
-			                        	<option>Nocturna</option>
+			                        	<option disabled selected value>-- select an option --</option>
+			                        	<option @if(old('shift') == 'Matutina') {{ 'selected' }} @endif>Matutina</option>
+			                        	<option @if(old('shift') == 'Nocturna') {{ 'selected' }} @endif>Nocturna</option>
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
@@ -55,32 +55,34 @@
 			                        <select id="classrooms_id" name="classrooms_id" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($classroom as $classrooms)
-			                        	<option value="{{$classrooms->id}}">{{$classrooms->location}} </option>
-			                        	@endforeach
+									
+										<option value="{{$classrooms->id}}" @if(old('classrooms_id') == $classrooms->id) {{ 'selected' }} @endif>{{$classrooms->location}} </option>
+			                        	
+										@endforeach
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="day_one">Primer dia</label>
 			                        <select id="day_one" name="day_one" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	<option >Lunes </option>
-			                        	<option >Martes </option>
-			                        	<option >Miercoles </option>
-			                        	<option >Jueves </option>
-			                        	<option >Viernes </option>
-			                        	<option >Sabado </option>
+			                        	<option disabled selected value>-- select an option --</option>
+			                        	<option @if(old('day_one') == 'Lunes') {{ 'selected' }} @endif>Lunes</option>
+			                        	<option @if(old('day_one') == 'Martes') {{ 'selected' }} @endif>Martes </option>
+			                        	<option @if(old('day_one') == 'Miercoles') {{ 'selected' }} @endif>Miercoles </option>
+			                        	<option @if(old('day_one') == 'Jueves') {{ 'selected' }} @endif>Jueves </option>
+			                        	<option @if(old('day_one') == 'Viernes') {{ 'selected' }} @endif>Viernes </option>
+			                        	<option @if(old('day_one') == 'Sabado') {{ 'selected' }} @endif>Sabado </option>
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="day_two">Segundo dia</label>
 			                        <select id="day_two" name="day_two" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	<option >Lunes </option>
-			                        	<option >Martes </option>
-			                        	<option >Miercoles </option>
-			                        	<option >Jueves </option>
-			                        	<option >Viernes </option>
-			                        	<option >Sabado </option>
+			                        	<option disabled selected value>-- select an option --</option>
+			                        	<option @if(old('day_two') == 'Lunes') {{ 'selected' }} @endif>Lunes</option>
+			                        	<option @if(old('day_two') == 'Martes') {{ 'selected' }} @endif>Martes </option>
+			                        	<option @if(old('day_two') == 'Miercoles') {{ 'selected' }} @endif>Miercoles </option>
+			                        	<option @if(old('day_two') == 'Jueves') {{ 'selected' }} @endif>Jueves </option>
+			                        	<option @if(old('day_two') == 'Viernes') {{ 'selected' }} @endif>Viernes </option>
+			                        	<option @if(old('day_two') == 'Sabado') {{ 'selected' }} @endif>Sabado </option>
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
@@ -88,8 +90,10 @@
 			                        <select id="academic_periods_id" name="academic_periods_id" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	@foreach($academic_period as $academic_periods)
-			                        	<option value="{{$academic_periods->id}}">{{$academic_periods->academic_period}} </option>
-			                        	@endforeach
+			                        	
+										<option value="{{$academic_periods->id}}" @if(old('academic_periods_id') == $academic_periods->id) {{ 'selected' }} @endif>{{$academic_periods->academic_period}} </option>
+			                        	
+										@endforeach
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-3">

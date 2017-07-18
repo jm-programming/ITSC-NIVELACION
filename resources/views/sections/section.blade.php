@@ -58,6 +58,7 @@
                 <th class="column-title">
                     Tanda
                 </th>
+                
                 <th class="column-title no-link last">
                     <span class="nobr">
                         Acción
@@ -102,7 +103,11 @@
                     {{$section->time_first}} / {{$section->time_last}}
                 </td>
                 <td class=" ">
-                    {{$section->second_time_first}} / {{$section->second_time_last}}
+                @if(empty($section->second_time_first) && empty($section->second_time_last))
+                    NULL / NULL
+                @else
+                {{$section->second_time_first}} / {{$section->second_time_last}}
+                 @endif    
                 </td>
                 <td class=" ">
                     {{$section->shift}}
