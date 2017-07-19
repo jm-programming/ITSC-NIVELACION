@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Validator;
-
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 class SectionsController extends Controller {
 	/**
 	 * Display a listing of the resource.
@@ -223,6 +224,19 @@ else{
 			'second_time_last'=>$secondTimelastNewHour,
 					  
 		]);
+
+			/*$userModel = Auth::user();
+            $someContentModel = $seccion;
+            activity('Seccion')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Crear');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;*/
 
 		session::flash('message', 'Sección creado correctamente...');
 		return redirect("/sections");

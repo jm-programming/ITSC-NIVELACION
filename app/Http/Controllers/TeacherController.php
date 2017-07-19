@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class TeacherController extends Controller
 {
@@ -159,8 +161,20 @@ class TeacherController extends Controller
             $user->rolls_id = 2;
 
             $user->save();
-         
-             
+
+           
+            $userModel = Auth::user();
+            $someContentModel = $user;
+            activity('Profesor')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Crear');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
             return redirect('/teachers');
         } 
 
@@ -198,9 +212,22 @@ class TeacherController extends Controller
             
         ]);
 
+
         $user->save();
 
- 
+            $userModel = Auth::user();
+            $someContentModel = $user;
+            activity('Profesor')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Editar');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
+
         return redirect('/teachers');
 
        
@@ -211,6 +238,19 @@ class TeacherController extends Controller
     try {
         $user = User::find($id);
         $user->delete();
+
+            $userModel = Auth::user();
+            $someContentModel = $user;
+            activity('Profesor')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Borrar');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
 
         return redirect('/teachers');
   //code causing exception to be thrown
