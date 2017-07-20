@@ -175,10 +175,10 @@ class TeacherController extends Controller
             $lastLoggedActivity->causer; //returns an instance of your user model
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
-
+            return redirect('/teachers');
         }
         catch(\Exception $e){
-            return redirect('/teachers');
+            return redirect('teachers/create');
         }
 
         } 

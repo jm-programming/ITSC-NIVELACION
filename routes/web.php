@@ -52,4 +52,5 @@ Route::resource('sections', 'SectionsController');
 //routes mantenimiento inscribed
 Route::resource('inscribed', 'InscribedController');
 
-
+//routes mantenimiento historico
+Route::resource('log','LogController');

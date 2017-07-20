@@ -114,7 +114,7 @@
                   <a href="/academic_periods"><i class="fa fa-table"></i> Periodos Academicos</a> 
                   </li>
                   <li>
-                  <a href="#"><i class="fa fa-table"></i> Auditoria</a>
+                  <a href="/log"><i class="fa fa-table"></i> Historico</a>
                   </li>
                   <li>
                   <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
