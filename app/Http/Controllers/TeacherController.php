@@ -140,7 +140,7 @@ class TeacherController extends Controller
               solicitud que recibe del formulario, luego se crea la variable bpw de bcrypt 
               password para encryptar esa informacion y se le pasa como valor al modelo de User 
               para que la password sea igual a la clave encryptada*/
- 
+        try{
             $user = new User;
             $pw = $request->password;
             $bpw = bcrypt($pw);
@@ -168,14 +168,19 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Crear');
+            ->log('Usuario:'.Auth::user()->names.',Creo :'.$user->names);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
             $lastLoggedActivity->causer; //returns an instance of your user model
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
+
+        }
+        catch(\Exception $e){
             return redirect('/teachers');
+        }
+
         } 
 
 
@@ -190,7 +195,7 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id){
 
-
+        try{
         $user = User::find($id);
         $pw = $request->password;
         $bpw = bcrypt($pw);
@@ -220,7 +225,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Editar');
+            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -229,9 +234,16 @@ class TeacherController extends Controller
             $lastLoggedActivity->log_name;
 
         return redirect('/teachers');
-
+        }
+        catch(\Exception $e) {
+  
+        return redirect('/teachers');
+    }
        
     }
+
+
+
 
     public function destroy($id)
     {
@@ -244,7 +256,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Borrar');
+            ->log('Usuario:'.Auth::user()->names.',Borro :'.$user->names);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
