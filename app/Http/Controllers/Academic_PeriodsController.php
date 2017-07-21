@@ -8,7 +8,8 @@ use App\Http\Requests\Academic_period_editRequest;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
-
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 class Academic_PeriodsController extends Controller {
 	/**
 	 * Display a listing of the resource.
@@ -66,14 +67,35 @@ class Academic_PeriodsController extends Controller {
 			'date_first' => 'required',
 			'date_last' => 'required',
 			'status' => 'required',
+
 		]);
 
-		Academic_periods::create([
-			'academic_period' => $period,
-			'date_first' => $request['date_first'],
-			'date_last' => $request['date_last'],
-			'status' => $request['status'],
-		]);
+		
+		$Academic_periods = new Academic_periods;
+
+		$Academic_periods->academic_period = $period;
+        $Academic_periods->date_first = $request['date_first'];
+        $Academic_periods->date_last = $request['date_last'];
+        $Academic_periods->status = $request['status'];
+		$Academic_periods->save();
+
+		 
+
+
+			$userModel = Auth::user();
+            $someContentModel = $Academic_periods;
+            activity('perido_academico')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Crear');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
+
+
 		return redirect('/academic_periods')->with('message', 'Periodo academico creado con exito...');
 	}
 
@@ -142,6 +164,19 @@ class Academic_PeriodsController extends Controller {
 		]);
 		$academic_periods->save();
 
+		$userModel = Auth::user();
+            $someContentModel = $academic_periods;
+            activity('perido_academico')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Editar');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
+
 		session::flash('message', 'Periodo academico editado correctamente...');
 		return Redirect::to('/academic_periods');
 	}
@@ -153,8 +188,25 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
+		/*$academic_periods = Academic_periods::find($id);*/
 		Academic_periods::destroy($id);
 		session::flash('message', 'Periodo academico eliminado correctamente...');
+		
+		/*$userModel = Auth::user();
+            $someContentModel = $academic_periods;
+            activity('perido_academico')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Editar');
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;*/
+
+		
 		return Redirect::to('/academic_periods');
+
 	}
 }

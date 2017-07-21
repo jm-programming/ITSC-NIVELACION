@@ -69,10 +69,18 @@ $name = ucfirst(strtok($email, '@'));
 						<!-- /menu profile quick info -->
 
 						<br />
-		<!-- sidebar menu -->
-						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-							<div class="menu_section">
-								 <ul class="nav side-menu">
+
+
+
+            <?php           
+            $roll = Auth::user()->rolls_id;
+            ?>
+            @if($roll == 1 || $roll == 3)
+            
+    <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                 <ul class="nav side-menu">
    <li>
    <a href="/home"><i class="fa fa-home"></i> Home</a>
    </li>
@@ -101,27 +109,46 @@ $name = ucfirst(strtok($email, '@'));
    <a href="#"><i class="fa fa-table"></i> Auditoria</a>
    </li>
    <li>
-   <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   <a href="/cites"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
    </li>
  </ul>
-							</div>
-						</div>
-						<!-- /sidebar menu -->
+              </div>
+            </div>
+            <!-- /sidebar menu -->
 
-						<!-- /menu footer buttons -->
-						<div class="sidebar-footer hidden-small">
-							<a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión"	onclick="event.preventDefault();
-							document.getElementById('logout-form').submit();">
-							<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-						</a>
-						<a data-toggle="tooltip" data-placement="top" title="Editar cuenta">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true" href="#"></span>
-						</a>
-					</div>
-					<!-- /menu footer buttons -->
-				</div>
-			</div>
 
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Editar cuenta">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true" href="#"></span>
+            </a>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+            @else
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li>
+                  <a href="/home"><i class="fa fa-home"></i> Home</a>
+                  </li>
+                  <li>
+                  <a href="#"><i class="fa fa-edit"></i>Secciones</a>
+                  </li>
+                  <li>
+                  <a href="#"><i class="fa fa-table"></i> Calificaciones</a>  
+                  </li>
+                </ul>
+              </div>
+              </div>
+            @endif
+
+            <!-- /sidebar menu -->
 
 
 			<!-- top navigation -->

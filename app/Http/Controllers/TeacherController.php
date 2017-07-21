@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class TeacherController extends Controller
 {
@@ -138,7 +140,7 @@ class TeacherController extends Controller
               solicitud que recibe del formulario, luego se crea la variable bpw de bcrypt 
               password para encryptar esa informacion y se le pasa como valor al modelo de User 
               para que la password sea igual a la clave encryptada*/
- 
+        try{
             $user = new User;
             $pw = $request->password;
             $bpw = bcrypt($pw);
@@ -159,9 +161,26 @@ class TeacherController extends Controller
             $user->rolls_id = 2;
 
             $user->save();
-         
-             
+
+           
+            $userModel = Auth::user();
+            $someContentModel = $user;
+            activity('Profesor')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Usuario:'.Auth::user()->names.',Creo :'.$user->names);
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
             return redirect('/teachers');
+        }
+        catch(\Exception $e){
+            return redirect('teachers/create');
+        }
+
         } 
 
 
@@ -176,7 +195,7 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id){
 
-
+        try{
         $user = User::find($id);
         $pw = $request->password;
         $bpw = bcrypt($pw);
@@ -198,19 +217,52 @@ class TeacherController extends Controller
             
         ]);
 
+
         $user->save();
 
- 
-        return redirect('/teachers');
+            $userModel = Auth::user();
+            $someContentModel = $user;
+            activity('Profesor')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names);
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
 
+        return redirect('/teachers');
+        }
+        catch(\Exception $e) {
+  
+        return redirect('/teachers');
+    }
        
     }
+
+
+
 
     public function destroy($id)
     {
     try {
         $user = User::find($id);
         $user->delete();
+
+            $userModel = Auth::user();
+            $someContentModel = $user;
+            activity('Profesor')
+            ->causedBy($userModel)
+            ->performedOn($someContentModel)
+            ->log('Usuario:'.Auth::user()->names.',Borro :'.$user->names);
+            
+            $lastLoggedActivity = Activity::all()->last();
+            $lastLoggedActivity->subject; //returns an instance of an eloquent model
+            $lastLoggedActivity->causer; //returns an instance of your user model
+            $lastLoggedActivity->description; //returns 'Look, I logged something'
+            $lastLoggedActivity->log_name;
 
         return redirect('/teachers');
   //code causing exception to be thrown

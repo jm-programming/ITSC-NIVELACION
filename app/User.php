@@ -6,8 +6,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable {
-	use Notifiable;
-
+	use Notifiable;	
+	
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -27,6 +27,13 @@ class User extends Authenticatable {
 		'password', 'remember_token',
 	];
 
+
+	public function setPasswordAttribute($valor){
+		if(!empty($valor)){
+			$this->attributes['password'] = \Hash::make($valor);
+		}
+	}
+	
 	public function historical_activities() {
 		return $this->belongsTo('App\Historical_activities');
 	}
@@ -34,4 +41,6 @@ class User extends Authenticatable {
 	public function rolls() {
 		return $this->hasOne('App\Rolls');
 	}
+
+	
 }

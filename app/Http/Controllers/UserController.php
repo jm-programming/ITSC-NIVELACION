@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Session;
+use Redirect;
+
+
 
 class UserController extends Controller {
 	/**
@@ -32,7 +36,7 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		//
+
 	}
 
 	/**
@@ -66,7 +70,17 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
-		//
+		
+
+		$users = User::find($id);
+		$users->fill($request->all());
+		$users->save();
+		//Session::flash('message','Usuario editado con exito...');
+		//return redirect('/home')->with('message', 'Usuario editado con exito...');
+		
+		session::flash('message', 'Usuario editado correctamente...');
+		return Redirect::to('/home');
+ 
 	}
 
 	/**
@@ -78,4 +92,6 @@ class UserController extends Controller {
 	public function destroy($id) {
 		//
 	}
-}
+
+
+	}

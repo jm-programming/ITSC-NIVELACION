@@ -32,9 +32,6 @@ Route::resource('employees', 'EmployeesController');
 Route::get('teachers_s', 'TeacherController@search');
 Route::resource('teachers', 'TeacherController');
 
-//routes mantenimiento de usuarios
-// Route::get('users_s', 'UsersController@search');
-// Route::resource('users','UsersController');
 
 //routes mantenimiento aulas
 Route::get('classrooms_s', 'ClassroomsController@search');
@@ -52,4 +49,9 @@ Route::resource('sections', 'SectionsController');
 Route::resource('users', 'UserController');
 
 //routes mantenimiento inscribed
-Route::resource('inscribed', 'InscribedController');
+
+
+//routes mantenimiento historico
+ 
+//routes mantenimiento de citas de idiomas
+Route::resource('cites','Language_quotesController');

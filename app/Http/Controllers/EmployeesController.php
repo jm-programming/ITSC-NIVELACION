@@ -19,13 +19,11 @@ class EmployeesController extends Controller {
 	 */
 	public function index() {
 
-		/*$employees = User::orderBy('names', 'asc')
-			        ->where('users.rolls_id', '=', 3)
-		*/
-		$employees = User::all();
-
-		//return view('employees.employee', ['employees' => $employees]);
-		dd($employees);
+		$employees = User::orderBy('names', 'asc')
+			        ->where('users.rolls_id', '=', 3)->paginate(5);
+		
+		return view('employees.employee', ['employees' => $employees]);
+		
 	}
 
 	/**

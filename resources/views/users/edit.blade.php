@@ -22,7 +22,7 @@
 
 			                    <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="nombres">Contraseña</label>
-			                        <input type="password" class="form-control" id="last_name" name="last_name" value="{{ $users->password }}">
+			                        <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}">
 			                    </div>
 
 			                    {!! Form::submit('Editar Usuario',['class' => 'btn btn-primary btn-block']) !!}
