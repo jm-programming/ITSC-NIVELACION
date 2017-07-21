@@ -13,7 +13,7 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		return view('users.user');
+
 	}
 
 	/**
@@ -52,9 +52,10 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		$usuario = User::find($id);
-		//return view('users.edit', ['usuario' => $usuario]);
-		dd($usuario);
+		$users = User::find($id);
+
+		return view('users.edit', ['users' => $users]);
+		//dd($usuario);
 	}
 
 	/**

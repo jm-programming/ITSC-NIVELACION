@@ -49,15 +49,26 @@
 			                        <label class="control-label" for="nombres">Email</label>
 			                        <input type="email" class="form-control" id="email" name="email" value="{{$student->email}}">
 			                    </div>
-			                    <h4>Información Universitaria del estudiante</h4>
-			                    <div class="form-group col-sm-6">
-			                    	{!! Form::label('condition', 'Condición') !!}
-			                        {!!Form::select('condition',[
-			                        	'Lengua Española 100 / Matematica 100' => 'Lengua Española 100 / Matematica 100',
-			                        	'Lengua Española 100' => 'Lengua Española 100',
-			                        	'Matematica 100' => 'Matematica 100',
-			                        ],null,['class' => 'form-control'])!!}
-			                    </div>
+			                    <h4>Información Universitaria del estudiante</h4><br>
+			                    <h5>Condición del estudiante.</h5>
+			                    <div class="form-group col-sm-4">
+							        {!!Form::label('spanish','Lengua Española 100',['class'=>'control-label'])!!}<br>
+							        {!!Form::radio('spanish', '1')!!} Activo.
+							        <br>
+							        {!!Form::radio('spanish', '0')!!} Inactivo.
+							    </div>
+							    <div class="form-group col-sm-4">
+							        {!!Form::label('mathematics','Matematica 100',['class'=>'control-label'])!!}<br>
+							        {!!Form::radio('mathematics', '1')!!} Activo.
+							        <br>
+							        {!!Form::radio('mathematics', '0')!!} Inactivo.
+							    </div>
+							    <div class="form-group col-sm-4">
+							        {!!Form::label('institutional_orientation','Orientación Institucional',['class'=>'control-label'])!!}<br>
+							        {!!Form::radio('institutional_orientation', '1')!!} Activo.
+							        <br>
+							        {!!Form::radio('institutional_orientation', '0')!!} Inactivo.
+							    </div>
 			                    <div class="form-group col-sm-6">
 			                    	{!! Form::label('shift', 'Tanda') !!}
 			                        {!!Form::select('shift',[

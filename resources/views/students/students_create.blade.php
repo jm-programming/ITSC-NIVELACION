@@ -52,15 +52,6 @@
 			                    </div>
 			                    <h4>Información Universitaria del estudiante</h4>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="nombres">Condición nivelación</label>
-			                        <select id="condition" name="condition" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	<option>Lengua Española 100 / Matematica 100</option>
-			                        	<option>Lengua Española 100</option>
-			                        	<option>Matematica 100</option>
-			                        </select>
-			                    </div>
-			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Tanda</label>
 			                        <select id="shift" name="shift" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
@@ -68,7 +59,7 @@
 			                        	<option>Nocturna</option>
 			                        </select>
 			                    </div>
-			                    <div class="form-group col-sm-12">
+			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Carrera</label>
 			                        <select id="career" name="career" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>

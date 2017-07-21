@@ -50,3 +50,6 @@ Route::resource('sections', 'SectionsController');
 
 //routes mantenimiento de usuarios
 Route::resource('users', 'UserController');
+
+//routes mantenimiento inscribed
+Route::resource('inscribed', 'InscribedController');

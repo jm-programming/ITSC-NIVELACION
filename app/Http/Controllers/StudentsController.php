@@ -58,11 +58,13 @@ class StudentsController extends Controller
             'birthday' => $request->input('birthday'),
             'identity_card' => $request->input('identity_card'),
             'civil_status' => $request->input('civil_status'),
-            'email'=> $request->input('email'),
-            'shift'=> $request->input('shift'),
-            'condition'=> $request->input('condition'),
-            'debt'=> 0,
-            'inscribed_opportunity'=> 0,
+            'email' => $request->input('email'),
+            'shift' => $request->input('shift'),
+            'spanish'=> 1,
+            'mathematics' => 1,
+            'institutional_orientation' => 1,
+            'debt' => 0,
+            'inscribed_opportunity' => 0,
         ]);
 
         session::flash('message', 'Estudiante creado correctamente...');
@@ -120,7 +122,6 @@ class StudentsController extends Controller
              'email' => 'email',
              'shift' => 'required',
              'identity_card' => 'required|min:13',
-             'condition' => 'required',
              'birthday' => 'before:today',
          ]);
 

@@ -24,10 +24,27 @@ class HomeController extends Controller {
 	 */
 	public function index() {
 
-		$query = User::orderBy('names', 'asc')
-			->paginate(8);
-
+		$query = User::orderBy('names', 'asc')->paginate(8);
 		return view('home', ['query' => $query]);
+
+		//return view('layouts.landingPage', ['users' => $users]);
+
+	}
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit($id) {
+		$users = User::find($id);
+
+		return view('users.edit', ['users' => $users]);
+
+	}
+
+	public function store(Request $request) {
+
 	}
 
 	public function search(Request $request) {

@@ -13,7 +13,7 @@ class Sections extends Model
     ];
 
     public function subjects(){
-    	return $this->hasOne('App\Subjects');
+        return $this->belongsTo('App\Subjects');
     }
 
     public function classrooms(){

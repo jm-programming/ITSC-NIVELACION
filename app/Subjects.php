@@ -9,7 +9,7 @@ class Subjects extends Model
     protected $table = 'subjects';
 
     public function sections(){
-    	return $this->belongsTo('App\Sections');
+    	return $this->hasMany('App\Sections');
     }
 
     public function teachers(){

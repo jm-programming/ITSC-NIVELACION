@@ -86,7 +86,15 @@
                     {{$students->shift}}
                 </td>
                 <td class=" ">
-                    {{$students->condition}}
+                    @if($students->spanish == 1)
+                        Lengua Española / <br>
+                    @endif
+                    @if($students->mathematics == 1)
+                        Matematica / <br>
+                    @endif
+                    @if($students->institutional_orientation == 1)
+                        Orientación Institucional 
+                    @endif
                 </td>
                 <td class=" last">
                     {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
