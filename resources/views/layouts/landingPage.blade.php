@@ -31,6 +31,11 @@
                                                             <!-- Custom Theme Style -->
                                                             <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
                                                             </link>
+                                                            <link href="{{ URL::asset('js/datatable/media/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+                                                            </link>
+                                                            <link href="{{ URL::asset('js/datatable/extensions/Buttons/css/buttons.dataTables.min.css') }}" rel="stylesheet">
+                                                            </link>
+                                                            
                                                         </link>
                                                     </link>
                                                 </link>
@@ -299,6 +304,18 @@
             <script src="{{ URL::asset('js/custom.js') }}">
             </script>
             <!-- <script src="{{ URL::asset('js/app.js') }}">-->
+            </script>
+            <script src="{{ URL::asset('js/datatable/media/js/jquery.dataTables.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/datatable/media/js/dataTables.bootstrap.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/datatable/extensions/Buttons/js/dataTables.buttons.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/pdfmake.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/vfs_fonts.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/datatable/extensions/Buttons/js/buttons.html5.min.js') }}">
             </script>
             @yield('script')
         </link>
