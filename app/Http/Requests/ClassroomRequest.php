@@ -23,7 +23,7 @@ class ClassroomRequest extends FormRequest {
 		return [
 
 			'location' => 'required|unique:classrooms',
-			'capacity' => 'required',
+			'capacity' => 'required|numeric|min:3|max:35',
 		];
 	}
 }

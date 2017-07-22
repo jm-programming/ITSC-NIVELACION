@@ -83,6 +83,12 @@ class ClassroomsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+
+		$this->validate($request, [
+             'location' => 'required',
+             'capacity'=>'required|numeric|min:3|max:35',
+           ]);
+
 		$classrooms = Classrooms::find($id);
 		$classrooms->fill($request->all());
 		$classrooms->save();

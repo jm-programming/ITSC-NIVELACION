@@ -70,7 +70,7 @@ use Illuminate\Validation\Rule;
 use Validator;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
-
+}
 class SectionsController extends Controller {
 	/**
 	 * Display a listing of the resource.

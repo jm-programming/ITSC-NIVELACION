@@ -119,7 +119,7 @@ class StudentsController extends Controller
              'names' => 'required|max:45',
              'last_name' => 'required|max:45',
              'career' => 'required',
-             'email' => 'email',
+             'email' => 'email|unique',
              'shift' => 'required',
              'identity_card' => 'required|min:13',
              'birthday' => 'before:today',
