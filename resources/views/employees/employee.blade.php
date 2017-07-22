@@ -23,7 +23,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ session::get('message') }}
 </div>
-@endif
+@endif 
 @if (count($employees) > 0)
 <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">

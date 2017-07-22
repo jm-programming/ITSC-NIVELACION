@@ -54,4 +54,7 @@ Route::resource('users', 'UserController');
 //routes mantenimiento historico
  
 //routes mantenimiento de citas de idiomas
-Route::resource('cites','Language_quotesController');
+Route::resource('languages','Language_quotesController');
+
+//routes mantenimiento de Subjects
+Route::resource('subjects', 'SubjectController');

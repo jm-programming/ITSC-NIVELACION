@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Language_quotes;
+use App\Http\Requests\Languages_quotes_Request;
+use Session;
+Use Redirect;
+
 class Language_quotesController extends Controller
 {
     /**
@@ -15,7 +19,7 @@ class Language_quotesController extends Controller
     public function index()
     {
         $language = Language_quotes::paginate(2);
-        return view('language.index',['language' => $language]);
+        return view('languages.index',['language' => $language]);
     }
 
     /**
@@ -25,7 +29,8 @@ class Language_quotesController extends Controller
      */
     public function create()
     {
-        //
+        $language = Language_quotes::all();
+        return view('languages.create', ['languages' => $language]);
     }
 
     /**
@@ -34,9 +39,23 @@ class Language_quotesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Languages_quotes_Request $request)
     {
-        //
+        Language_quotes::create([
+            'names' => $request['names'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'], 
+            'matricula' => $request['matricula'],
+            'identity_card' => $request['identity_card'],
+            'career' => $request['career'],
+            'birthday' => $request['birthday'],
+            'date' => $request['date'],
+            'time' => $request['time'],
+            'location' => $request['location'],
+
+        ]);
+
+        return redirect('/languages')->with('message', 'Cita creada con exito...');
     }
 
     /**
@@ -50,6 +69,7 @@ class Language_quotesController extends Controller
         //
     }
 
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,7 +78,8 @@ class Language_quotesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $languages = Language_quotes::find($id);
+        return view('languages.edit', ['languages' => $languages]);
     }
 
     /**
@@ -68,9 +89,13 @@ class Language_quotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Languages_quotes_Request $request, $id)
     {
-        //
+        $languages = Language_quotes::find($id);
+        $languages->fill($request->all());
+        $languages->save();
+        session::flash('message', 'Cita editada correctamente...');
+        return Redirect::to('/languages');
     }
 
     /**
@@ -81,6 +106,8 @@ class Language_quotesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Language_quotes::destroy($id);
+        session::flash('message', 'Cita eliminada correctamente...');
+        return Redirect::to('/languages');
     }
 }

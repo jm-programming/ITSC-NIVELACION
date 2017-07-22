@@ -33,7 +33,29 @@
                                                         <link href="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
                                                             <!-- Custom Theme Style -->
                                                             <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
+                                                            </link>
+                                                            <link href="{{ URL::asset('js/datatable/media/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+                                                            </link>
+                                                            <link href="{{ URL::asset('js/datatable/extensions/Buttons/css/buttons.dataTables.min.css') }}" rel="stylesheet">
+                                                            </link>
+                                                            
+                                                        </link>
+                                                    </link>
+                                                </link>
+                                            </link>
+                                        </link>
+                                    </link>
+                                </link>
+                            </link>
+                        </link>
+                    </meta>
+                </meta>
+            </meta>
+        </meta>
 
+ <link href="  {{URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-duallistbox.min.css') }}">
     </head>
     <body class="nav-md">
@@ -109,7 +131,10 @@ $name = ucfirst(strtok($email, '@'));
    <a href="#"><i class="fa fa-table"></i> Auditoria</a>
    </li>
    <li>
-   <a href="/cites"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   <a href="/languages"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   </li>
+   <li>
+   <a href="/subjects"><i class="fa fa-bar-chart-o"></i> Materias</a>
    </li>
  </ul>
               </div>
@@ -213,6 +238,7 @@ $name = ucfirst(strtok($email, '@'));
 							<div class="x_content">
 								<div class="container">
 									@yield('content')
+                 
 								</div>
 							</div>
 						</div>
@@ -237,76 +263,94 @@ $name = ucfirst(strtok($email, '@'));
 
 </div>
 
-<!-- jQuery -->
-<script src="{{ URL::asset('/vendors/jquery/dist/jquery.min.js') }}">
-</script>
-<!-- Bootstrap -->
-<script src="{{ URL::asset('/vendors/bootstrap/dist/js/bootstrap.min.js') }}">
-</script>
-{{-- input mask --}}
-<script src="{{ URL::asset('js/jquery.inputmask.bundle.min.js') }}">
-</script>
-<!-- FastClick -->
-<script src="{{ URL::asset('/vendors/fastclick/lib/fastclick.js') }}">
-</script>
-<!-- switch -->
-<link href="{{ URL::asset('/vendors/switchery/dist/switchery.min.js') }}" rel="stylesheet"/>
-<!-- NProgress -->
-<script src="{{ URL::asset('/vendors/nprogress/nprogress.js') }}">
-</script>
-<!-- Chart.js -->
-<script src="{{ URL::asset('/vendors/Chart.js/dist/Chart.min.js') }}">
-</script>
-<!-- gauge.js -->
-<script src="{{ URL::asset('/vendors/gauge.js/dist/gauge.min.js') }}">
-</script>
-<!-- bootstrap-progressbar -->
-<script src="{{ URL::asset('/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}">
-</script>
-<!-- iCheck -->
-<script src="{{ URL::asset('/vendors/iCheck/icheck.min.js') }}">
-</script>
-<!-- Skycons -->
-<script src="{{ URL::asset('/vendors/skycons/skycons.js') }}">
-</script>
-<!-- Flot -->
-<script src="{{ URL::asset('/vendors/Flot/jquery.flot.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/Flot/jquery.flot.pie.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/Flot/jquery.flot.time.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/Flot/jquery.flot.stack.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/Flot/jquery.flot.resize.js') }}">
-</script>
-<!-- Flot plugins -->
-<script src="{{ URL::asset('/vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/flot-spline/js/jquery.flot.spline.min.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/flot.curvedlines/curvedLines.js') }}">
-</script>
-<!-- DateJS -->
-<script src="{{ URL::asset('/vendors/DateJS/build/date.js') }}">
-</script>
-<!-- JQVMap -->
-<script src="{{ URL::asset('/vendors/jqvmap/dist/jquery.vmap.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}">
-</script>
-<!-- bootstrap-daterangepicker -->
-<script src="{{ URL::asset('/vendors/moment/min/moment.min.js') }}">
-</script>
-<script src="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.js') }}">
-</script>
-<!-- Custom Theme Scripts -->
-<script src="{{ URL::asset('js/custom.js') }}">
-</script>
-<!-- <script src="{{ URL::asset('js/app.js') }}">-->
-</script>
-@yield('script')
-</body>
+
+        <!-- jQuery -->
+        <script src="{{ URL::asset('/vendors/jquery/dist/jquery.min.js') }}">
+        </script>
+        <!-- Bootstrap -->
+        <script src="{{ URL::asset('/vendors/bootstrap/dist/js/bootstrap.min.js') }}">
+        </script>
+        {{-- input mask --}}
+        <script src="{{ URL::asset('js/jquery.inputmask.bundle.min.js') }}">
+        </script>
+        <!-- FastClick -->
+        <script src="{{ URL::asset('/vendors/fastclick/lib/fastclick.js') }}">
+        </script>
+        <!-- switch -->
+        <link href="{{ URL::asset('/vendors/switchery/dist/switchery.min.js') }}" rel="stylesheet">
+            <!-- NProgress -->
+            <script src="{{ URL::asset('/vendors/nprogress/nprogress.js') }}">
+            </script>
+            <!-- Chart.js -->
+            <script src="{{ URL::asset('/vendors/Chart.js/dist/Chart.min.js') }}">
+            </script>
+            <!-- gauge.js -->
+            <script src="{{ URL::asset('/vendors/gauge.js/dist/gauge.min.js') }}">
+            </script>
+            <!-- bootstrap-progressbar -->
+            <script src="{{ URL::asset('/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}">
+            </script>
+            <!-- iCheck -->
+            <script src="{{ URL::asset('/vendors/iCheck/icheck.min.js') }}">
+            </script>
+            <!-- Skycons -->
+            <script src="{{ URL::asset('/vendors/skycons/skycons.js') }}">
+            </script>
+            <!-- Flot -->
+            <script src="{{ URL::asset('/vendors/Flot/jquery.flot.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/Flot/jquery.flot.pie.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/Flot/jquery.flot.time.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/Flot/jquery.flot.stack.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/Flot/jquery.flot.resize.js') }}">
+            </script>
+            <!-- Flot plugins -->
+            <script src="{{ URL::asset('/vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/flot-spline/js/jquery.flot.spline.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/flot.curvedlines/curvedLines.js') }}">
+            </script>
+            <!-- DateJS -->
+            <script src="{{ URL::asset('/vendors/DateJS/build/date.js') }}">
+            </script>
+            <!-- JQVMap -->
+            <script src="{{ URL::asset('/vendors/jqvmap/dist/jquery.vmap.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}">
+            </script>
+            <!-- bootstrap-daterangepicker -->
+            <script src="{{ URL::asset('/vendors/moment/min/moment.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/jquery.bootstrap-duallistbox.min.js') }}"></script>
+            <!-- Custom Theme Scripts -->
+            <script src="{{ URL::asset('js/custom.js') }}">
+            </script>
+            <!-- <script src="{{ URL::asset('js/app.js') }}">-->
+            </script>
+            <script src="{{ URL::asset('js/datatable/media/js/jquery.dataTables.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/datatable/media/js/dataTables.bootstrap.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/datatable/extensions/Buttons/js/dataTables.buttons.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/pdfmake.min.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/vfs_fonts.js') }}">
+            </script>
+            <script src="{{ URL::asset('js/datatable/extensions/Buttons/js/buttons.html5.min.js') }}">
+            </script>
+            <script src="{{ asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+            @yield('script')
+
+        </link>
+    </body>
+
 </html>

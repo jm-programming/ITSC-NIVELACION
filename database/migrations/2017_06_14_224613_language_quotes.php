@@ -27,7 +27,7 @@ class LanguageQuotes extends Migration
             $table->string('location', 90);
             $table->timestamps();
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.
