@@ -49,7 +49,7 @@ Route::resource('sections', 'SectionsController');
 Route::resource('users', 'UserController');
 
 //routes mantenimiento inscribed
-
+Route::resource('inscribed','InscribedController');
 
 //routes mantenimiento historico
  
