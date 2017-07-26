@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sections;
 use App\Students;
+use App\Inscribed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -17,17 +18,6 @@ class InscribedController extends Controller
      */
     public function index()
     {
-        $sections = DB::table('classrooms')
-            ->join('sections', function ($join) {
-                $join->on('sections.classrooms_id', '=', 'classrooms.id')
-                     ->where('sections.status', '=', 1);
-            })
-            ->join('subjects',function ($join){
-                $join->on('sections.subjects_id','=','subjects.id');
-            })
-            ->get();
-        
-        return view('inscribed.inscribed' ,['sections' => $sections]);
     }
 
     /**
@@ -48,7 +38,41 @@ class InscribedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $section = $request->input('subject_selected');
+        $id_student = $request->input('id_student');
+        
+
+        for ($i=0; $i < count($section); $i++) { 
+            $sections_id[$i] = DB::table('sections')
+                ->join('subjects', function ($join){
+                    $join->on('sections.subjects_id','=','subjects.id');                
+                })
+                ->where('subjects.code_subject', '=', $section[$i])
+                ->get();
+
+            foreach ($sections_id[$i] as $sec) {
+
+                $students_sec[$i] = DB::table('inscribed')
+                ->where('inscribed.sections_id', '=', $sec->id)
+                ->where('inscribed.students_id', '=', $id_student)
+                ->get();
+
+                if(count($students_sec[$i]) > 0){
+                    session::flash('message', 'Estudiante ya esta Inscrito en esta asignatura...');
+                    return redirect('/students/'.$id_student);
+                }
+                
+                Inscribed::create([
+                    'sections_id'=> $sec->id,
+                    'students_id' => $id_student,
+                ]);
+            }
+        }
+
+        session::flash('message', 'Estudiante Inscrito correctamente...');
+
+        return redirect('/students');
+
     }
 
     /**
@@ -59,25 +83,6 @@ class InscribedController extends Controller
      */
     public function show($id)
     {
-        $section = Sections::find($id);
-        $mathematics = 2;
-        $spanish = 2;
-        $institutional_orientation = 2;
-
-        if($section['subjects_id'] == 1){
-            $mathematics = 1;
-        }else if($section['subjects_id'] == 2){
-            $spanish = 1;
-        }else if($section['subjects_id'] == 3){
-            $institutional_orientation = 1;
-        }
-
-        $students = Students::where('spanish','=', $spanish)
-                    ->Orwhere('mathematics','=', $mathematics)
-                    ->Orwhere('institutional_orientation','=', $institutional_orientation)
-                    ->get();
-        
-        return view('inscribed.inscribed_student', ['section'=> $section, 'students'=> $students]);
     }
 
     /**

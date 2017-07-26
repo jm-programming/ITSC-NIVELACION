@@ -20,15 +20,15 @@
 			                    {!!Form::token()!!}
 			                    <h4>Información personal del estudiante</h4>
 			                    <div class="form-group col-sm-6 ">
-			                        <label class="control-label" for="nombres">Nombres</label>
+			                        <label class="control-label" for="names">Nombres</label>
 			                        <input type="text" class="form-control" id="names" name="names" value="{{ old('names')}}" placeholder="Nombres estudiante">
 			                    </div>
 			                    <div class="form-group col-sm-6 ">
-			                        <label class="control-label" for="nombres">Apellidos</label>
+			                        <label class="control-label" for="last_name">Apellidos</label>
 			                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name')}}" placeholder="Apellidos estudiante">
 			                    </div>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="nombres">Estado Civil</label>
+			                        <label class="control-label" for="civil_status">Estado Civil</label>
 			                        <select id="civil_status" name="civil_status" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	<option>Soltero/a</option>
@@ -39,11 +39,11 @@
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="nombres">Fecha Nacimiento</label>
+			                        <label class="control-label" for="birthday">Fecha Nacimiento</label>
 			                        <input type="date" class="form-control" id="birthday" name="birthday" value="{{ old('birthday')}}" placeholder="Fecha Nacimiento" min="01/01/1900">
 			                    </div>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="nombres">Identificación</label>
+			                        <label class="control-label" for="identity_card">Identificación</label>
 			                        <input type="text" class="form-control" id="identity_card" name="identity_card" value="{{ old('identity_card')}}">
 			                    </div>
 			                    <div class="form-group col-sm-6">
@@ -60,7 +60,15 @@
 			                        </select>
 			                    </div>
 			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="nombres">Carrera</label>
+			                        <label class="control-label" for="condition">Condición</label>
+			                        <select id="condition" name="condition" class="form-control selectpicker">
+			                        	<option value="MAT-100">ESP-100 Lengua Española</option>
+			                        	<option value="MAT-100">MAT-100 Matematica</option>
+			                        	<option value="ESP-100/MAT-100">ESP-100 Lengua Española / MAT-100 Matematica</option>
+			                        </select>
+			                    </div>
+			                    <div class="form-group col-sm-12">
+			                        <label class="control-label" for="career">Carrera</label>
 			                        <select id="career" name="career" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
 			                        	<option disabled>Salud </option>
@@ -119,7 +127,7 @@
 @endsection
 @section('script')
 	<script>
-		$('#identity_card').inputmask({"mask": "999-9999999-9"});
+		$('#identity_card').inputmask({"mask": "999-9999999-9"}); 
 	</script>
 @endsection
 

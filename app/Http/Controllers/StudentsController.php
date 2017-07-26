@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Students;
+use App\inscribed;
+use App\Sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -51,7 +53,6 @@ class StudentsController extends Controller
          ]);
 
         Students::create([
-        
             'names'=> $request->input('names'),
             'last_name' => $request->input('last_name'),
             'career' => $request->input('career'),
@@ -60,9 +61,7 @@ class StudentsController extends Controller
             'civil_status' => $request->input('civil_status'),
             'email' => $request->input('email'),
             'shift' => $request->input('shift'),
-            'spanish'=> 1,
-            'mathematics' => 1,
-            'institutional_orientation' => 1,
+            'condition' => $request->input('condition').'/ORI-101',
             'debt' => 0,
             'inscribed_opportunity' => 0,
         ]);
@@ -88,8 +87,33 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
+        $student = Students::find($id);
+        $subjects = explode('/', $student['condition']);
+        
+        // $inscribed_number = DB::table('inscribed')
+        //         ->join('subjects', function ($join){
+        //             $join->on('inscribed.sections_id','=','sections.id')
+        //             ->where('sections.section', '=', $section);               
+        //         })
+        //         ->get();
+
+        for ($x=0; $x < count($subjects); $x++) { 
+            $sections[$x] = DB::table('sections')
+            ->join('subjects', function ($join){
+                $join->on('sections.subjects_id','=','subjects.id');                
+            })
+            ->join('classrooms', function ($join){
+                $join->on('sections.classrooms_id','=','classrooms.id');                
+            })
+            ->where('sections.status', '=', 1)
+            ->where('sections.shift', '=', $student['shift'])
+            ->where('subjects.code_subject', '=', $subjects[$x])
+            ->get();
+            
+        }
+        return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student]);
         
     }
 

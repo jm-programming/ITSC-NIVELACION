@@ -8,6 +8,10 @@ class Inscribed extends Model
 {
     protected $table = 'inscribed';
 
+    protected $fillable = [
+        'sections_id','students_id',
+    ];
+
     public function sections(){
     	return $this->hasOne('App\Sections');
     }
