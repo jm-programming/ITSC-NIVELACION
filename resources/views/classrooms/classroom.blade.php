@@ -8,11 +8,7 @@
     {{ session::get('message') }}
 </div>
 @endif
-@if(Session::has('message2'))
-<div class="alert alert-warning" id="Warning">
-    {{ session::get('message2') }}
-</div>
-@endif
+
 <div class="row padding">
     <div class="col-lg-4 col-md-4">
         <div class="input-group">
@@ -115,16 +111,4 @@
     </h2>
 </div>
 @endif
-@endsection
-@section('script')
-	<script>
-        setTimeout(function() {
-            $('#Warning').fadeToggle();
-            }, 5000); // <-- time in milliseconds
-
-        setTimeout(function() {
-            $('#Success').fadeToggle();
-            }, 5000); // <-- time in milliseconds
-
-  </script>
 @endsection

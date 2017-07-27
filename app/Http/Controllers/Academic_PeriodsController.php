@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Academic_periods;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AcademicPeriodRequest;
 use App\Http\Requests\Academic_period_editRequest;
 use Illuminate\Http\Request;
 use Redirect;
@@ -39,39 +38,38 @@ class Academic_PeriodsController extends Controller {
 	 */
 	public function store(Request $request) {
 
-
-
 		$timeOne = strtotime($request['date_first']);
 		$timeTwo = strtotime($request['date_last']);
 		$monthOne = date("F", $timeOne);
 		$monthTwo = date("F", $timeTwo);
 
 		$thisYear = date("Y");
-		
-		
+
 		//if you can optimize this code do it guys..
-		if(($monthOne == 'January' || $monthOne == 'February' || $monthOne == 'March' || $monthOne == 'April') && ($monthTwo == 'January' || $monthTwo == 'February' || $monthTwo == 'March' || $monthTwo == 'April')){
+		if (($monthOne == 'January' || $monthOne == 'February' || $monthOne == 'March' || $monthOne == 'April') && ($monthTwo == 'January' || $monthTwo == 'February' || $monthTwo == 'March' || $monthTwo == 'April')) {
 
-			$period = $thisYear.'-1';
-		}else if(($monthOne == 'May' || $monthOne == 'June' || $monthOne == 'July' || $monthOne == 'August') && ($monthTwo == 'May' || $monthTwo == 'June' || $monthTwo == 'July' || $monthTwo == 'August')){
+			$period = $thisYear . '-1';
+		} else if (($monthOne == 'May' || $monthOne == 'June' || $monthOne == 'July' || $monthOne == 'August') && ($monthTwo == 'May' || $monthTwo == 'June' || $monthTwo == 'July' || $monthTwo == 'August')) {
 
-			$period = $thisYear.'-2';
-		}else if(($monthOne == 'September' || $monthOne == 'October' || $monthOne == 'November' || $monthOne == 'December') && ($monthTwo == 'September' || $monthTwo == 'October' || $monthTwo == 'November' || $monthTwo == 'December')){
+			$period = $thisYear . '-2';
+		} else if (($monthOne == 'September' || $monthOne == 'October' || $monthOne == 'November' || $monthOne == 'December') && ($monthTwo == 'September' || $monthTwo == 'October' || $monthTwo == 'November' || $monthTwo == 'December')) {
 
-			$period = $thisYear.'-3';
+			$period = $thisYear . '-3';
 		}
-		
+
 		$aca = Academic_periods::where('academic_period', '=', $period)
-				->get();
-		if(count($aca) > 0){
+			->get();
+		if (count($aca) > 0) {
 			return redirect('/academic_periods')->with('message', 'Periodo academico ya existe...');
 		}
 
 		$this->validate($request, [
-          	'date_first' => 'required',
+			'date_first' => 'required',
 			'date_last' => 'required',
 			'status' => 'required',
-         ]);
+
+		]);
+
 		
 		$Academic_periods = new Academic_periods;
 
@@ -96,6 +94,7 @@ class Academic_PeriodsController extends Controller {
             $lastLoggedActivity->causer; //returns an instance of your user model
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
+
 
 		return redirect('/academic_periods')->with('message', 'Periodo academico creado con exito...');
 	}
@@ -146,15 +145,14 @@ class Academic_PeriodsController extends Controller {
 		$monthTwo = date("F", $timeTwo);
 
 		$thisYear = date("Y");
-		
-		
+
 		//if you can optimize this code do it guys..
-		if(($monthOne == 'January' || $monthOne == 'February' || $monthOne == 'March' || $monthOne == 'April') && ($monthTwo == 'January' || $monthTwo == 'February' || $monthTwo == 'March' || $monthTwo == 'April')){
-			$period = $thisYear.'-1';
-		}else if(($monthOne == 'May' || $monthOne == 'June' || $monthOne == 'July' || $monthOne == 'August') && ($monthTwo == 'May' || $monthTwo == 'June' || $monthTwo == 'July' || $monthTwo == 'August')){
-			$period = $thisYear.'-2';
-		}else if(($monthOne == 'September' || $monthOne == 'October' || $monthOne == 'November' || $monthOne == 'December') && ($monthTwo == 'September' || $monthTwo == 'October' || $monthTwo == 'November' || $monthTwo == 'December')){
-			$period = $thisYear.'-3';
+		if (($monthOne == 'January' || $monthOne == 'February' || $monthOne == 'March' || $monthOne == 'April') && ($monthTwo == 'January' || $monthTwo == 'February' || $monthTwo == 'March' || $monthTwo == 'April')) {
+			$period = $thisYear . '-1';
+		} else if (($monthOne == 'May' || $monthOne == 'June' || $monthOne == 'July' || $monthOne == 'August') && ($monthTwo == 'May' || $monthTwo == 'June' || $monthTwo == 'July' || $monthTwo == 'August')) {
+			$period = $thisYear . '-2';
+		} else if (($monthOne == 'September' || $monthOne == 'October' || $monthOne == 'November' || $monthOne == 'December') && ($monthTwo == 'September' || $monthTwo == 'October' || $monthTwo == 'November' || $monthTwo == 'December')) {
+			$period = $thisYear . '-3';
 		}
 
 		$academic_periods = Academic_periods::find($id);
@@ -163,7 +161,7 @@ class Academic_PeriodsController extends Controller {
 			'date_first' => $request['date_first'],
 			'date_last' => $request['date_last'],
 			'status' => $request['status'],
-			]);
+		]);
 		$academic_periods->save();
 
 		$userModel = Auth::user();

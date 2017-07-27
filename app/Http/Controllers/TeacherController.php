@@ -178,6 +178,7 @@ class TeacherController extends Controller
             return redirect('/teachers');
         }
         catch(\Exception $e){
+            session::flash('message',$e);
             return redirect('teachers/create');
         }
 
@@ -236,7 +237,8 @@ class TeacherController extends Controller
         return redirect('/teachers');
         }
         catch(\Exception $e) {
-  
+
+        session::flash('message',$e);
         return redirect('/teachers');
     }
        

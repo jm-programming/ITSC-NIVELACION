@@ -52,7 +52,8 @@ Route::resource('users', 'UserController');
 Route::resource('inscribed','InscribedController');
 
 //routes mantenimiento historico
- 
+ Route::resource('log', 'LogController');
+
 //routes mantenimiento de citas de idiomas
 Route::resource('languages','Language_quotesController');
 

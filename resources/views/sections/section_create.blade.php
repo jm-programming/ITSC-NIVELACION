@@ -118,7 +118,7 @@
 
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="section">Numero de Sección</label>
-			                        <input type="text" class="form-control" id="section" name="section" placeholder="Numero de Sección" value="{{ old('section')}}">
+			                        <input list="sections"  class="form-control" id="section" name="section" placeholder="Numero de Sección" value="{{ old('section')}}">
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="quota">Cupo</label>
@@ -126,9 +126,14 @@
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                    	<label class="control-label" for="status">Estatus de sección</label><br>
-			                    	<input type="radio" name="status" class="flat" id="status" value="1" checked> Activada<br>
-  									<input type="radio" name="status" class="flat" id="status" value="0"> Desactivada
+			                    	<input type="radio" name="status"  id="status" value="1" checked> Activada<br>
+  									<input type="radio" name="status"  id="status" value="0"> Desactivada
 			                    </div>
+<datalist id="sections">
+@foreach($section as $sections)
+  <option value='{{$sections->section}}'>Seccion Usada:{{$sections->section}}-{{$sections->academic_period}}</option>
+@endforeach
+</datalist>
 			                    <!-- Button -->
 			                    {!! Form::submit('Crear Sección',['class' => 'btn btn-primary btn-block']) !!}
 			                </fieldset>

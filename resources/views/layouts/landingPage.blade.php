@@ -6,7 +6,6 @@
 	<!-- Meta, title, CSS, favicons, etc. -->
 	<meta charset="utf-8"/>
 	<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-	<meta content="width=device-width, initial-scale=1" name="viewport"/>
 	<title>
 		Nivelación - @yield('title')
 	</title>
@@ -37,6 +36,8 @@
                                                             <link href="{{ URL::asset('js/datatable/media/css/jquery.dataTables.min.css') }}" rel="stylesheet">
                                                             </link>
                                                             <link href="{{ URL::asset('js/datatable/extensions/Buttons/css/buttons.dataTables.min.css') }}" rel="stylesheet">
+                                                            </link>
+                                                            <link href="{{ URL::asset('css/jquery.timepicker.min.css') }}" rel="stylesheet">
                                                             </link>
                                                             
                                                         </link>
@@ -128,7 +129,7 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/academic_periods"><i class="fa fa-table"></i> Periodos Academicos</a>
    </li>
    <li>
-   <a href="#"><i class="fa fa-table"></i> Auditoria</a>
+   <a href="/log"><i class="fa fa-table"></i> Auditoria</a>
    </li>
    <li>
    <a href="/languages"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
@@ -348,6 +349,8 @@ $name = ucfirst(strtok($email, '@'));
             <script src="{{ URL::asset('js/datatable/extensions/Buttons/js/buttons.html5.min.js') }}">
             </script>
             <script src="{{ asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+            </script>
+            <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
             @yield('script')
 
         </link>

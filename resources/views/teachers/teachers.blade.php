@@ -67,10 +67,11 @@
                 <td class=" ">@if($teachers->address != "") {{$teachers->address}} @else N/A @endif</td>
                 <td class="last remove">
 
-                  {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
-                    {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                 
                     {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
                     {!!Form::open(['route'=> ['teachers.destroy', $teachers->id], 'method' => 'DELETE'])!!}
+                     {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
+                    {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
                         {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
                     {!!Form::close()!!}
 

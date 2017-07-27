@@ -12,17 +12,7 @@
     </div>
   @endif
 
-  <div class="row padding">
-    <div class="col-lg-4 col-md-4">
-        <div class="input-group">
-            @if (count($sections) > 0)
-            <div class="input-group">
-                @include('forms.search_section',['url'=>'students','link'=>'students'])
-            </div>
-            @endif
-        </div>
-    </div>
-    <div class="col-lg-8 col-md-8 text-right ">
+    <div class="col-lg-12 col-md-12 text-right ">
         {!!link_to('sections/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
 </div>
@@ -77,9 +67,23 @@
             </tr>
         </thead>
         <tbody>
+       
             <?php $contador = 0;?>
             @foreach ($sections as $section)
             <?php $contador++?>
+             <?php
+            $timelast       = $section->time_last;
+            $secondTimeLast = $section->second_time_last;
+            $timeToAdd = 1;
+
+            $timelastHourToSecond       = strtotime($timelast);
+            $secondTimelastHourToSecond = strtotime($secondTimeLast);
+
+            $minutesToAdd = $timeToAdd * 60;
+
+            $timeLastNewHour       = date('H:i:s', $timelastHourToSecond + $minutesToAdd);
+            $secondTimelastNewHour = date('H:i:s', $secondTimelastHourToSecond + $minutesToAdd);
+        ?>
             <tr class="even pointer">
                 <td class="a-center ">
                     {{$contador}}
@@ -100,37 +104,35 @@
                     {{$section->day_one}} / {{$section->day_two}}
                 </td>
                 <td class=" ">
-                    {{$section->time_first}} / {{$section->time_last}}
+                    {{$section->time_first}} / {{$timeLastNewHour }}
                 </td>
                 <td class=" ">
                 @if(empty($section->second_time_first) && empty($section->second_time_last))
                     NULL / NULL
                 @else
-                {{$section->second_time_first}} / {{$section->second_time_last}}
+                {{$section->second_time_first}} / {{$secondTimelastNewHour}}
                  @endif    
                 </td>
                 <td class=" ">
                     {{$section->shift}}
                 </td>
                 <td class=" last">
-                    {!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}
+                    {{--{!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}--}}
                   {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'label label-warning']) !!}
-                    <a data-target="#delete-modal" data-toggle="modal" href="#">
-                        <span class="label label-danger">
-                            Eliminar
-                        </span>
-                    </a>
+                    {!!Form::open(['route'=> ['sections.destroy', $section->id], 'method' => 'DELETE'])!!}
+                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-    <nav aria-label="Page navigation example">
+    {{--<nav aria-label="Page navigation example">
         <ul class="pagination text-center">
             {!! $sections->links() !!}
         </ul>
-    </nav>
+    </nav>--}}
     <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
     @else
     <div class="container" id="error">
