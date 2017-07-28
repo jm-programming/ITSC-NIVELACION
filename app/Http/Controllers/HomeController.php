@@ -47,6 +47,11 @@ class HomeController extends Controller {
 	}
 
 	public function store(Request $request) {
+		
+	}
+
+	public function update(Request $request, $id) {
+		
 		$this->validate($request, [
             'names' => 'required',
             'last_name' => 'required',
@@ -60,7 +65,9 @@ class HomeController extends Controller {
 		$users->save();
 		session::flash('message', 'Usuario editado correctamente...');
 		return Redirect::to('/home');
+ 
 	}
+
 
 	public function search(Request $request) {
 
