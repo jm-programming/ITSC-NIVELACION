@@ -71,7 +71,12 @@ class UserController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		
-
+		$this->validate($request, [
+            'names' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|min:8',
+            
+         ]);
 		$users = User::find($id);
 		$users->names = $request->names;
 		$users->last_name = $request->last_name;
@@ -93,4 +98,4 @@ class UserController extends Controller {
 	}
 
 
-	}
+}

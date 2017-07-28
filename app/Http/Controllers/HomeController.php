@@ -6,6 +6,9 @@ use App\Students;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
+use Redirect;
+
 
 class HomeController extends Controller {
 	/**
@@ -39,13 +42,24 @@ class HomeController extends Controller {
 	public function edit($id) {
 
 		$users = User::find($id);
-
 		return view('users.edit', ['users' => $users]);
 
 	}
 
 	public function store(Request $request) {
-
+		$this->validate($request, [
+            'names' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|min:8',
+            
+         ]);
+		$users = User::find($id);
+		$users->names = $request->names;
+		$users->last_name = $request->last_name;
+		$users->password = bcrypt($request->password);
+		$users->save();
+		session::flash('message', 'Usuario editado correctamente...');
+		return Redirect::to('/home');
 	}
 
 	public function search(Request $request) {

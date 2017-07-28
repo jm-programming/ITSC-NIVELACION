@@ -10,7 +10,7 @@
 
 
             $('#Datepicker').datetimepicker({
-        format: 'hh:mm A'
+            format: 'hh:mm A'
     });
     
         $(document).ready(function(){

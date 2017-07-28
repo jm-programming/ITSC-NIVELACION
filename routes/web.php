@@ -52,7 +52,7 @@ Route::get('sections_s', 'SectionsController@search');
 Route::resource('sections', 'SectionsController');
 
 //routes mantenimiento de usuarios
-Route::resource('users', 'UserController');
+Route::resource('users', 'HomeController');
 
 //routes mantenimiento inscribed
 
