@@ -11,6 +11,12 @@
 |
  */
 
+Route::get('/', ['middleware' => 'throttle:3,1', function () {
+ 
+ 	return redirect('login');
+
+}]);
+
 Route::get('/', function () {
 	return redirect('/login');
 });

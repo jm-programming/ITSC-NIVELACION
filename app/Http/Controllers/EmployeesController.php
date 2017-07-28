@@ -121,7 +121,9 @@ class EmployeesController extends Controller {
 	 */
 	public function destroy($id) {
 		User::destroy($id);
-		session::flash('message', 'Empleado eliminado correctamente...');
-		return Redirect::to('/employees');
+        session::flash('message', 'Empleado eliminada correctamente...');
+        return Redirect::to('/employees');
+
 	}
+
 }

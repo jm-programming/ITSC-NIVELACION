@@ -37,6 +37,7 @@
                                     </span>
                                 @endif
                                 <br><input type="submit" id="form-submit" class="btn btn-lg btn-block" value="Acceder">
+                                <a href="#">Olvido su contraseña?</a>
                             </div>
                            
                         </form>

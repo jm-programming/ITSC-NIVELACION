@@ -23,7 +23,7 @@ class LanguageQuotes extends Migration
             $table->string('identity_card');
             $table->string('email', 180)->unique();
             $table->date('date');
-            $table->timeTz('time');
+            $table->string('time');
             $table->string('location', 90);
             $table->timestamps();
         });

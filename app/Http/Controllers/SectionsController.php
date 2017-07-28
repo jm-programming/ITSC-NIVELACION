@@ -8,69 +8,14 @@ use App\Sections;
 use App\Subjects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-class SectionsController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        $section = DB::table('sections')
-            ->join('subjects', function ($join) {
-                $join->on('sections.subjects_id', '=', 'subjects.id');
-            })
-            ->join('classrooms', function ($join) {
-                $join->on('sections.classrooms_id', '=', 'classrooms.id');
-            })
-            ->paginate(8);
-
-        return view('sections.section', ['sections' => $section]);
-    }
-
-    public function search(Request $request)
-    {
-
-        $sectionSearch = \Request::get('sectionSearch');
-        $sections      = Sections::where('sections.section', 'like', '%' . $sectionSearch . '%')
-            ->join('subjects', function ($join) {
-                $join->on('sections.subjects_id', '=', 'subjects.id');
-            })
-            ->join('classrooms', function ($join) {
-                $join->on('sections.classrooms_id', '=', 'classrooms.id');
-            })
-            ->paginate(8)
-        ;
-
-        return view('sections.section', ['sections' => $sections]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $classrooms       = Classrooms::all();
-        $sections         = Sections::all();
-        $academic_periods = Academic_periods::all();
-        $subjects         = Subjects::all();
-        $teachers         = DB::table('users')
-            ->where([
-                ['users.status', '=', 1],
-                ['users.rolls_id', '=', 3],
-            ])
-            ->get();
-
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Validator;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
-}
+
+
+
 class SectionsController extends Controller {
 	/**
 	 * Display a listing of the resource.
@@ -139,51 +84,6 @@ class SectionsController extends Controller {
 		return view('sections.section_create', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects,'teacher'=> $teachers]);
 
 	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request) {
-	
-	/*para restarle 1 minuto a la hora introducida*/	
-		 $timelast =$request->input('time_last');
-		 $secondTimeLast = $request->input('second_time_last');
-		 $timeToSubtract= 1;
-		 
-		 $timelastHourToSecond = strtotime($timelast);
-		 $secondTimelastHourToSecond = strtotime($secondTimeLast);
-
-		 $minutesToSubtract = $timeToSubtract*60;
-
-		 $timeLastNewHour = date('H:i',$timelastHourToSecond-$minutesToSubtract);
-		 $secondTimelastNewHour =date('H:i',$secondTimelastHourToSecond-$minutesToSubtract);
-	/*********************************************************************************/
-		 
-	$query = 	['sections.status' =>$request->input('status'),
-				  'sections.day_one'=>$request->input('day_one'),
-				  'sections.time_first' =>$request->input('time_first'),
-				  'sections.time_last' =>$timeLastNewHour,
-				  'sections.classrooms_id'=>$request->input('classrooms_id'),
-				  'sections.shift'=>$request->input('shift'),		  
-				  ];
-		
-		$query2 = ['sections.status' =>$request->input('status'),
-				  'sections.day_one'=>$request->input('day_one'),
-				  'sections.day_two'=>$request->input('day_two'),
-				  'sections.time_first' =>$request->input('time_first'),
-				  'sections.time_last' =>$timeLastNewHour,
-				  'sections.second_time_first' =>$request->input('second_time_first'),
-				  'sections.second_time_last' => $secondTimelastNewHour,
-				  'sections.classrooms_id'=>$request->input('classrooms_id'),
-				  'sections.shift'=>$request->input('shift'),	  
-
-
-        return view('sections.section_create', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects, 'teacher' => $teachers]);
-
-    }
 
     /**
      * Store a newly created resource in storage.

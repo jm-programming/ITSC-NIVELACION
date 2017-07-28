@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+//use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+use App\User;
+use DB;
 class LoginController extends Controller
 {
     /*
@@ -41,7 +45,17 @@ class LoginController extends Controller
 
     protected function credentials(\Illuminate\Http\Request $request)
     {
+        //$user = Auth::user()->id;
         //return $request->only($this->username(), 'password');
-        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status' => 1];
-    }
+        //$users = DB::table('users')->select('password')->where('id', 2)->get();
+       //$estatus =  Db::table('users')->where('users.id', $user)->update(['users.status' => 1]);
+        //$contra = ['password' => $request->password];
+            //dd($estatus);
+       return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status' => 1];
+
+        
+     }
+
+
+
 }

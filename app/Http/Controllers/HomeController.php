@@ -37,6 +37,7 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
+
 		$users = User::find($id);
 
 		return view('users.edit', ['users' => $users]);

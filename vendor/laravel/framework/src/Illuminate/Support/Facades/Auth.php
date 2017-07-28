@@ -1,6 +1,8 @@
-<?php
+ <?php
 
 namespace Illuminate\Support\Facades;
+
+
 
 /**
  * @method static mixed guard(string|null $name = null)

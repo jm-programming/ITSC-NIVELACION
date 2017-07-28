@@ -93,18 +93,34 @@
         <br>
         {!!Form::radio('status', '0')!!} Inactivo.
     </div>
+
+
+<?php 
+    $tipo = "cedula";
+    $mascara = "identity_cards";
+    $seleccion = "Seleccione una opcion"
+
+?>
+     
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" id="{{ $tipo }}">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{ $seleccion }} <span class="caret"></span></button>
+            <ul class="dropdown-menu pull-right">
+              <li id="cedula"><a href="#"> Cedula</a></li>
+              <li id="pasaporte"><a href="#"> Pasaporte</a></li>
+            </ul>
+          </div><!-- /btn-group -->
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+ </div>
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>
 </fieldset>
-
-
 @section('script')
-<script>
-    $(document).ready(function(){
-            $('#identity_card').inputmask({"mask": "999-9999999-9"});
-            $('#cellphone').inputmask({"mask": "999-999-9999"})
-            $('#personal_phone').inputmask({"mask": "999-999-9999"})
-            $('#office_phone').inputmask({"mask": "999-999-9999"})
-        });
-</script>
+@include('forms.alerts')
+
 @endsection
+
