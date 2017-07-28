@@ -19,6 +19,7 @@
 
 
 			                    <h4>Información del Usuario</h4>
+
 								<div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Nombres</label>
 			                        <input type="text" class="form-control" id="names" name="names" value="{{ $users->names }}">
@@ -31,6 +32,7 @@
 			                        <label class="control-label" for="nombres">Correo</label>
 			                        <input type="text" class="form-control" id="email" name="email" value="{{ $users->email }}">
 			                    </div>
+
 			                    <div class="form-group col-sm-4">
 			                        <label class="control-label" for="nombres">Contraseña</label>
 			                        <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}">

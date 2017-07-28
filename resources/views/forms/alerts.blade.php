@@ -8,6 +8,7 @@
             $('#Success').fadeToggle();
             }, 2000); // <-- time in milliseconds
 
+
             $('#Datepicker').datetimepicker({
         format: 'hh:mm A'
     });
@@ -20,6 +21,5 @@
             $('#personal_phone').inputmask({"mask": "999-999-9999"})
             $('#office_phone').inputmask({"mask": "999-999-9999"})
         });
+
   </script>
-
-
