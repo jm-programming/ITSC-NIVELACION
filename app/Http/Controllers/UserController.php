@@ -73,11 +73,10 @@ class UserController extends Controller {
 		
 
 		$users = User::find($id);
-		$users->fill($request->all());
+		$users->names = $request->names;
+		$users->last_name = $request->last_name;
+		$users->password = bcrypt($request->password);
 		$users->save();
-		//Session::flash('message','Usuario editado con exito...');
-		//return redirect('/home')->with('message', 'Usuario editado con exito...');
-		
 		session::flash('message', 'Usuario editado correctamente...');
 		return Redirect::to('/home');
  

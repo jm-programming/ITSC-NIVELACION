@@ -19,8 +19,17 @@
 
 
 			                    <h4>Información del Usuario</h4>
+			                    <div class="form-group col-sm-4 ">
+			                        <label class="control-label" for="nombres">Nombres</label>
+			                        <input type="text" class="form-control" name="names" value="{{ $users->names }}">
+			                    </div>
 
-			                    <div class="form-group col-sm-6 ">
+			                    <div class="form-group col-sm-4 ">
+			                        <label class="control-label" for="nombres">Apellidos</label>
+			                        <input type="text" class="form-control" name="last_name" value="{{ $users->last_name }}">
+			                    </div>
+
+			                    <div class="form-group col-sm-4">
 			                        <label class="control-label" for="nombres">Contraseña</label>
 			                        <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}">
 			                    </div>
