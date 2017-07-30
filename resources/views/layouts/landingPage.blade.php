@@ -167,7 +167,7 @@ $name = ucfirst(strtok($email, '@'));
                   <a href="#"><i class="fa fa-edit"></i>Secciones</a>
                   </li>
                   <li>
-                  <a href="#"><i class="fa fa-table"></i> Calificaciones</a>  
+                  <a href="/qualifications"><i class="fa fa-table"></i> Calificaciones</a>  
                   </li>
                 </ul>
               </div>

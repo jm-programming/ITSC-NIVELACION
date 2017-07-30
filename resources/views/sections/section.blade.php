@@ -28,6 +28,9 @@
                     Sección
                 </th>
                 <th class="column-title">
+                    Profesor
+                </th>
+                <th class="column-title">
                     Cupos
                 </th>
                 <th class="column-title">
@@ -48,7 +51,7 @@
                 <th class="column-title">
                     Tanda
                 </th>
-                
+
                 <th class="column-title no-link last">
                     <span class="nobr">
                         Acción
@@ -91,6 +94,9 @@
                 <td class=" ">
                     {{$section->section}}
                 </td>
+                 <td class=" ">
+                    {{$section->names}}
+                </td>
                 <td class=" ">
                     {{$section->quota}}
                 </td>
@@ -116,6 +122,7 @@
                 <td class=" ">
                     {{$section->shift}}
                 </td>
+               
                 <td class=" last">
                     {{--{!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}--}}
                   {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'label label-warning']) !!}

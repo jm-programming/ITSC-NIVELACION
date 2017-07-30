@@ -91,6 +91,9 @@ class StudentsController extends Controller
     {
         $student = Students::find($id);
         $subjects = explode('/', $student['condition']);
+        $inscritos = DB::table('inscribed')
+                ->where('students_id','=',$id)
+                ->get();
         
         // $inscribed_number = DB::table('inscribed')
         //         ->join('subjects', function ($join){
@@ -101,20 +104,37 @@ class StudentsController extends Controller
 
         for ($x=0; $x < count($subjects); $x++) { 
             $sections[$x] = DB::table('sections')
-            ->join('subjects', function ($join){
-                $join->on('sections.subjects_id','=','subjects.id');                
-            })
-            ->join('classrooms', function ($join){
-                $join->on('sections.classrooms_id','=','classrooms.id');                
-            })
-            ->where('sections.status', '=', 1)
-            ->where('sections.shift', '=', $student['shift'])
-            ->where('subjects.code_subject', '=', $subjects[$x])
-            ->get();
-            
+            ->select('sections.id',
+		    'sections.section',
+		    'sections.status',
+		    'sections.time_first',
+		    'sections.time_last',
+		    'classrooms.location',
+		    'sections.quota',
+		    'sections.shift',
+		    'sections.day_one',
+		    'sections.day_two',
+		    'sections.second_time_first',
+		    'sections.second_time_last',
+		    'subjects.subject',
+		    'subjects.code_subject',
+            'subjects.credits'
+		)
+        ->join('subjects','sections.subjects_id', '=','subjects.id' )
+		->join('classrooms','sections.classrooms_id', '=','classrooms.id' )
+        ->where('sections.status', '=', 1)
+        ->where('sections.shift', '=', $student['shift'])
+        ->where('subjects.code_subject', '=', $subjects[$x])
+        ->get();        
         }
-        return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student]);
         
+        
+        if(count($sections[0]) == 0){
+            session::flash('message2', 'no hay secciones disponibles para este estudiante');
+            return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student]);
+        }else{
+        return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student ,'inscritos' =>$inscritos]);
+        }
     }
 
     /**

@@ -50,25 +50,14 @@
 			                        <input type="email" class="form-control" id="email" name="email" value="{{$student->email}}">
 			                    </div>
 			                    <h4>Información Universitaria del estudiante</h4><br>
-			                    <h5>Condición del estudiante.</h5>
-			                    <div class="form-group col-sm-4">
-							        {!!Form::label('spanish','Lengua Española 100',['class'=>'control-label'])!!}<br>
-							        {!!Form::radio('spanish', '1')!!} Activo.
-							        <br>
-							        {!!Form::radio('spanish', '0')!!} Inactivo.
-							    </div>
-							    <div class="form-group col-sm-4">
-							        {!!Form::label('mathematics','Matematica 100',['class'=>'control-label'])!!}<br>
-							        {!!Form::radio('mathematics', '1')!!} Activo.
-							        <br>
-							        {!!Form::radio('mathematics', '0')!!} Inactivo.
-							    </div>
-							    <div class="form-group col-sm-4">
-							        {!!Form::label('institutional_orientation','Orientación Institucional',['class'=>'control-label'])!!}<br>
-							        {!!Form::radio('institutional_orientation', '1')!!} Activo.
-							        <br>
-							        {!!Form::radio('institutional_orientation', '0')!!} Inactivo.
-							    </div>
+			                    <div class="form-group col-sm-6">
+			                        <label class="control-label" for="condition">Condición</label>
+			                        <select id="condition" name="condition" class="form-control selectpicker">
+			                        	<option value="ESP-100" @if($student->condition == "ESP-100") {{ 'selected' }} @endif>ESP-100 Lengua Española</option>
+			                        	<option value="MAT-100" @if($student->condition == "MAT-100") {{ 'selected' }} @endif>MAT-100 Matematica</option>
+			                        	<option value="ESP-100/MAT-100" @if($student->condition == "ESP-100/MAT-100") {{ 'selected' }} @endif>ESP-100 Lengua Española / MAT-100 Matematica</option>
+			                        </select>
+			                    </div>
 			                    <div class="form-group col-sm-6">
 			                    	{!! Form::label('shift', 'Tanda') !!}
 			                        {!!Form::select('shift',[
@@ -83,9 +72,9 @@
 			                    <div class="form-group col-sm-7">
 			                        {!! Form::label('debt', 'Deuda') !!}
 			                        	@if($student->debt)
-				                        	{!! Form::checkbox('debt', 'value', true, ['class' => 'flat'])!!}
+				                        	{!! Form::checkbox('debt', 'value', true)!!}
 				                        @else
-				                        	{!! Form::checkbox('debt', 'value', false, ['class' => 'flat'])!!}
+				                        	{!! Form::checkbox('debt', 'value', false)!!}
 				                        @endif
 			                        </label>
 			                    </div>

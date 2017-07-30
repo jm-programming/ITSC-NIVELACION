@@ -59,3 +59,6 @@ Route::resource('languages','Language_quotesController');
 
 //routes mantenimiento de Subjects
 Route::resource('subjects', 'SubjectController');
+
+//routes calificaciones
+Route::resource('qualifications','qualificationContoller');

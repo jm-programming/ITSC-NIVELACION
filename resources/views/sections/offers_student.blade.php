@@ -4,12 +4,19 @@
 @section('content')
 @if(count($sections) > 0)
 <div class="table-responsive">
-	@if(Session::has('message'))
+	@if(Session::has('message2'))
+
+	    <div class="alert alert-danger">
+	      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      {{ session::get('message2') }}
+	    </div>
+	@elseif(Session::has('message'))
 
 	    <div class="alert alert-danger">
 	      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      {{ session::get('message') }}
 	    </div>
+
   	@endif
 	{!!Form::open(['route' => 'inscribed.store', 'method' => 'POST'])!!}
 		{!!Form::token()!!}
@@ -37,15 +44,16 @@
 	    </thead>
 
 	    <tbody>
-
 	    	@for ($i = 0; $i < count($sections); $i++)
 	    	@foreach($sections[$i] as $sec)
-	    		
+	    	@foreach($inscritos as $inscrito)	
 		      <tr class="even pointer">
 		        <td class="a-center ">
-		          <input type="checkbox" name="subject_selected[]" value="{{$sec->code_subject}}" id="subject_selected">
+		          <input type="checkbox" name="subject_selected[]" value="{{$sec->code_subject}}" 
+							id="subject_selected" @if($inscrito->sections_id == $sec->id) {{ 'checked' }} @endif>
 
 		        </td>
+				@endforeach
 		        <td class="text-center">{{$sec->section}}</td>
 		        <td class=" ">{{$sec->location}} </td>
 		        <td class=" ">{{$sec->code_subject}}</td>
@@ -101,7 +109,7 @@
 	  </table>
 </div>
 <div class="text-right">
-	<button type="button" class="btn btn-default">Volver atras</button>
+	<a href="/students" class="btn btn-default">Volver atras</a>
 	{!!Form::submit('Grabar',['class'=>'btn btn-success'])!!}
 	{!!Form::close()!!}
 </div>
