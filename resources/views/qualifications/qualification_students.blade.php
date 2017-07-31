@@ -5,11 +5,11 @@
 
 
 
-  @if(Session::has('message'))
+  @if(Session::has('message2'))
 
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{ session::get('message') }}
+      {{ session::get('message2') }}
     </div>
   @endif
 
@@ -66,7 +66,12 @@
                 </td>
                 
                 <td class=" last">
-                   {!! link_to_route('qualifications.edit','calificar',$parameters = [$seccionID,$alumno->id], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                @empty($alumno->first_midterm)
+                {!! link_to_route('qualifications.edit','Calificar',$parameters = [$seccionID,$alumno->id], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                @endempty
+                @isset($alumno->first_midterm)
+                {!! link_to_route('qualifications.edit','Editar',$parameters = [$seccionID,$alumno->id], $attributes = ['class' => 'btn btn-success btn-xs']) !!}
+                @endisset
                 @endforeach
                  
             </tr>

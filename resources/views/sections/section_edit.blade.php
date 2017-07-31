@@ -118,7 +118,7 @@
   									<input type="radio" name="status"  id="status" value="0" @if($section->status == 0) checked @endif> Desactivada
 			                    </div>
 			                    <!-- Button -->
-			                    {!! Form::submit('Crear Sección',['class' => 'btn btn-primary btn-block']) !!}
+			                    {!! Form::submit('Editar Sección',['class' => 'btn btn-primary btn-block']) !!}
 			                </fieldset>
 						{!! Form::close() !!}
 						<hr>

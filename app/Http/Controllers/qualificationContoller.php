@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use App\Inscribed;
+use Illuminate\Support\Facades\Session;
 class qualificationContoller extends Controller
 {
     /**
@@ -75,14 +77,19 @@ class qualificationContoller extends Controller
         'students.id',
 		'students.names',
 		'students.last_name',
-		'students.identity_card'
+		'students.identity_card',
+        'inscribed.first_midterm',
+        'inscribed.second_midterm',
+        'inscribed.pratice_score',
+        'inscribed.final_exam',
+        'inscribed.score'
 		)
         ->join('inscribed','students.id', '=','inscribed.students_id' )
         ->join('sections','inscribed.sections_id', '=','sections.id')
         ->where('sections.id','=',$id)
         ->get();
         
-
+        
       
         return view('qualifications.qualification_students',['alumnos' =>$alumnos, 'seccionID' => $id]);
     }
@@ -101,6 +108,7 @@ class qualificationContoller extends Controller
 
         $alumno = DB::table('inscribed')
         ->select(
+        'inscribed.id',
         'students.names',
         'students.last_name',
         'students.identity_card',
@@ -129,7 +137,39 @@ class qualificationContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $seccionesProfesor =DB::table('sections')
+		->select('sections.id',
+		'sections.section',
+		'sections.status',
+		'sections.time_first',
+		'sections.time_last',
+		'classrooms.location',
+		'sections.quota',
+		'sections.shift',
+		'sections.day_one',
+		'sections.day_two',
+		'sections.second_time_first',
+		'sections.second_time_last',
+		'subjects.subject',
+		'subjects.code_subject',
+		'users.names'
+		)
+		->join('subjects','sections.subjects_id', '=','subjects.id' )
+		->join('classrooms','sections.classrooms_id', '=','classrooms.id' )
+		->join('users','sections.users_id','=','users.id')
+        ->where('sections.users_id','=',Auth::user()->id)
+		->get();
+
+        $alumnoInscrito = Inscribed::find($id);
+        $alumnoInscrito->first_midterm = $request->input('first_midterm');
+        $alumnoInscrito->second_midterm = $request->input('second_midterm');
+        $alumnoInscrito->pratice_score = $request->input('pratice_score');
+        $alumnoInscrito->final_exam = $request->input('final_exam');
+        $alumnoInscrito->score = $request->input('score');
+        $alumnoInscrito->save();
+
+        session::flash('message', 'notas publicadas correctamente al estudiante '.$request->input('names'));
+        return view('qualifications.qualification',['sections' =>$seccionesProfesor]);
     }
 
     /**

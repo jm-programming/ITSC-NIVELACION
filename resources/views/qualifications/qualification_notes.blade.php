@@ -14,7 +14,9 @@
   @endif
 
 @if (count($alumno) > 0)
+{!! Form::open(['route' => ['qualifications.update', $alumno->id], 'method' => 'PUT']) !!}
 <div class="table-responsive">
+{!!Form::token()!!}
     <table class="table table-striped jambo_table bulk_action">
         <thead>
             <tr class="headings">
@@ -68,36 +70,36 @@
                     1
                 </td>
                 <td class=" ">
-                    {{$alumno->names}}
+                <input class="form-control" type="text"  id="names" name="names" placeholder="" value='{{$alumno->names}}' readonly> 
                 </td>
                 <td class=" ">
-                    {{$alumno->last_name}}
+                <input class="form-control" type="text"  id="names" name="last_name" placeholder="" value='{{$alumno->last_name}}' readonly>    
                 </td>
                 <td class=" ">
-                    {{$alumno->identity_card}}
+                <input class="form-control" type="text"  id="names" name="identity_card" placeholder="" value='{{$alumno->identity_card}}' readonly>         
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="10" id="first_midterm" name="first_midterm" placeholder="" value='' >
+                <input class="form-control" type="number"  min="0" max="10" id="first_midterm" name="first_midterm" placeholder="" value='{{$alumno->first_midterm}}' >
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="10" id="second_midterm" name="second_midterm" placeholder="" value=''>
+                <input class="form-control" type="number"  min="0" max="10" id="second_midterm" name="second_midterm" placeholder="" value='{{$alumno->second_midterm}}'>
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="60" id="pratice_score" name="pratice_score" placeholder="" value=''>
+                <input class="form-control" type="number"  min="0" max="60" id="pratice_score" name="pratice_score" placeholder="" value='{{$alumno->pratice_score}}'>
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="20" id="final_exam" name="final_exam" placeholder="" value=''>
+                <input class="form-control" type="number"  min="0" max="20" id="final_exam" name="final_exam" placeholder="" value='{{$alumno->final_exam}}'>
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  id="score" name="score" placeholder="" value=''>
+                <input class="form-control" type="number"  id="score" name="score" placeholder="" value='' readonly>
                 </td>
                 <td class=" last">
-                <button type="button" class="btn btn-primary">Provicional</button>
+                {!! Form::submit('Guardar',['class' => 'btn btn-primary btn-block']) !!}
             </tr>
         </tbody>
     </table>
     </div>
-
+{!! Form::close() !!}
     @else
     <div class="container" id="error">
         @include('forms.search_student',['url'=>'students','link'=>'students'])
