@@ -11,6 +11,7 @@
 						<h2 class="panel-title">Editar Usuario</h2>
 					</div>
 					<div class="panel-body">
+					@include('alerts.requets')
 						{!! Form::model($users,['route' =>  ['users.update',$users->id], 'method' => 'PUT']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
@@ -48,4 +49,7 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('script')
+@include('forms.alerts')
 @endsection

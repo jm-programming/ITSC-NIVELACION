@@ -26,7 +26,7 @@ class edit_subjects_Request extends FormRequest
         return [
             'code_subject' =>   'required',
             'subject'      =>   'required',
-            'credits'      =>   'required|min:1|max:5|numeric',
+            'credits'      =>   'required|min:1|max:8|numeric',
         ];
     }
 }

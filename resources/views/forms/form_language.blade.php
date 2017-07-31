@@ -119,14 +119,6 @@
 
 
 @section('script')
-<script>
-    $(document).ready(function(){
-            $('#identity_card').inputmask({"mask": "999-9999999-9"});
-        });
+@include('forms.alerts')
 
-     $('#Datepicker').datetimepicker({
-        format: 'hh:mm A'
-    });
-    
-</script>
 @endsection

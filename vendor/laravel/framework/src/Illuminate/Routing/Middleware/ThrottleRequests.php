@@ -40,7 +40,7 @@ class ThrottleRequests
      * @param  float|int  $decayMinutes
      * @return mixed
      */
-    public function handle($request, Closure $next, $maxAttempts = 3, $decayMinutes = 1)
+    public function handle($request, Closure $next, $maxAttempts = 2, $decayMinutes = 1)
     {
          
         

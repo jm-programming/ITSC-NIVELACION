@@ -11,7 +11,7 @@
 |
  */
 
-Route::get('/', ['middleware' => 'throttle:3,1', function () {
+Route::get('/', ['middleware' => 'throttle:2,1', function () {
  
  	return redirect('login');
 

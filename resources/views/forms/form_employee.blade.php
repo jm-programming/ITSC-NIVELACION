@@ -52,8 +52,20 @@
         <label class="control-label" for="identity_card">
             Identificación
         </label>
-        {{ Form::text('identity_card',null,['class'=>'form-control','placeholder'=>"Ingrese la identificación", 'id'=>"identity_card"]) }}
-    </div>
+        
+        <div class="input-group">
+          <input type="text" class="form-control" id="identity_card" name="identity_card">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Selecciona <span class="caret"></span></button>
+            <ul class="dropdown-menu pull-right" id="select">
+              <li id="cedula" ><a>Cedula</a></li>
+              <li id="pasaporte"><a>Pasaporte</a> </li>
+            </ul>
+           
+          </div>
+        </div>
+      
+      
     <div class="form-group col-sm-8">
         <label class="control-label" for="address">
             Dirección
@@ -73,6 +85,7 @@
 
             ],null,['class' => 'form-control', 'placeholder'=>'-- seleccione una opción --'])!!}
     </div>
+    
     <div class="form-group col-sm-6">
 
         {!! Form::label('gender', 'Genero',['class'=>'control-label']) !!}
@@ -95,32 +108,13 @@
     </div>
 
 
-<?php 
-    $tipo = "cedula";
-    $mascara = "identity_cards";
-    $seleccion = "Seleccione una opcion"
-
-?>
-     
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="input-group">
-          <input type="text" class="form-control" id="{{ $tipo }}">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{ $seleccion }} <span class="caret"></span></button>
-            <ul class="dropdown-menu pull-right">
-              <li id="cedula"><a href="#"> Cedula</a></li>
-              <li id="pasaporte"><a href="#"> Pasaporte</a></li>
-            </ul>
-          </div><!-- /btn-group -->
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
- </div>
+    
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>
 </fieldset>
+
+
+
 @section('script')
 @include('forms.alerts')
-
 @endsection
-
