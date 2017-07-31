@@ -168,7 +168,7 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/qualifications"><i class="fa fa-edit"></i> Calificaciones</a>
    </li>
    <li>
-   <a href="#"><i class="fa fa-desktop"></i> Secciones</a>
+   <a href="/horarioProfesor"><i class="fa fa-desktop"></i> Secciones</a>
    </li>
  </ul>
               </div>
@@ -368,6 +368,7 @@ $name = ucfirst(strtok($email, '@'));
             <script src="{{ asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
             </script>
             <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/buttons.print.min.js') }}"></script>
             @yield('script')
 
         </link>
