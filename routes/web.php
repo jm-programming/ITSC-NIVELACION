@@ -61,7 +61,7 @@ Route::resource('languages','Language_quotesController');
 Route::resource('subjects', 'SubjectController');
 
 //routes calificaciones
-Route::resource('qualifications','qualificationController');
+Route::resource('qualifications','qualificationContoller');
 
 //routes horarioProfesor
 Route::resource('horarioProfesor','HorariosProfesorController');
