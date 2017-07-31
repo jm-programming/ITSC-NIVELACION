@@ -1,7 +1,8 @@
 @extends('layouts.landingPage')
-@section('title', 'Secciones')
-@section('title-content', 'Secciones')
+@section('title', 'Estudiantes')
+@section('title-content', 'Estudiantes')
 @section('content')
+
 
 
   @if(Session::has('message'))
@@ -12,7 +13,7 @@
     </div>
   @endif
 
-@if (count($sections) > 0)
+@if (count($alumno) > 0)
 <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
         <thead>
@@ -21,33 +22,29 @@
                     #
                 </th>
                 <th class="column-title">
-                    Sección
+                    Nombres
                 </th>
                 <th class="column-title">
-                    Profesor
+                    Apellidos
                 </th>
                 <th class="column-title">
-                    Cupos
+                    identificacion
                 </th>
                 <th class="column-title">
-                    Asignatura
+                    Primer_Parcial
                 </th>
                 <th class="column-title">
-                    Aula
+                    Segundo_Parcial
                 </th>
                 <th class="column-title">
-                    Dias
+                    Practicas
                 </th>
                 <th class="column-title">
-                    Hora
+                    Examen final
                 </th>
                 <th class="column-title">
-                    Hora2
+                    Total
                 </th>
-                <th class="column-title">
-                    Tanda
-                </th>
-
                 <th class="column-title no-link last">
                     <span class="nobr">
                         Acción
@@ -66,79 +63,51 @@
             </tr>
         </thead>
         <tbody>
-       
-            <?php $contador = 0;?>
-            @foreach ($sections as $section)
-            <?php $contador++?>
-             <?php
-            $timelast       = $section->time_last;
-            $secondTimeLast = $section->second_time_last;
-            $timeToAdd = 1;
-
-            $timelastHourToSecond       = strtotime($timelast);
-            $secondTimelastHourToSecond = strtotime($secondTimeLast);
-
-            $minutesToAdd = $timeToAdd * 60;
-
-            $timeLastNewHour       = date('H:i:s', $timelastHourToSecond + $minutesToAdd);
-            $secondTimelastNewHour = date('H:i:s', $secondTimelastHourToSecond + $minutesToAdd);
-        ?>
             <tr class="even pointer">
                 <td class="a-center ">
-                    {{$contador}}
+                    1
                 </td>
                 <td class=" ">
-                    {{$section->section}}
-                </td>
-                 <td class=" ">
-                    {{$section->names}}
+                    {{$alumno->names}}
                 </td>
                 <td class=" ">
-                    {{$section->quota}}
+                    {{$alumno->last_name}}
                 </td>
                 <td class=" ">
-                    {{$section->subject}}
+                    {{$alumno->identity_card}}
                 </td>
                 <td class=" ">
-                    {{$section->location}}
+                <input class="form-control" type="number"  min="0" max="10" id="first_midterm" name="first_midterm" placeholder="" value='' >
                 </td>
                 <td class=" ">
-                    {{$section->day_one}} / {{$section->day_two}}
+                <input class="form-control" type="number"  min="0" max="10" id="second_midterm" name="second_midterm" placeholder="" value=''>
                 </td>
                 <td class=" ">
-                    {{$section->time_first}} / {{$timeLastNewHour }}
+                <input class="form-control" type="number"  min="0" max="60" id="pratice_score" name="pratice_score" placeholder="" value=''>
                 </td>
                 <td class=" ">
-                @if(empty($section->second_time_first) && empty($section->second_time_last))
-                    NULL / NULL
-                @else
-                {{$section->second_time_first}} / {{$secondTimelastNewHour}}
-                 @endif    
+                <input class="form-control" type="number"  min="0" max="20" id="final_exam" name="final_exam" placeholder="" value=''>
                 </td>
                 <td class=" ">
-                    {{$section->shift}}
+                <input class="form-control" type="number"  id="score" name="score" placeholder="" value=''>
                 </td>
-               
                 <td class=" last">
-                    {{--{!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}--}}
-                  {!! link_to_route('qualifications.show', $title = 'alumnos', $parameters = $section->id, $attributes = ['class' => 'btn btn-primary']) !!}
-            
-                </td>
+                <button type="button" class="btn btn-primary">Provicional</button>
             </tr>
-            @endforeach
         </tbody>
     </table>
-</div>
+    </div>
+
     @else
     <div class="container" id="error">
+        @include('forms.search_student',['url'=>'students','link'=>'students'])
         <figure id="img-error">
-            <img alt="sad-face" src="img/sad-face.png">
-            </img>
+          <img src="img/sad-face.png" alt="sad-face">
         </figure>
-        <h2 class="text-center">
-            Oops, no se encontro ningun dato.
-        </h2>
+        <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
     </div>
-    @endif
+
+  @endif
+
 
 @endsection

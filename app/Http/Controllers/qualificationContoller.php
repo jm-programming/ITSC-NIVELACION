@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Auth;
+use Illuminate\Support\Facades\DB;
 class qualificationContoller extends Controller
 {
     /**
@@ -14,7 +15,30 @@ class qualificationContoller extends Controller
      */
     public function index()
     {
-        return view('qualifications.qualification');
+        $seccionesProfesor =DB::table('sections')
+		->select('sections.id',
+		'sections.section',
+		'sections.status',
+		'sections.time_first',
+		'sections.time_last',
+		'classrooms.location',
+		'sections.quota',
+		'sections.shift',
+		'sections.day_one',
+		'sections.day_two',
+		'sections.second_time_first',
+		'sections.second_time_last',
+		'subjects.subject',
+		'subjects.code_subject',
+		'users.names'
+		)
+		->join('subjects','sections.subjects_id', '=','subjects.id' )
+		->join('classrooms','sections.classrooms_id', '=','classrooms.id' )
+		->join('users','sections.users_id','=','users.id')
+        ->where('sections.users_id','=',Auth::user()->id)
+		->get();
+
+        return view('qualifications.qualification',['sections' =>$seccionesProfesor]);
     }
 
     /**
@@ -46,7 +70,21 @@ class qualificationContoller extends Controller
      */
     public function show($id)
     {
-        //
+        $alumnos = DB::table('students')
+        ->select(
+        'students.id',
+		'students.names',
+		'students.last_name',
+		'students.identity_card'
+		)
+        ->join('inscribed','students.id', '=','inscribed.students_id' )
+        ->join('sections','inscribed.sections_id', '=','sections.id')
+        ->where('sections.id','=',$id)
+        ->get();
+        
+
+      
+        return view('qualifications.qualification_students',['alumnos' =>$alumnos, 'seccionID' => $id]);
     }
 
     /**
@@ -57,7 +95,29 @@ class qualificationContoller extends Controller
      */
     public function edit($id)
     {
-        //
+        $url = url()->full();
+        $urlExplode = explode("?",$url);
+        $studentID = $urlExplode[1];
+
+        $alumno = DB::table('inscribed')
+        ->select(
+        'students.names',
+        'students.last_name',
+        'students.identity_card',
+        'inscribed.first_midterm',
+        'inscribed.second_midterm',
+        'inscribed.pratice_score',
+        'inscribed.final_exam',
+        'inscribed.score')
+        ->join('students','inscribed.students_id','students.id')
+        ->join('sections','inscribed.sections_id','sections.id')
+        ->where('inscribed.students_id','=',$studentID)
+        ->where('sections.id','=',$id)
+        ->get();
+
+        
+       
+        return view('qualifications.qualification_notes',['alumno' =>$alumno[0]]);
     }
 
     /**

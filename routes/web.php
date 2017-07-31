@@ -62,3 +62,4 @@ Route::resource('subjects', 'SubjectController');
 
 //routes calificaciones
 Route::resource('qualifications','qualificationContoller');
+Route::get('qualifications/{studentId}/sections/{sectionId}', 'qualificationContoller@edit');
