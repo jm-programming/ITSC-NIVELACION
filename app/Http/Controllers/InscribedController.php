@@ -38,18 +38,17 @@ class InscribedController extends Controller
      */
     public function store(Request $request)
     {
+        
         $section = $request->input('subject_selected');
         $id_student = $request->input('id_student');
         
 
         for ($i=0; $i < count($section); $i++) { 
-            $sections_id[$i] = DB::table('sections')
-                ->join('subjects', function ($join){
-                    $join->on('sections.subjects_id','=','subjects.id');                
-                })
+            $sections_id[$i] = DB::table('subjects')
+                ->join('sections','subjects.id','=','sections.subjects_id')               
                 ->where('subjects.code_subject', '=', $section[$i])
                 ->get();
-
+            
             foreach ($sections_id[$i] as $sec) {
 
                 $students_sec[$i] = DB::table('inscribed')
@@ -57,7 +56,7 @@ class InscribedController extends Controller
                 ->where('inscribed.students_id', '=', $id_student)
                 ->get();
 
-                if(count($students_sec[$i]) > 0){
+                if(count($students_sec[$i]) > 0  ){
                     session::flash('message', 'Estudiante ya esta Inscrito en esta asignatura...');
                     return redirect('/students/'.$id_student);
                 }
