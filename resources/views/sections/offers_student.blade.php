@@ -46,14 +46,14 @@
 	    <tbody>
 	    	@for ($i = 0; $i < count($sections); $i++)
 	    	@foreach($sections[$i] as $sec)
-	    	@foreach($inscritos as $inscrito)	
+	    	
 		      <tr class="even pointer">
 		        <td class="a-center ">
+							
 		          <input type="checkbox" name="subject_selected[]" value="{{$sec->code_subject}}" 
-							id="subject_selected" @if($inscrito->sections_id == $sec->id) {{ 'checked' }} @endif>
-
+							id="subject_selected" @foreach($inscritos as $inscrito) @if($inscrito->sections_id == $sec->id) {{ 'checked' }} @endif @endforeach>
+						
 		        </td>
-				@endforeach
 		        <td class="text-center">{{$sec->section}}</td>
 		        <td class=" ">{{$sec->location}} </td>
 		        <td class=" ">{{$sec->code_subject}}</td>
