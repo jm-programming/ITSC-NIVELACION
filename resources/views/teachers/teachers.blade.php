@@ -4,20 +4,12 @@
 @section('content')
 
 @if(Session::has('message'))
-<div class="alert alert-warning" id="Warning">
+<div class="alert alert-danger" id='Danger'>
     {{ session::get('message') }}
 </div>
-  @endif
- <div class="row padding">
-    <div class="col-lg-4 col-md-4">
-      <div class="">
-      @if (count($teachersList) > 0)
-        @include('forms.teacherSearch',['url'=>'teachers','link'=>'teachers'])
-      @endif
-      </div>
-    </div>
+@endif
 
-    <div class="col-lg-8 col-md-8 text-right ">
+    <div class="col-lg-12 text-right ">
       {!!link_to('teachers/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
   </div>

@@ -30,23 +30,7 @@
 			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos profesor" value='{{$users->last_name}}'>
 			                    </div>
 
-                                <div class="form-group col-sm-6 ">
-			                        <label class="control-label" for="status">Estado de Usuario</label>
-			                        <select id="status" name="status" class="form-control">
-                                        @if ($users->status == 1)
-                                        <option selected value=1>Activo</option>
-			                        	<option value=0>Inactivo</option>
-                                        @endif    
-
-                                        @if ($users->status == 0)
-                                        <option selected value=0>Inactivo</option>
-			                        	<option value=1>Activo</option>
-                                        @endif
-
-			                        </select>
-			                    </div>
-
-
+                                
 								<div class="form-group col-sm-6">
 							  <label class="control-label" for="gender">Genero</label>
 			                    <select id="gender" name="gender" class="form-control">
@@ -99,9 +83,14 @@
 			                    </div>
                                  <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="password">Contraseña</label>
-			                        <input type="text" class="form-control" id="password" name="password" placeholder="contraseña" value='{{$users->password}}'>
+			                        <input type="text" class="form-control" id="password" name="password" placeholder="contraseña">
 			                    </div>
-                                
+                            <div class="form-group col-sm-6">
+        					{!!Form::label('status','Estatus Profesor',['class'=>'control-label'])!!}<br>
+        					<input type="radio" name="status" value=1 @if($users->status == 1) {{'checked'}} @endif>Activo
+        					<br>
+        					<input type="radio" name="status" value=0 @if($users->status == 0) {{'checked'}} @endif>Inactivo
+    						</div>
 			                    {!! Form::submit('Editar Profesor',['class' => 'btn btn-primary btn-block']) !!}
 			                </fieldset>
 						{!! Form::close() !!}

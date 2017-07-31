@@ -29,14 +29,7 @@
 			                        <label class="control-label" for="last_names">Apellidos</label>
 			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos profesor">
 			                    </div>
-								 <div class="form-group col-sm-6 ">
-			                        <label class="control-label" for="status">Estado</label>
-			                        <select id="status" name="status" class="form-control">
-			                        	<option disabled selected value> -- Estado -- </option>
-			                        	<option value=1>Activo</option>
-			                        	<option value=0>Inactivo</option>
-			                        </select>
-			                    </div>
+								 
 			                  <div class="form-group col-sm-6">
 							  <label class="control-label" for="gender">Genero</label>
 			                    <select id="status" name="gender" class="form-control">
@@ -82,7 +75,12 @@
 			                        <label class="control-label" for="password">Contraseña</label>
 			                        <input type="password" class="form-control" id="password" name="password" placeholder="contraseña">
 			                    </div>
-
+								<div class="form-group col-sm-6">
+        					{!!Form::label('status','Estatus Profesor',['class'=>'control-label'])!!}<br>
+        					<input type="radio" name="status" value=1>Activo
+        					<br>
+        					<input type="radio" name="status" value=0>Inactivo
+    						</div>
 			                    <!-- Button -->
 			                    {!! Form::submit('Crear Profesor',['class' => 'btn btn-primary btn-block']) !!}
 			                </fieldset>

@@ -26,8 +26,9 @@ class TeacherController extends Controller
     public function index()
     {
 
-        $teachersList = User::orderBy('names', 'asc')
-        ->where('users.rolls_id', '=' , 2)
+        $teachersList = DB::table('rolls')
+        ->join('users','rolls.id','=','users.rolls_id')
+        ->where('rolls.roll', '=' , 'Profesor')
         ->paginate(8);
 
         return view('teachers.teachers', ['teachersList' => $teachersList]);
@@ -43,85 +44,6 @@ class TeacherController extends Controller
 
     public function search(Request $request){
 
-        $teachersSearch = \Request::get('teachersSearch');
-        $Status = \Request::get('Status');
-        
-        
-        /*se declaro una variable status para obtener el estado del select en la url*/
-
-        /*en esta condicion validamos que si el valor de la variable status es igual a all y el
-        teachersSearch no es vacio que ejecute la consulta hacia todos los datos de la base de datos, permitiendo filtrar
-          por el nombre que se introdusca en la variable teacherSearch y los pagine en 8*/
-
-   if($Status == 'All' && !empty($teachersSearch))
-        {
-        $query = ['users.names' => $teachersSearch,'users.rolls_id' => 2];
-        $query2 = ['users.last_name' => $teachersSearch,'users.rolls_id' => 2];
-
-            $teachersList = User::where($query)
-            ->orwhere($query2)
-            ->orderBy('users.names')
-            ->paginate(8);
-
-            /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-
-
-       }
-       
-       elseif($Status == 'All' && empty($teachersSearch))
-        {
-        
-            $teachersList = User::orderBy('names', 'asc')
-            ->where('users.rolls_id', '=' , 2)
-            ->paginate(8);
-
-            /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-
-
-
-        }
-        /*en esta segunda condicion se valida que si status es 1 y la url de teacherSearch llega vacia
-          o si estatus es 0 y la url llega vacia , que traiga todos los datos donde el teacher.teacher_status
-          sea igual a la variable status y los pagine en 8*/
-
-   elseif(($Status == 1 && empty($teachersSearch)) ||
-               ($Status == 0 && empty($teachersSearch)))
-        {
-            $query = ['users.status' => $Status,'users.rolls_id' => 2 ];
-
-            $teachersList = User::where($query)
-            ->orderBy('users.names')
-            ->paginate(8);
-
-        /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-        
-        }
-        /*en esta tercera validacion validamos que si la variable status es 1 o 0 y la variable
-          teacherSearch no esta vacia, entonces haga las siguientes consultas*/
-   elseif(($Status == 1 && !empty($teachersSearch)) ||
-               ($Status == 0 && !empty($teachersSearch)))
-        {
-            
-            /*guardamos en una variable la primera consulta que buscara los nombres que coincidan
-              con recibidos en la url , y el status que se reciba por la url , en la segunda consulta
-              se hace lo mismo pero con el apellido*/
-             $query = ['users.names' => $teachersSearch,'users.status' => $Status,'users.rolls_id' => 2];
-             $query2 = ['users.last_name' => $teachersSearch,'users.status' => $Status,'users.rolls_id' => 2];
-
-            $teachersList = User::where($query)
-            ->orwhere($query2)
-            ->orderBy('users.names')
-            ->paginate(8);
-
-            /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-        
-        }
- 
-        
      }
 
 
@@ -144,9 +66,11 @@ class TeacherController extends Controller
             $user = new User;
             $pw = $request->password;
             $bpw = bcrypt($pw);
+            $roll = DB::table('rolls')
+            ->where('rolls.roll', '=' , 'Profesor')
+            ->get();
+
             
-
-
             $user->names = $request->names;
             $user->last_name = $request->last_name;
             $user->personal_phone = $request->personal_phone;
@@ -158,7 +82,7 @@ class TeacherController extends Controller
             $user->email = $request->email;
             $user->password = $bpw;
             $user->status = $request->status;
-            $user->rolls_id = 2;
+            $user->rolls_id = $roll[0]->id;
 
             $user->save();
 
@@ -175,7 +99,9 @@ class TeacherController extends Controller
             $lastLoggedActivity->causer; //returns an instance of your user model
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
-            return redirect('/teachers');
+
+            session::flash('message', 'Profesor creado correctamente');
+            return view('/teachers');
         }
         catch(\Exception $e){
             session::flash('message',$e);
@@ -197,36 +123,16 @@ class TeacherController extends Controller
     public function update(Request $request, $id){
 
         try{
-        $user = User::find($id);
-        $pw = $request->password;
-        $bpw = bcrypt($pw);
-
-
-        $user->fill([
-            'names' => $request->names,
-            'last_name' => $request->last_name,
-            'personal_phone' => $request->personal_phone,
-            'cellphone' => $request->cellphone,
-            'address' => $request->address,
-            'identity_card' => $request->identity_card,
-            'gender' => $request->gender,
-            'civil_status' =>$request->civil_status,
-            'email' => $request->email,
-            'password' => $bpw,
-            'status' => $request->status,
-            'rolls_id' => 2
-            
-        ]);
-
-
-        $user->save();
-
+        $teacher = User::find($id);
+        $teacher->fill($request->all());
+        $teacher->save();
+       
             $userModel = Auth::user();
             $someContentModel = $user;
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$teacher->names);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -234,7 +140,8 @@ class TeacherController extends Controller
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
 
-        return redirect('/teachers');
+        session::flash('message', 'Profesor editado correctamente');
+        return view('/teachers');
         }
         catch(\Exception $e) {
 
@@ -266,6 +173,7 @@ class TeacherController extends Controller
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
 
+        session::flash('message', 'Profesor eliminado correctamente');
         return redirect('/teachers');
   //code causing exception to be thrown
     } catch(\Exception $e) {

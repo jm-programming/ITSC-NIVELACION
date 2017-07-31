@@ -10,7 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
-
+use Illuminate\Support\Facades\DB;
 class EmployeesController extends Controller {
 	/**
 	 * Display a listing of the resource.
@@ -19,8 +19,10 @@ class EmployeesController extends Controller {
 	 */
 	public function index() {
 
-		$employees = User::orderBy('names', 'asc')
-			        ->where('users.rolls_id', '=', 3)->paginate(5);
+		$employees = DB::table('rolls')
+        ->join('users','rolls.id','=','users.rolls_id')
+        ->where('rolls.roll', '=' , 'Empleado')
+        ->paginate(8);
 		
 		return view('employees.employee', ['employees' => $employees]);
 		
@@ -44,6 +46,10 @@ class EmployeesController extends Controller {
 	 */
 	public function store(CreateEmployeeRequest $request) {
 
+		$roll = DB::table('rolls')
+            ->where('rolls.roll', '=' , 'Empleado')
+            ->get();
+
 		User::create([
 			'names' => $request['names'],
 			'last_name' => $request['last_name'],
@@ -58,7 +64,7 @@ class EmployeesController extends Controller {
 			'password' => bcrypt($request['password']),
 			'status' => $request['status'],
 
-			'rolls_id' => '3',
+			'rolls_id' => $roll[0]->id,
 
 		]);
 
@@ -122,7 +128,7 @@ class EmployeesController extends Controller {
 	public function destroy($id) {
 		User::destroy($id);
         session::flash('message', 'Empleado eliminada correctamente...');
-        return Redirect::to('/employees');
+        return view('/employees');
 
 	}
 
