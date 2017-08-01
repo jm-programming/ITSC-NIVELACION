@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
+use App\teacherSubjects;
 use Validator;
 class TeacherController extends Controller
 {
@@ -52,16 +53,20 @@ class TeacherController extends Controller
       a la vista de creacion de profesores(a la parte de creacion de usuario)*/
     public function create ()
     {
-        return view('teachers.teachers_create');
+        $subjects = DB::table('subjects')
+        ->get();
+        
+        
+        return view('teachers.teachers_create',['subjects'=>$subjects]);
     }
     
 
     public function store(Request $request)
         {
            
-        try{
+        //try{
 
-           $validator = Validator::make($request->all(), [
+           /*$validator = Validator::make($request->all(), [
             'names' => 'required',
             'last_name' => 'required',
             'identity_card' => 'required',
@@ -72,14 +77,15 @@ class TeacherController extends Controller
             //'address' => 'required',
             'gender' => 'required',
             'civil_status' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'subject_selected' => 'required'
 
          ]);
         if ($validator->fails()) {
             return redirect('teachers/create')
                         ->withErrors($validator)
                         ->withInput();
-        }
+        }*/
 
             $user = new User;
             $pw = $request->password;
@@ -87,8 +93,9 @@ class TeacherController extends Controller
             $roll = DB::table('rolls')
             ->where('rolls.roll', '=' , 'Profesor')
             ->get();
-
             
+
+
             $user->names = $request->names;
             $user->last_name = $request->last_name;
             $user->personal_phone = $request->personal_phone;
@@ -101,9 +108,14 @@ class TeacherController extends Controller
             $user->password = $bpw;
             $user->status = $request->status;
             $user->rolls_id = $roll[0]->id;
-
+            
             $user->save();
-
+            for($x=0;$x<count($request->subject_selected);$x++){
+            $subjects = new teachersubjects;
+            $subjects->users_id = $user->id;
+            $subjects->subjects_id = $request->subject_selected[$x];
+            $subjects->save();
+            }
            
             $userModel = Auth::user();
             $someContentModel = $user;
@@ -120,11 +132,11 @@ class TeacherController extends Controller
 
             session::flash('message', 'Profesor creado correctamente...');
             return redirect('/teachers');
-        }
-        catch(\Exception $e){
-            session::flash('message',$e);
+        //}
+        /*catch(\Exception $e){
+            session::flash('message','error');
             return redirect('teachers/create');
-        }
+        }*/
         } 
 
 

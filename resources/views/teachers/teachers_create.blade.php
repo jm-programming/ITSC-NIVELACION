@@ -36,10 +36,22 @@
 			                        <label class="control-label" for="last_names">Apellidos</label>
 			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos profesor">
 			                    </div>
-								 
+								 <div class="form-group col-sm-6">
+			                    <label class="control-label" for="subjects">Asignaturas</label>
+								<div class="dropdown " name="subjects">
+  								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Materias
+  								<span class="caret"></span></button>
+  								<ul class="dropdown-menu">
+								@foreach($subjects as $subject)	
+    							<li><input type="checkbox" name="subject_selected[]" value="{{$subject->id}}" 
+									id="subject_selected" >{{$subject->subject}}</li>
+								@endforeach
+  								</ul>
+								</div>
+			                    </div>
 			                  <div class="form-group col-sm-6">
 							  <label class="control-label" for="gender">Genero</label>
-			                    <select id="status" name="gender" class="form-control">
+			                    <select id="gender" name="gender" class="form-control">
 			                        	<option disabled selected value> -- Genero -- </option>
 			                        	<option value='Hombre'>Hombre</option>
 			                        	<option value='Mujer'>Mujer</option>
