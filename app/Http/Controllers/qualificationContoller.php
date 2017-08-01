@@ -38,6 +38,7 @@ class qualificationContoller extends Controller
 		->join('classrooms','sections.classrooms_id', '=','classrooms.id' )
 		->join('users','sections.users_id','=','users.id')
         ->where('sections.users_id','=',Auth::user()->id)
+        ->where('sections.status','=',1)
 		->get();
 
         return view('qualifications.qualification',['sections' =>$seccionesProfesor]);
@@ -158,6 +159,7 @@ class qualificationContoller extends Controller
 		->join('classrooms','sections.classrooms_id', '=','classrooms.id' )
 		->join('users','sections.users_id','=','users.id')
         ->where('sections.users_id','=',Auth::user()->id)
+        ->where('sections.status','=',1)
 		->get();
 
         $alumnoInscrito = Inscribed::find($id);

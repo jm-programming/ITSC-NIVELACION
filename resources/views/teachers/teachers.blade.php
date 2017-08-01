@@ -3,12 +3,14 @@
 @section('title-content', 'Profesores')
 @section('content')
 
-@if(Session::has('message'))
-<div class="alert alert-danger" id='Danger'>
-    {{ session::get('message') }}
-</div>
-@endif
-
+  @if(Session::has('message'))
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ session::get('message') }}
+    </div>
+  @endif
+  
+  
     <div class="col-lg-12 text-right ">
       {!!link_to('teachers/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>

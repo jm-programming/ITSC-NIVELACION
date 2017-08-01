@@ -3,6 +3,11 @@
 @section('title', 'Editar Profesor')
 @section('title-content', 'Editar Profesor')
 @section('content')
+@if(Session::has('message'))
+<div class="alert alert-danger" id='Danger'>
+    {{ session::get('message') }}
+</div>
+@endif
 	<div id="content" class="jumbotron main">
 		<h1 class="text-center padding ">Profesor</h1>
 		<div class="container">
@@ -80,10 +85,6 @@
                                 <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="email">Email</label>
 			                        <input type="text" class="form-control" id="email" name="email" placeholder="email profesor" value='{{$users->email}}'>
-			                    </div>
-                                 <div class="form-group col-sm-6 ">
-			                        <label class="control-label" for="password">Contraseña</label>
-			                        <input type="text" class="form-control" id="password" name="password" placeholder="contraseña">
 			                    </div>
                             <div class="form-group col-sm-6">
         					{!!Form::label('status','Estatus Profesor',['class'=>'control-label'])!!}<br>

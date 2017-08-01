@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
-
+use Validator;
 class TeacherController extends Controller
 {
     /**
@@ -58,11 +58,29 @@ class TeacherController extends Controller
 
     public function store(Request $request)
         {
-            /*se declara una variable pw de password para almacenar el valor de la
-              solicitud que recibe del formulario, luego se crea la variable bpw de bcrypt 
-              password para encryptar esa informacion y se le pasa como valor al modelo de User 
-              para que la password sea igual a la clave encryptada*/
+           
         try{
+
+           $validator = Validator::make($request->all(), [
+            'names' => 'required',
+            'last_name' => 'required',
+            'identity_card' => 'required',
+            'civil_status' => 'required',
+            'email' => 'email|unique:users',
+            'personal_phone' => 'required',
+            //'cellphone' => 'required',
+            //'address' => 'required',
+            'gender' => 'required',
+            'civil_status' => 'required',
+            'password' => 'required'
+
+         ]);
+        if ($validator->fails()) {
+            return redirect('teachers/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
             $user = new User;
             $pw = $request->password;
             $bpw = bcrypt($pw);
@@ -100,14 +118,13 @@ class TeacherController extends Controller
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
 
-            session::flash('message', 'Profesor creado correctamente');
-            return view('/teachers');
+            session::flash('message', 'Profesor creado correctamente...');
+            return redirect('/teachers');
         }
         catch(\Exception $e){
             session::flash('message',$e);
             return redirect('teachers/create');
         }
-
         } 
 
 
@@ -123,16 +140,36 @@ class TeacherController extends Controller
     public function update(Request $request, $id){
 
         try{
-        $teacher = User::find($id);
-        $teacher->fill($request->all());
-        $teacher->save();
+        
+        $validator = Validator::make($request->all(), [
+            'names' => 'required',
+            'last_name' => 'required',
+            'identity_card' => 'required',
+            'civil_status' => 'required',
+            'email' => 'email',
+            'personal_phone' => 'required',
+            //'cellphone' => 'required',
+            //'address' => 'required',
+            'gender' => 'required',
+            'civil_status' => 'required',
+            
+
+         ]);
+        if ($validator->fails()) {
+            return redirect('teachers/'.$id.'/edit')
+                        ->withErrors($validator);
+        }
+
+        $user = User::find($id);
+        $user->fill($request->all());
+        $user->save();
        
             $userModel = Auth::user();
             $someContentModel = $user;
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$teacher->names);
+            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -141,13 +178,12 @@ class TeacherController extends Controller
             $lastLoggedActivity->log_name;
 
         session::flash('message', 'Profesor editado correctamente');
-        return view('/teachers');
-        }
-        catch(\Exception $e) {
-
-        session::flash('message',$e);
         return redirect('/teachers');
-    }
+        }
+        catch(\Exception $e){
+            session::flash('message',$e);
+            return redirect('/teachers');
+        }
        
     }
 

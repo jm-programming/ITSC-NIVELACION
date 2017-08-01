@@ -3,6 +3,11 @@
 @section('title', 'Crear Profesor')
 @section('title-content', 'Crear Profesor')
 @section('content')
+@if(Session::has('message'))
+<div class="alert alert-danger" id='Danger'>
+    {{ session::get('message') }}
+</div>
+@endif
 	<div id="content" class="jumbotron main">
 		<h1 class="text-center padding ">Profesor</h1>
 		<div class="container">
@@ -13,10 +18,12 @@
 					</div>
 					<div class="panel-body">
 						@include('alerts.requets')
+
 						{!! Form::open(['route' => 'teachers.store', 'method' => 'POST']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
 			                    <!-- Prepended text-->
+	
 			                    {!!Form::token()!!}
 
 								<h4>Información del profesor</h4>
