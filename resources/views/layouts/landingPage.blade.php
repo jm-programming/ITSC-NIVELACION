@@ -117,9 +117,6 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/sections"><i class="fa fa-table"></i> Secciones</a>
    </li>
    <li>
-   <a href="/inscribed"><i class="fa fa-table"></i> Selección Asignaturas</a>
-   </li>
-   <li>
     <a href="/employees"><i class="fa fa-table"></i> Empleados</a>
    </li>
    <li>

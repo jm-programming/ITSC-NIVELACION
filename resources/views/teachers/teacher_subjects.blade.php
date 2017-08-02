@@ -10,7 +10,7 @@
     </div>
   @endif
 <div class="col-lg-12 text-right ">
-      {!!link_to('materiasProfesor/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
+      {!!link_to_route('materiasProfesor.edit', $title='', $parameters = $id, $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'])!!}
     </div>
   </div>
 

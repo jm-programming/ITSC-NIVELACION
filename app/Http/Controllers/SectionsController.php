@@ -500,7 +500,7 @@ class SectionsController extends Controller {
 					'status' => $request->input('status'),
 					'users_id' => $request->input('users_id'),
 					'second_time_first'=> $request->input('second_time_first'),
-					'second_time_last'=>$request->input('second_time_last'),
+					'second_time_last'=>$secondTimelastNewHour,
 				]);
 
 				session::flash('message', 'Sección: '.$seccionCreated->section.' creada correctamente...');
@@ -975,7 +975,7 @@ class SectionsController extends Controller {
 					'status' => $request->input('status'),
 					'users_id' => $request->input('users_id'),
 					'second_time_first'=> $request->input('second_time_first'),
-					'second_time_last'=>$request->input('second_time_last'),
+					'second_time_last'=>$secondTimelastNewHour,
 				]);
 
 				session::flash('message', 'Sección: '.$seccionCreated->section.' creada correctamente...');
@@ -1119,7 +1119,21 @@ class SectionsController extends Controller {
 				&& count($sectionName) == 0){
 
 					$sectionCreated = Sections::find($id);
-					$sectionCreated->fill($request->all());
+					$sectionCreated->fill([
+					'shift' => $request->input('shift'),
+					'classrooms_id' => $request->input('classrooms_id'),
+					'day_one' => $request->input('day_one'),
+					'day_two' => $request->input('day_two'),
+					'academic_periods_id' => $request->input('academic_periods_id'),
+					'time_first' => $request->input('time_first'),
+					'subjects_id' => $request->input('subjects_id'),
+					'time_last' =>$timeLastNewHour,
+					'section' => $request->input('section'),
+					'quota' => $request->input('quota'),
+					'status' => $request->input('status'),
+					'users_id' => $request->input('users_id'),
+					'second_time_first'=> $request->input('second_time_first'),
+					'second_time_last'=>$request->input('second_time_last')]);
         			$sectionCreated->save();
 
 				session::flash('message', 'Sección: '.$sectionCreated->section.' editada correctamente...');
@@ -1162,7 +1176,21 @@ class SectionsController extends Controller {
 				if($sectionName[0]->id == $id){	
 
 					$sectionCreated = Sections::find($id);
-					$sectionCreated->fill($request->all());
+					$sectionCreated->fill([
+					'shift' => $request->input('shift'),
+					'classrooms_id' => $request->input('classrooms_id'),
+					'day_one' => $request->input('day_one'),
+					'day_two' => $request->input('day_two'),
+					'academic_periods_id' => $request->input('academic_periods_id'),
+					'time_first' => $request->input('time_first'),
+					'subjects_id' => $request->input('subjects_id'),
+					'time_last' =>$timeLastNewHour,
+					'section' => $request->input('section'),
+					'quota' => $request->input('quota'),
+					'status' => $request->input('status'),
+					'users_id' => $request->input('users_id'),
+					'second_time_first'=> $request->input('second_time_first'),
+					'second_time_last'=>$request->input('second_time_last')]);
         			$sectionCreated->save();
 
 				session::flash('message', 'Sección: '.$sectionCreated->section.' editada correctamente...');
@@ -1381,7 +1409,21 @@ class SectionsController extends Controller {
 					{
 
 					$sectionCreated = Sections::find($id);
-					$sectionCreated->fill($request->all());
+					$sectionCreated->fill([
+					'shift' => $request->input('shift'),
+					'classrooms_id' => $request->input('classrooms_id'),
+					'day_one' => $request->input('day_one'),
+					'day_two' => $request->input('day_two'),
+					'academic_periods_id' => $request->input('academic_periods_id'),
+					'time_first' => $request->input('time_first'),
+					'subjects_id' => $request->input('subjects_id'),
+					'time_last' =>$timeLastNewHour,
+					'section' => $request->input('section'),
+					'quota' => $request->input('quota'),
+					'status' => $request->input('status'),
+					'users_id' => $request->input('users_id'),
+					'second_time_first'=> $request->input('second_time_first'),
+					'second_time_last'=>$request->input('second_time_last')]);
         			$sectionCreated->save();
 
 					session::flash('message', 'Sección: '.$sectionCreated->section.' editada correctamente...');
@@ -1421,16 +1463,32 @@ class SectionsController extends Controller {
 							'academic_periods_id' => 'required'
          				]);
 					
-
+			if(count($sameSection) > 0 && count($sectionName) > 0){
 				if($sectionName[0]->id == $id){	
 
 					$sectionCreated = Sections::find($id);
-					$sectionCreated->fill($request->all());
+					$sectionCreated->fill([
+			
+					'shift' => $request->input('shift'),
+					'classrooms_id' => $request->input('classrooms_id'),
+					'day_one' => $request->input('day_one'),
+					'day_two' => $request->input('day_two'),
+					'academic_periods_id' => $request->input('academic_periods_id'),
+					'time_first' => $request->input('time_first'),
+					'subjects_id' => $request->input('subjects_id'),
+					'time_last' =>$timeLastNewHour,
+					'section' => $request->input('section'),
+					'quota' => $request->input('quota'),
+					'status' => $request->input('status'),
+					'users_id' => $request->input('users_id'),
+					'second_time_first'=> $request->input('second_time_first'),
+					'second_time_last'=>$secondTimelastNewHour,
+				]);
         			$sectionCreated->save();
 
 				session::flash('message', 'Sección: '.$sectionCreated->section.' editada correctamente...');
 				return redirect("/sections");
-					}
+					}}
 	}
 				/*para validar el cupo de la seccion no pase a la capacidad del aula*/
 				if(count($cupo) > 0){
@@ -1877,7 +1935,23 @@ class SectionsController extends Controller {
 					{
 
 					$sectionCreated = Sections::find($id);
-					$sectionCreated->fill($request->all());
+					$sectionCreated->fill([
+			
+					'shift' => $request->input('shift'),
+					'classrooms_id' => $request->input('classrooms_id'),
+					'day_one' => $request->input('day_one'),
+					'day_two' => $request->input('day_two'),
+					'academic_periods_id' => $request->input('academic_periods_id'),
+					'time_first' => $request->input('time_first'),
+					'subjects_id' => $request->input('subjects_id'),
+					'time_last' =>$timeLastNewHour,
+					'section' => $request->input('section'),
+					'quota' => $request->input('quota'),
+					'status' => $request->input('status'),
+					'users_id' => $request->input('users_id'),
+					'second_time_first'=> $request->input('second_time_first'),
+					'second_time_last'=>$secondTimelastNewHour,
+				]);
         			$sectionCreated->save();
 
 					session::flash('message', 'Sección: '.$sectionCreated->section.' editada correctamente...');

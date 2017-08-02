@@ -20,7 +20,7 @@
 	    </div>
 
   	@endif
-	{!!Form::open(['route' => 'materiasProfesor.store', 'method' => 'POST'])!!}
+	{!!Form::open(['route' => ['materiasProfesor.update',$id], 'method' => 'PUT'])!!}
 		{!!Form::token()!!}  
       <div class="table-responsive">
         <table class="dataTables_wrapper form-inline dt-bootstrap no-footer jambo_table bulk_action display "  id='table_id'>

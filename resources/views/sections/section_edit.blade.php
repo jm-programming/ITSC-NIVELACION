@@ -19,7 +19,20 @@
 					<div class="panel-body">
 						@include('alerts.requets')
 						{!! Form::open(['route' => ['sections.update', $section->id], 'method' => 'PUT']) !!}
-			                <fieldset class="col-sm-10 col-sm-offset-1">
+             				<?php
+            				$timelast       = $section->time_last;
+            				$secondTimeLast = $section->second_time_last;
+            				$timeToAdd = 1;
+
+            				$timelastHourToSecond       = strtotime($timelast);
+            				$secondTimelastHourToSecond = strtotime($secondTimeLast);
+
+            				$minutesToAdd = $timeToAdd * 60;
+
+            				$timeLastNewHour       = date('H:i', $timelastHourToSecond + $minutesToAdd);
+            				$secondTimelastNewHour = date('H:i', $secondTimelastHourToSecond + $minutesToAdd);
+        					?>
+						    <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
 			                    <!-- Prepended text-->
 			                    {!!Form::token()!!}
@@ -93,7 +106,7 @@
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_last">Hora final de clase</label>
-			                        <input type="time" class="form-control" id="time_last" name="time_last" value="{{$section->time_last}}">
+			                        <input type="time" class="form-control" id="time_last" name="time_last" value="{{$timeLastNewHour}}">
 			                    </div>
 
 			                    <div class="form-group col-sm-3">
@@ -102,7 +115,12 @@
 			                    </div>
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="second_time_last">2da Hora final de clase</label>
-			                        <input type="time" class="form-control" id="second_time_last" name="second_time_last" value="{{$section->second_time_last}}">
+									@empty($section->second_time_last)
+									<input type="time" class="form-control" id="second_time_last" name="second_time_last" value="{{$section->second_time_last}}">
+									@endempty
+									@isset($section->second_time_last)
+									<input type="time" class="form-control" id="second_time_last" name="second_time_last" value="{{$secondTimelastNewHour}}">
+									@endisset
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="section">Numero de Sección</label>

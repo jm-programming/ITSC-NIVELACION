@@ -47,7 +47,7 @@ class TeacherController extends Controller
          ->get();
 
         
-        return view('teachers.teacher_subjects',['subjects'=>$teacherSubjects]);
+        return view('teachers.teacher_subjects',['subjects'=>$teacherSubjects,'id'=>$id]);
     }
 
     
