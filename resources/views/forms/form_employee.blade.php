@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group col-sm-6">
-    <label for="identity_card" class="control-label">Identificacion</label>
+    <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
     <div class="input-group">
       <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
       <div class="input-group-btn">
