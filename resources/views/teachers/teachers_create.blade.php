@@ -45,10 +45,21 @@
 			                        	<option value='Mujer'>Mujer</option>
 			                        </select>
 								</div>
-			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="nombres">Identificación</label>
-			                        <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="identificacion" >
-			                    </div>
+			                   
+								    <div class="form-group col-sm-12">
+    <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Opción<span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+           <li id="cedula"><a href="#">Cedula</a></li>
+          <li id="pasaporte"><a href="#">Pasaporte</a></li>
+        </ul>
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+    </div>
+
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="personal_phone">Telefono</label>
 			                        <input type="text" class="form-control" id="personal_phone" name="personal_phone" placeholder="telefono profesor">
@@ -95,11 +106,5 @@
 	</div>
 @endsection
 @section('script')
-	<script>
-		$(document).ready(function(){
-        	$('#identity_card').inputmask({"mask": "999-9999999-9"});
-            $('#cellphone').inputmask({"mask": "999-999-9999"})
-            $('#personal_phone').inputmask({"mask": "999-999-9999"})
-      	});
-	</script>
+	@include('forms.alerts')
 @endsection

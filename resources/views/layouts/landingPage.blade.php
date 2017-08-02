@@ -346,7 +346,7 @@ $name = ucfirst(strtok($email, '@'));
             </script>
             <script src="{{ URL::asset('js/datatable/extensions/Buttons/js/buttons.html5.min.js') }}">
             </script>
-            <script src="{{ asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+            <script src="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
             @yield('script')
 
         </link>

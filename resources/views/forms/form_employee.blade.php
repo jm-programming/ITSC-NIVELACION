@@ -48,7 +48,9 @@
         </label>
         {{ Form::text('cellphone',null,['class'=>'form-control','placeholder'=>"Ingrese el Telefono celular", 'id'=>"cellphone"]) }}
     </div>
+
     <div class="form-group col-sm-6">
+<<<<<<< HEAD
         <label class="control-label" for="identity_card">
             Identificación
         </label>
@@ -66,6 +68,23 @@
         </div>
       
       
+=======
+    <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Opción <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+           <li id="cedula"><a href="#">Cedula</a></li>
+          <li id="pasaporte"><a href="#">Pasaporte</a></li>
+        </ul>
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+    </div>
+
+
+
+>>>>>>> prueba
     <div class="form-group col-sm-8">
         <label class="control-label" for="address">
             Dirección
@@ -108,7 +127,11 @@
     </div>
 
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> prueba
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>
 </fieldset>
