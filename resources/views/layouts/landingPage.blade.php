@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 
 <head>
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	<meta content="text/html" charset="utf-8" http-equiv="Content-Type"/>
 	<!-- Meta, title, CSS, favicons, etc. -->
 	<meta charset="utf-8"/>
 	<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -54,7 +54,7 @@
             </meta>
         </meta>
 
- <link href="  {{URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+ <link href="{{URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
     <!-- bootstrap-datetimepicker -->
     <link href="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-duallistbox.min.css') }}">
@@ -64,7 +64,7 @@
             <div class="main_container">
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
-                        <div class="navbar nav_title" style="border: 0;">
+                        <div class="navbar nav_title" style="border: 0">
                             <a class="site_title" href="/home">
                                 <img alt="" src="{{ URL::asset('img/itsc_logo.png')}}" width="51px">
                                     <span>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="clearfix">
                         </div>
-                        <?php
+<?php
 //obtener los caracteres que estan antes del @ y poner la primera letra en mayuscula
 $email = Auth::user()->email;
 $user = Auth::user()->id;
@@ -85,7 +85,7 @@ $name = ucfirst(strtok($email, '@'));
 						<!-- menu profile quick info -->
 						<div class="profile clearfix">
 							<div class="profile_info">
-								<span>Bienvenido,</span>
+								<span>Bienvenido</span>
 								<h2>{{ $name }}</h2>
 							</div>
 						</div>
@@ -221,7 +221,7 @@ $name = ucfirst(strtok($email, '@'));
 										<i class="fa fa-sign-out pull-right">
 										</i>
 									</a>
-									<form action="{{ route('logout') }}" id="logout-form" method="POST" style="display: none;">
+									<form action="{{ route('logout') }}" id="logout-form" method="POST" style="display: none">
 										{{ csrf_field() }}
 									</form>
 								</li>
