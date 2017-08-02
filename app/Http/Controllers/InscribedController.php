@@ -39,35 +39,78 @@ class InscribedController extends Controller
     public function store(Request $request)
     {
         
-        $section = $request->input('subject_selected');
+        //hacer que los checkboxes que ya estan activos no se envien
+        //hacer que los checkboxes que ya estaban activos y se desactivan eliminen la inscricion de esa seccion
+        //choques de horario 
+        //determinar si kiefer y matador son parajos.
+
+
+        //obteniendo los datos de los select id y codigo asignatura
+        $subject_selected = $request->input('subject_selected');
+        //contando los objetos de los checkboxes
+        $subjectCount = count($subject_selected);
+
+        //obteniendo id de estudiante
         $id_student = $request->input('id_student');
+
         
-
-        for ($i=0; $i < count($section); $i++) { 
-            $sections_id[$i] = DB::table('subjects')
-                ->join('sections','subjects.id','=','sections.subjects_id')               
-                ->where('subjects.code_subject', '=', $section[$i])
+        for ($i=0; $i < $subjectCount; $i++) { 
+            //combirtiendo en array los elementos que estan divididos por un "."
+            $sectionInfo = explode('.', $subject_selected[$i]);
+            //query para obtener las inscriciones por asignatura
+            $inscribedSections1[$i] = DB::table('inscribed')
+                ->select('inscribed.id'
+                    )
+                ->join('sections','inscribed.sections_id','=','sections.id') 
+                ->join('subjects','sections.subjects_id','=','subjects.id')               
+                ->where('subjects.code_subject', '=', $sectionInfo[0])
                 ->get();
-            
-            foreach ($sections_id[$i] as $sec) {
-
-                $students_sec[$i] = DB::table('inscribed')
-                ->where('inscribed.sections_id', '=', $sec->id)
-                ->where('inscribed.students_id', '=', $id_student)
+                //query para obtener las inscriciones por secccion
+            $inscribedSections2[$i] = DB::table('inscribed')
+                ->select('inscribed.id'
+                    )
+                ->join('sections','inscribed.sections_id','=','sections.id') 
+                ->join('subjects','sections.subjects_id','=','subjects.id')
+                ->where('sections.id', '=', $sectionInfo[1])
                 ->get();
+            //eliminando arrays vacios para contarlo de manera correcta del query 1
+            $trimed1 = array_map('trim', $inscribedSections1);
+            $filted1 = array_filter($trimed1, function($value) { return $value !== '[]'; });
+            $filtedCounted1 = count($filted1);
+            //eliminando arrays vacios para contarlo de manera correcta del query 2
+            $trimed2 = array_map('trim', $inscribedSections2);
+            $filted2 = array_filter($trimed2, function($value) { return $value !== '[]'; });
+            $filtedCounted2 = count($filted2);
 
-                if(count($students_sec[$i]) > 0  ){
-                    session::flash('message', 'Estudiante ya esta Inscrito en esta asignatura...');
+            if( $filtedCounted1 > 0){
+                    session::flash('message', 'Estudiante ya esta inscrito en esta asignatura.');
                     return redirect('/students/'.$id_student);
                 }
-                
+
+            if( $filtedCounted2 > 0){
+                    session::flash('message', 'Estudiante ya esta inscrito en esta sección.');
+                    return redirect('/students/'.$id_student);
+                }
+
+            // foreach ($sections_id[$i] as $sec) {
+
+            //     $students_sec[$i] = DB::table('inscribed')
+            //     ->where('inscribed.sections_id', '=', $sec->id)
+            //     ->where('inscribed.students_id', '=', $id_student)
+            //     ->get();
+
+            //     if(count($students_sec[$i]) > 0  ){
+            //         session::flash('message', 'Estudiante ya esta Inscrito en esta asignatura...');
+            //         return redirect('/students/'.$id_student);
+            //     }
+                //inscribiendo estudiantes
                 Inscribed::create([
-                    'sections_id'=> $sec->id,
+                    'sections_id'=> $sectionInfo[1],
                     'students_id' => $id_student,
                 ]);
-            }
+            
+            // }
         }
-
         session::flash('message', 'Estudiante Inscrito correctamente...');
 
         return redirect('/students');
