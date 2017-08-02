@@ -35,7 +35,20 @@ class TeacherController extends Controller
         return view('teachers.teachers', ['teachersList' => $teachersList]);
     }
 
- 
+    public function show($id)
+    {
+        $teacherSubjects = DB::table('teachersubjects')
+         ->select('teachersubjects.id',
+                  'subjects.subject',
+                  'subjects.code_subject')
+         ->join('subjects','teachersubjects.subjects_id','subjects.id')
+         ->join('users','teachersubjects.users_id','users.id')
+         ->where('users.id','=',$id)
+         ->get();
+
+        
+        return view('teachers.teacher_subjects',['subjects'=>$teacherSubjects]);
+    }
 
     
     /*se pasa el parametro request a la funcion,se almacena una peticion get con el nombre del 
@@ -64,9 +77,9 @@ class TeacherController extends Controller
     public function store(Request $request)
         {
            
-        //try{
+        try{
 
-           /*$validator = Validator::make($request->all(), [
+           $validator = Validator::make($request->all(), [
             'names' => 'required',
             'last_name' => 'required',
             'identity_card' => 'required',
@@ -85,7 +98,7 @@ class TeacherController extends Controller
             return redirect('teachers/create')
                         ->withErrors($validator)
                         ->withInput();
-        }*/
+        }
 
             $user = new User;
             $pw = $request->password;
@@ -132,11 +145,11 @@ class TeacherController extends Controller
 
             session::flash('message', 'Profesor creado correctamente...');
             return redirect('/teachers');
-        //}
-        /*catch(\Exception $e){
+        }
+        catch(\Exception $e){
             session::flash('message','error');
             return redirect('teachers/create');
-        }*/
+        }
         } 
 
 
@@ -145,14 +158,12 @@ class TeacherController extends Controller
      $users = User::find($id);
         return view('teachers.teachers_edit', ['users' => $users]);
 
-
-        
     }
 
     public function update(Request $request, $id){
 
         try{
-        
+
         $validator = Validator::make($request->all(), [
             'names' => 'required',
             'last_name' => 'required',

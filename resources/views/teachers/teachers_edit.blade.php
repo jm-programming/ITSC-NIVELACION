@@ -34,8 +34,6 @@
 			                        <label class="control-label" for="last_names">Apellidos</label>
 			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos profesor" value='{{$users->last_name}}'>
 			                    </div>
-
-                                
 								<div class="form-group col-sm-6">
 							  <label class="control-label" for="gender">Genero</label>
 			                    <select id="gender" name="gender" class="form-control">
