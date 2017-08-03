@@ -9,7 +9,12 @@
       {{ session::get('message') }}
     </div>
   @endif
-  
+  @if(Session::has('message2'))
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ session::get('message2') }}
+    </div>
+  @endif
   
     <div class="col-lg-12 text-right ">
       {!!link_to('teachers/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}

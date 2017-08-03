@@ -147,7 +147,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',Creo :'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',Creo :'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -209,7 +209,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -234,6 +234,11 @@ class TeacherController extends Controller
     {
     try {
         $user = User::find($id);
+        $subjects = DB::table('teachersubjects')
+        ->where('teachersubjects.users_id','=',$id)
+        ->delete();
+
+        
         $user->delete();
 
             $userModel = Auth::user();
@@ -241,7 +246,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',Borro :'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',Borro :'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -255,7 +260,7 @@ class TeacherController extends Controller
     } catch(\Exception $e) {
   //exception handling
     }
-        session::flash('message', 'el usuario que intenta eliminar se encuentra en una seccion o tiene asignaturas asignadas');
+        session::flash('message2', 'el usuario que intenta eliminar se encuentra en una seccion');
         return redirect('/teachers');
     }
 

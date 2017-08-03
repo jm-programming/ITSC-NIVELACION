@@ -67,3 +67,15 @@ Route::resource('qualifications','qualificationContoller');
 Route::resource('horarioProfesor','HorariosProfesorController');
 //routes materiasProfesor
 Route::resource('materiasProfesor','TeacherSubjects');
+
+//route para obtener materias
+Route::get('/ajax-teacher',function(){
+
+	$subject_id = Input::get('subject_id');
+
+	$teachers = DB::table('users')
+			->join('teachersubjects','users.id','teachersubjects.users_id')
+			->where('teachersubjects.subjects_id','=',$subject_id)
+			->get();
+		return Response::json($teachers);
+});

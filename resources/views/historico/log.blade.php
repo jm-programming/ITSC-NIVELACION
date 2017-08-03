@@ -10,7 +10,7 @@
 
 @if (count($log) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id='table_id'>
         <thead>
             <tr class="headings">
                 <th>
@@ -81,4 +81,21 @@
         </h2>
     </div>
     @endif
+@endsection
+@section('script')
+<script>
+
+$(document).ready(function() {
+    $('#table_id').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                message: 'PDF created by PDFMake with Buttons for DataTables.'
+            }
+        ]
+    } );
+} );
+
+</script>
 @endsection

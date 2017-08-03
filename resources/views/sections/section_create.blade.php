@@ -135,6 +135,7 @@
   				<option value='{{$sections->section}}'>Seccion Usada:{{$sections->section}}-{{$sections->academic_period}}</option>
 				@endforeach
 			</datalist>
+		
 			                    <!-- Button -->
 			                    {!! Form::submit('Crear Sección',['class' => 'btn btn-primary btn-block']) !!}
 			                </fieldset>
@@ -145,18 +146,14 @@
 			</div>
 		</div>
 	</div>
+	
 @endsection
 @section('script')
-	<script>
-		$(document).ready(function(){
-        	$('#time_first').datetimepicker({
-		        format: 'hh:mm A'
-		    });
-      	});
-		  
+<script>
+		
 		 
-        setTimeout(function() {
+        /*setTimeout(function() {
             $('#Danger').fadeToggle();
-            }, 5000); // <-- time in milliseconds
+            }, 5000); // <-- time in milliseconds*/
 	</script>
 @endsection
