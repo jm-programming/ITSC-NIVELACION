@@ -50,25 +50,7 @@
     </div>
 
     <div class="form-group col-sm-6">
-<<<<<<< HEAD
-        <label class="control-label" for="identity_card">
-            Identificación
-        </label>
         
-        <div class="input-group">
-          <input type="text" class="form-control" id="identity_card" name="identity_card">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Selecciona <span class="caret"></span></button>
-            <ul class="dropdown-menu pull-right" id="select">
-              <li id="cedula" ><a>Cedula</a></li>
-              <li id="pasaporte"><a>Pasaporte</a> </li>
-            </ul>
-           
-          </div>
-        </div>
-      
-      
-=======
     <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
     <div class="input-group">
       <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
@@ -81,10 +63,6 @@
       </div><!-- /btn-group -->
     </div><!-- /input-group -->
     </div>
-
-
-
->>>>>>> prueba
     <div class="form-group col-sm-8">
         <label class="control-label" for="address">
             Dirección
@@ -127,17 +105,11 @@
     </div>
 
 
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> prueba
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>
 </fieldset>
 
 
 
-@section('script')
+
 @include('forms.alerts')
-@endsection

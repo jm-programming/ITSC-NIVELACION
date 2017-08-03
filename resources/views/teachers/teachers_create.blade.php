@@ -105,6 +105,5 @@
 		</div>
 	</div>
 @endsection
-@section('script')
+
 	@include('forms.alerts')
-@endsection

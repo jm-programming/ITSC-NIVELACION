@@ -11,8 +11,5 @@
     </div>
 
 @endif
-@section('script')
 @include('forms.alerts')
-
-@endsection
 
