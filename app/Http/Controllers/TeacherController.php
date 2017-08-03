@@ -26,17 +26,22 @@ class TeacherController extends Controller
         
     public function index()
     {
-
+        try{
         $teachersList = DB::table('rolls')
         ->join('users','rolls.id','=','users.rolls_id')
         ->where('rolls.roll', '=' , 'Profesor')
         ->paginate(8);
 
         return view('teachers.teachers', ['teachersList' => $teachersList]);
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
     public function show($id)
     {
+        try{
         $teacherSubjects = DB::table('teachersubjects')
          ->select('teachersubjects.id',
                   'subjects.subject',
@@ -48,6 +53,11 @@ class TeacherController extends Controller
 
         
         return view('teachers.teacher_subjects',['subjects'=>$teacherSubjects,'id'=>$id]);
+
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
     
@@ -66,11 +76,16 @@ class TeacherController extends Controller
       a la vista de creacion de profesores(a la parte de creacion de usuario)*/
     public function create ()
     {
+        try{
         $subjects = DB::table('subjects')
         ->get();
         
         
         return view('teachers.teachers_create',['subjects'=>$subjects]);
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
     
 
@@ -100,29 +115,26 @@ class TeacherController extends Controller
                         ->withInput();
         }
 
-            $user = new User;
-            $pw = $request->password;
-            $bpw = bcrypt($pw);
             $roll = DB::table('rolls')
             ->where('rolls.roll', '=' , 'Profesor')
             ->get();
-            
 
+            $user= User::create([
+			'names' => $request['names'],
+			'last_name' => $request['last_name'],
+			'email' => $request['email'],
+			'personal_phone' => $request['personal_phone'],
+			'cellphone' => $request['cellphone'],
+			'address' => $request['address'],
+			'gender' => $request['gender'],
+			'identity_card' => $request['identity_card'],
+			'civil_status' => $request['civil_status'],
+			'password' => bcrypt($request['password']),
+			'status' => $request['status'],
+			'rolls_id' => $roll[0]->id,
 
-            $user->names = $request->names;
-            $user->last_name = $request->last_name;
-            $user->personal_phone = $request->personal_phone;
-            $user->cellphone = $request->cellphone;
-            $user->address = $request->address;
-            $user->identity_card = $request->identity_card;
-            $user->gender = $request->gender;
-            $user->civil_status = $request->civil_status;
-            $user->email = $request->email;
-            $user->password = $bpw;
-            $user->status = $request->status;
-            $user->rolls_id = $roll[0]->id;
-            
-            $user->save();
+		]);
+
             for($x=0;$x<count($request->subject_selected);$x++){
             $subjects = new teachersubjects;
             $subjects->users_id = $user->id;
@@ -154,10 +166,15 @@ class TeacherController extends Controller
 
 
     public function edit($id){
-
+    
+    try{
      $users = User::find($id);
         return view('teachers.teachers_edit', ['users' => $users]);
 
+    }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
     public function update(Request $request, $id){
@@ -238,7 +255,7 @@ class TeacherController extends Controller
     } catch(\Exception $e) {
   //exception handling
     }
-        session::flash('message', 'el usuario que intenta eliminar se encuentra en una seccion');
+        session::flash('message', 'el usuario que intenta eliminar se encuentra en una seccion o tiene asignaturas asignadas');
         return redirect('/teachers');
     }
 

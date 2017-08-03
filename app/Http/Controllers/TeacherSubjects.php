@@ -59,10 +59,14 @@ class TeacherSubjects extends Controller
      */
     public function edit($id)
     {
-        
+        try{
         $subjects = DB::table('subjects')
         ->get();
         return view('teachers.teacher_createSubject',['subjects'=>$subjects,'id' => $id]);
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
     /**
@@ -74,6 +78,7 @@ class TeacherSubjects extends Controller
      */
     public function update(Request $request, $id)
     {
+        try{
         //se declara una variable para guardar todas las materias que pertenescan a ese id de profesor
         $subjectsRegistered = DB::table('teachersubjects')
             ->where('teachersubjects.users_id','=',$id)
@@ -124,6 +129,10 @@ class TeacherSubjects extends Controller
             session::flash('message', 'no se han hecho cambios...');
             return redirect('/teachers/'.$id); 
             }
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
     /**
@@ -134,10 +143,16 @@ class TeacherSubjects extends Controller
      */
     public function destroy($id)
     {
+        try{
         $Subject = DB::table('teachersubjects')
         ->where('teachersubjects.id','=',$id);
         $Subject->delete();
         session::flash('message', 'se ha  eliminado la materia del profesor correctamente');
         return redirect('/teachers');
+        
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 }

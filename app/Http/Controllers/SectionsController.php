@@ -24,12 +24,7 @@ class SectionsController extends Controller {
 	 */
 	public function index() {
 
-		/*$section2 = DB::table('sections')
-		->Join('classrooms','sections.classrooms_id', '=','classrooms.id' )
-		->joinJoin('subjects','sections.subjects_id', '=','subjects.id' )
-		->get();*/
-		
-
+		try{
 		$section = DB::table('sections')
 		->select('sections.id',
 		'sections.section',
@@ -52,9 +47,11 @@ class SectionsController extends Controller {
 		->join('users','sections.users_id','=','users.id')
 		->get();
 
-		/*dd($section);*/
-
 		return view('sections.section', ['sections' => $section]);
+		}catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/sections');
+        }
 	}
 
 
@@ -67,6 +64,7 @@ class SectionsController extends Controller {
 	 */
 	
 	public function create() {
+		try{
 		$classrooms = Classrooms::all();
 		$sections = DB::table('academic_periods')
 		->join('sections','academic_periods.id','sections.academic_periods_id')
@@ -82,7 +80,10 @@ class SectionsController extends Controller {
 			->get();
 		
 		return view('sections.section_create', ['section' => $sections, 'classroom' => $classrooms, 'academic_period' => $academic_periods, 'subject' => $subjects,'teacher'=> $teachers]);
-
+		}catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/sections');
+        }
 	}
 
     /**
@@ -93,6 +94,7 @@ class SectionsController extends Controller {
      */
     public function store(Request $request)
     {
+		try{
         /*para restarle 1 minuto a la hora introducida*/
         $timelast       = $request->input('time_last');
         $secondTimeLast = $request->input('second_time_last');
@@ -988,7 +990,10 @@ class SectionsController extends Controller {
 
 
 
-
+	}catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/sections');
+        }
 	}
 
 
@@ -1010,6 +1015,7 @@ class SectionsController extends Controller {
 	 */
 	public function edit($id) {
 		
+		try{
 		$section = Sections::find($id);
 		$classrooms = DB::table('classrooms')
 		->get();
@@ -1038,7 +1044,10 @@ class SectionsController extends Controller {
 			'subjects' => $subjects,
 			'sectionUseds' => $sectionUsed
 		]);
-
+		}catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/sections');
+        }
 		
 
 
@@ -1053,6 +1062,7 @@ class SectionsController extends Controller {
 	 */
 	 public function update(Request $request, $id)
     {   
+		try{
 		/*para restarle 1 minuto a la hora introducida*/	
 		 $timelast =$request->input('time_last');
 		 $secondTimeLast = $request->input('second_time_last');
@@ -1961,7 +1971,10 @@ class SectionsController extends Controller {
 					
 
 		}	
-		 
+		}catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/sections');
+        } 
 
 
 	}
@@ -1974,10 +1987,15 @@ class SectionsController extends Controller {
 	 */
 	public function destroy($id) {
 		
+		try{
 		$section = Sections::find($id);
 		$section->delete();
 
 		session::flash('message', 'Sección eliminada correctamente...');
 		return redirect('/sections');
+		}catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/sections');
+        }
 	}
 }
