@@ -50,7 +50,7 @@
 		      <tr class="even pointer">
 		        <td class="a-center ">
 							
-		          <input type="checkbox" name="subject_selected[]" value="{{$sec->id}}.{{$sec->code_subject}}" 
+		          <input type="checkbox" name="subject_selected[]" value="{{$sec->id}}" 
 							id="subject_selected" @foreach($inscritos as $inscrito) @if($inscrito->sections_id == $sec->id) {{ 'checked' }} @endif @endforeach>
 						
 		        </td>

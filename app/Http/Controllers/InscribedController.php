@@ -45,7 +45,7 @@ class InscribedController extends Controller
         //determinar si kiefer y matador son parajos.
 
 
-        //obteniendo los datos de los select id y codigo asignatura
+        //obteniendo los datos de los select id
         $subject_selected = $request->input('subject_selected');
         //contando los objetos de los checkboxes
         $subjectCount = count($subject_selected);
@@ -53,67 +53,59 @@ class InscribedController extends Controller
         //obteniendo id de estudiante
         $id_student = $request->input('id_student');
 
-        try {
-            for ($i=0; $i < $subjectCount; $i++) { 
-            //combirtiendo en array los elementos que estan divididos por un "."
-            $sectionInfo = explode('.', $subject_selected[$i]);
-            //query para obtener las inscriciones por asignatura
-            $inscribedSections1[$i] = DB::table('inscribed')
-                ->select('inscribed.id'
-                    )
-                ->join('sections','inscribed.sections_id','=','sections.id') 
-                ->join('subjects','sections.subjects_id','=','subjects.id')               
-                ->where('subjects.code_subject', '=', $sectionInfo[1])
-                ->get();
-                //query para obtener las inscriciones por secccion
-            $inscribedSections2[$i] = DB::table('inscribed')
-                ->select('inscribed.id'
-                    )
-                ->join('sections','inscribed.sections_id','=','sections.id') 
-                ->join('subjects','sections.subjects_id','=','subjects.id')
-                ->where('sections.id', '=', $sectionInfo[0])
-                ->get();
-            //eliminando arrays vacios para contarlo de manera correcta del query 1
-            $trimed1 = array_map('trim', $inscribedSections1);
-            $filted1 = array_filter($trimed1, function($value) { return $value !== '[]'; });
-            $filtedCounted1 = count($filted1);
-            //eliminando arrays vacios para contarlo de manera correcta del query 2
-            $trimed2 = array_map('trim', $inscribedSections2);
-            $filted2 = array_filter($trimed2, function($value) { return $value !== '[]'; });
-            $filtedCounted2 = count($filted2);
+        $matchedObjects = [];
 
-            if( $filtedCounted1 > 0){
-                    session::flash('message', 'Estudiante ya esta inscrito en esta asignatura.');
-                    return redirect('/students/'.$id_student);
+            if($subjectCount > 0){
+                
+                $registerSections = DB::table('inscribed')
+                ->join('students','inscribed.students_id','=','students.id')              
+                ->where('students.id', '=', $id_student)
+                ->get();
+
+                $registerSectionsCount = count($registerSections);
+                if($registerSectionsCount > 0){
+
+                    for ($i=0; $i < $registerSectionsCount; $i++) { 
+                                        
+                        // $sections_all[$i] = DB::table('sections')
+                        // ->select('sections.id',
+                        //     'sections.day_one',
+                        //     'sections.day_two',
+                        //     'sections.time_first',
+                        //     'sections.time_last',
+                        //     'sections.second_time_first',
+                        //     'sections.second_time_last',
+                        //     'subjects.code_subject'
+                        //     )
+                        // ->join('subjects','sections.subjects_id','=','subjects.id')              
+                        // ->where('sections.id', '=', $subject_selected[$i])
+                        // ->get();
+
+                        
+                            if ($registerSections[$i]->sections_id == $subject_selected[$i]) {
+                                    //dd($registerSections[$x]->sections_id );
+                                  array_push($matchedObjects, $subject_selected[$i]);
+                                
+                            }
+                        
+                        
+                }
                 }
 
-            if( $filtedCounted2 > 0){
-                    session::flash('message', 'Estudiante ya esta inscrito en esta sección.');
-                    return redirect('/students/'.$id_student);
+                $newSections = array_diff($subject_selected, $matchedObjects);
+                
+                sort($newSections); 
+
+               for($j=0;$j<count($newSections);$j++){
+
+                    Inscribed::create([
+                            'sections_id'=> $newSections[$j],
+                            'students_id' => $id_student,
+                        ]);
                 }
-
-            // foreach ($sections_id[$i] as $sec) {
-
-            //     $students_sec[$i] = DB::table('inscribed')
-            //     ->where('inscribed.sections_id', '=', $sec->id)
-            //     ->where('inscribed.students_id', '=', $id_student)
-            //     ->get();
-
-            //     if(count($students_sec[$i]) > 0  ){
-            //         session::flash('message', 'Estudiante ya esta Inscrito en esta asignatura...');
-            //         return redirect('/students/'.$id_student);
-            //     }
-                //inscribiendo estudiantes
-                Inscribed::create([
-                    'sections_id'=> $sectionInfo[1],
-                    'students_id' => $id_student,
-                ]);
             
-            // }
-        }
-        } catch (Exception $e) {
-            dd($e);
-        }
+            }
+
         
         session::flash('message', 'Estudiante Inscrito correctamente...');
 
@@ -165,3 +157,4 @@ class InscribedController extends Controller
         //
     }
 }
+
