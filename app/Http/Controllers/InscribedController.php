@@ -53,8 +53,8 @@ class InscribedController extends Controller
         //obteniendo id de estudiante
         $id_student = $request->input('id_student');
 
-        
-        for ($i=0; $i < $subjectCount; $i++) { 
+        try {
+            for ($i=0; $i < $subjectCount; $i++) { 
             //combirtiendo en array los elementos que estan divididos por un "."
             $sectionInfo = explode('.', $subject_selected[$i]);
             //query para obtener las inscriciones por asignatura
@@ -63,7 +63,7 @@ class InscribedController extends Controller
                     )
                 ->join('sections','inscribed.sections_id','=','sections.id') 
                 ->join('subjects','sections.subjects_id','=','subjects.id')               
-                ->where('subjects.code_subject', '=', $sectionInfo[0])
+                ->where('subjects.code_subject', '=', $sectionInfo[1])
                 ->get();
                 //query para obtener las inscriciones por secccion
             $inscribedSections2[$i] = DB::table('inscribed')
@@ -71,7 +71,7 @@ class InscribedController extends Controller
                     )
                 ->join('sections','inscribed.sections_id','=','sections.id') 
                 ->join('subjects','sections.subjects_id','=','subjects.id')
-                ->where('sections.id', '=', $sectionInfo[1])
+                ->where('sections.id', '=', $sectionInfo[0])
                 ->get();
             //eliminando arrays vacios para contarlo de manera correcta del query 1
             $trimed1 = array_map('trim', $inscribedSections1);
@@ -111,6 +111,10 @@ class InscribedController extends Controller
             
             // }
         }
+        } catch (Exception $e) {
+            dd($e);
+        }
+        
         session::flash('message', 'Estudiante Inscrito correctamente...');
 
         return redirect('/students');

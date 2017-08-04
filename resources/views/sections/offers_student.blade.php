@@ -50,7 +50,7 @@
 		      <tr class="even pointer">
 		        <td class="a-center ">
 							
-		          <input type="checkbox" name="subject_selected[]" value="{{$sec->code_subject}}" 
+		          <input type="checkbox" name="subject_selected[]" value="{{$sec->id}}.{{$sec->code_subject}}" 
 							id="subject_selected" @foreach($inscritos as $inscrito) @if($inscrito->sections_id == $sec->id) {{ 'checked' }} @endif @endforeach>
 						
 		        </td>
@@ -125,5 +125,5 @@
 @endsection
 
 @section('script')
-	<script src="{{ URL::asset('js/script_offers_student.js') }}">
+	<script src="{{ URL::asset('js/script_offers_student.js') }}"></script>
 @endsection
