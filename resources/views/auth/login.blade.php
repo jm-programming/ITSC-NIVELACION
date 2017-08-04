@@ -15,6 +15,7 @@
                         </div>
                         <div class="col-sm-4 form-top-right"><i class="fa fa-lock"></i></div>
                     </div>
+                     
                     <div class="row form-bottom">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
