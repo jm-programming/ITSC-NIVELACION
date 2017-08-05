@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use Illuminate\Support\Facades\Session;
 class HorariosProfesorController extends Controller
 {
     /**
@@ -39,7 +40,6 @@ class HorariosProfesorController extends Controller
         ->where('sections.users_id','=',Auth::user()->id)
         ->where('sections.status','=',1)
 		->get();
-
         
         return view('horarios.horarioProfesor', ['sections' => $seccionesProfesor]);
         }catch(\Exception $e) {
