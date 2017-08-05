@@ -39,7 +39,8 @@
                                                             </link>
                                                             <link href="{{ URL::asset('css/jquery.timepicker.min.css') }}" rel="stylesheet">
                                                             </link>
-                                                            
+                                                            <link href="{{ URL::asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
+                                                            </link>
                                                         </link>
                                                     </link>
                                                 </link>
@@ -366,8 +367,13 @@ $name = ucfirst(strtok($email, '@'));
             </script>
             <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
             <script src="{{ asset('js/datatable/buttons.print.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
             @yield('script')
-
+            <script>
+              $( document ).ready(function() {
+                $('select').selectpicker();
+              });
+            </script>
         </link>
     </body>
 
