@@ -81,14 +81,16 @@ class InscribedController extends Controller
                         // ->where('sections.id', '=', $subject_selected[$i])
                         // ->get();
 
-                        
-                            if ($registerSections[$i]->sections_id == $subject_selected[$i]) {
+                        for ($x=0; $x < $subjectCount; $x++) { 
+                            if ($registerSections[$i]->sections_id == $subject_selected[$x]) {
                                     //dd($registerSections[$x]->sections_id );
-                                  array_push($matchedObjects, $subject_selected[$i]);
+                                  array_push($matchedObjects, $subject_selected[$x]);
+                                  session::flash('message', 'Estudiante ya inscrito en esta sección...');
+
+        
                                 
                             }
-                        
-                        
+                        }
                 }
                 }
 
@@ -102,14 +104,18 @@ class InscribedController extends Controller
                             'sections_id'=> $newSections[$j],
                             'students_id' => $id_student,
                         ]);
+
+                    session::flash('message', 'Estudiante Inscrito correctamente...');
+
+                    
                 }
+
+                return redirect('/students');
             
             }
 
         
-        session::flash('message', 'Estudiante Inscrito correctamente...');
-
-        return redirect('/students');
+        
         }catch(\Exception $e) {
         session::flash('message', 'error inesperado');
         return redirect('/students');}
