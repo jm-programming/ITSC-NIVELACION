@@ -65,6 +65,8 @@ Route::resource('qualifications','qualificationContoller');
 
 //routes horarioProfesor
 Route::resource('horarioProfesor','HorariosProfesorController');
+//routes horariostudent
+Route::resource('horariostudent','HorarioStudentController');
 //routes materiasProfesor
 Route::resource('materiasProfesor','TeacherSubjects');
 

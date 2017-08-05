@@ -111,28 +111,28 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/students"><i class="fa fa-edit"></i> Estudiantes</a>
    </li>
    <li>
-   <a href="/teachers"><i class="fa fa-desktop"></i> Docentes</a>
+   <a href="/teachers"><i class="fa fa-graduation-cap"></i> Docentes</a>
    </li>
    <li>
    <a href="/sections"><i class="fa fa-table"></i> Secciones</a>
    </li>
    <li>
-    <a href="/employees"><i class="fa fa-table"></i> Empleados</a>
+    <a href="/employees"><i class="fa fa-group"></i> Empleados</a>
    </li>
    <li>
-   <a href="/classrooms"><i class="fa fa-table"></i> Aulas</a>
+   <a href="/classrooms"><i class="fa fa-building-o""></i> Aulas</a>
    </li>
    <li>
    <a href="/academic_periods"><i class="fa fa-table"></i> Periodos Academicos</a>
    </li>
    <li>
-   <a href="/log"><i class="fa fa-table"></i> Auditoria</a>
+   <a href="/log"><i class="fa fa-list-alt"></i> Auditoria</a>
    </li>
    <li>
    <a href="/languages"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
    </li>
    <li>
-   <a href="/subjects"><i class="fa fa-bar-chart-o"></i> Materias</a>
+   <a href="/subjects"><i class="fa fa-book"></i> Materias</a>
    </li>
  </ul>
               </div>

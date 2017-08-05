@@ -89,6 +89,7 @@
                     {{$students->condition}}
                 </td>
                 <td class=" last">
+                    {!! link_to_route('horariostudent.show', $title = 'Horario', $parameters = $students->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     {!! link_to_route('students.show', $title = 'Inscribir', $parameters = $students->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
                     {!! link_to_route('students.edit', $title = 'Editar', $parameters = $students->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
