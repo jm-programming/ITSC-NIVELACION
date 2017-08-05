@@ -18,7 +18,7 @@ class LogController extends Controller
     {   
         
 
-        $log = Activity::orderBy('log_name', 'asc')
+        $log = Activity::orderBy('created_at', 'desc')
         ->get();
 
        /* $teachers = DB::table('activity_log')
