@@ -23,9 +23,13 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-
+		try{
 		$query = User::orderBy('names', 'asc')->paginate(8);
 		return view('home', ['query' => $query]);
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+    }
 
 		//return view('layouts.landingPage', ['users' => $users]);
 
@@ -37,19 +41,21 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-
+	try{
 		$users = User::find($id);
 
 		return view('users.edit', ['users' => $users]);
-
+	}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
 	}
-
+	}
 	public function store(Request $request) {
 
 	}
 
 	public function search(Request $request) {
-
+		try{
 		$userType = $request->input('user');
 		$data = \Request::get('query');
 
@@ -88,5 +94,13 @@ class HomeController extends Controller {
 
 			return view('employees.employee', ['employees' => $query]);
 		}
-	}
+	}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+		}
+
+
+
+
+}
 }

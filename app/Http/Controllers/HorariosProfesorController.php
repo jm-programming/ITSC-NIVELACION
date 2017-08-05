@@ -15,6 +15,7 @@ class HorariosProfesorController extends Controller
      */
     public function index()
     {
+        try{
         $seccionesProfesor =DB::table('sections')
 		->select('sections.id',
 		'sections.section',
@@ -41,6 +42,10 @@ class HorariosProfesorController extends Controller
 
         
         return view('horarios.horarioProfesor', ['sections' => $seccionesProfesor]);
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+        }
     }
 
     /**

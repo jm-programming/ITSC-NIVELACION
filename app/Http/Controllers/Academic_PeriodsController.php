@@ -10,6 +10,7 @@ use Redirect;
 use Session;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
+use Illuminate\Support\Facades\DB;
 class Academic_PeriodsController extends Controller {
 	/**
 	 * Display a listing of the resource.
@@ -17,8 +18,13 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		try{
 		$academic_periods = Academic_periods::paginate(8);
 		return view('academic_periods.academic_period', ['academic_periods' => $academic_periods]);
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 
 	/**
@@ -27,7 +33,12 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
+		try{
 		return view('academic_periods.create');
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 
 	/**
@@ -37,7 +48,7 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-
+		try{
 		$timeOne = strtotime($request['date_first']);
 		$timeTwo = strtotime($request['date_last']);
 		$monthOne = date("F", $timeOne);
@@ -84,10 +95,10 @@ class Academic_PeriodsController extends Controller {
 
 			$userModel = Auth::user();
             $someContentModel = $Academic_periods;
-            activity('perido_academico')
+            activity('periodo_academico')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Crear');
+            ->log('Usuario:'.Auth::user()->names.',Creo :'.$Academic_periods->academic_period);;
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -97,17 +108,24 @@ class Academic_PeriodsController extends Controller {
 
 
 		return redirect('/academic_periods')->with('message', 'Periodo academico creado con exito...');
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 
 	public function search(Request $request) {
-
+		try{
 		$academic_periodSearch = \Request::get('academic_periodSearch');
 		$academic_periods = Academic_periods::where('academic_periods.academic_period', 'like', '%' . $academic_periodSearch . '%')
 			->orderBy('academic_periods.academic_period')
 			->paginate(8);
 
 		return view('academic_periods.academic_period', ['academic_periods' => $academic_periods]);
-
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 
 	/**
@@ -127,8 +145,13 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
+		try{
 		$academic_periods = Academic_periods::find($id);
 		return view('academic_periods.edit_academic_periods', ['academic_periods' => $academic_periods]);
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 
 	/**
@@ -139,6 +162,7 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Academic_period_editRequest $request, $id) {
+		try{
 		$timeOne = strtotime($request['date_first']);
 		$timeTwo = strtotime($request['date_last']);
 		$monthOne = date("F", $timeOne);
@@ -166,10 +190,10 @@ class Academic_PeriodsController extends Controller {
 
 		$userModel = Auth::user();
             $someContentModel = $academic_periods;
-            activity('perido_academico')
+            activity('periodo_academico')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Editar');
+            ->log('Usuario:'.Auth::user()->names.',Edito :'.$academic_periods->academic_period);;
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -179,6 +203,10 @@ class Academic_PeriodsController extends Controller {
 
 		session::flash('message', 'Periodo academico editado correctamente...');
 		return Redirect::to('/academic_periods');
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 
 	/**
@@ -188,16 +216,16 @@ class Academic_PeriodsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
-		/*$academic_periods = Academic_periods::find($id);*/
-		Academic_periods::destroy($id);
+		try{
+		 Academic_periods::destroy($id);
 		session::flash('message', 'Periodo academico eliminado correctamente...');
 		
 		/*$userModel = Auth::user();
             $someContentModel = $academic_periods;
-            activity('perido_academico')
+            activity('periodo_academico')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Editar');
+            ->log('Usuario:'.Auth::user()->names.',Elimino :'.$academic_periods->academic_period);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -207,6 +235,9 @@ class Academic_PeriodsController extends Controller {
 
 		
 		return Redirect::to('/academic_periods');
-
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/academic_periods');
+        }
 	}
 }

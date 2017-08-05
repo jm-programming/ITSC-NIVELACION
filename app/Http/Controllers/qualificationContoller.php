@@ -17,6 +17,7 @@ class qualificationContoller extends Controller
      */
     public function index()
     {
+        try{
         $seccionesProfesor =DB::table('sections')
 		->select('sections.id',
 		'sections.section',
@@ -42,6 +43,9 @@ class qualificationContoller extends Controller
 		->get();
 
         return view('qualifications.qualification',['sections' =>$seccionesProfesor]);
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/qualifications');}
     }
 
     /**
@@ -73,6 +77,7 @@ class qualificationContoller extends Controller
      */
     public function show($id)
     {
+        try{
         $alumnos = DB::table('students')
         ->select(
         'students.id',
@@ -93,6 +98,9 @@ class qualificationContoller extends Controller
         
       
         return view('qualifications.qualification_students',['alumnos' =>$alumnos, 'seccionID' => $id]);
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/qualifications');}
     }
 
     /**
@@ -103,6 +111,7 @@ class qualificationContoller extends Controller
      */
     public function edit($id)
     {
+        try{
         $url = url()->full();
         $urlExplode = explode("?",$url);
         $studentID = $urlExplode[1];
@@ -127,6 +136,9 @@ class qualificationContoller extends Controller
         
        
         return view('qualifications.qualification_notes',['alumno' =>$alumno[0]]);
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/qualifications');}
     }
 
     /**
@@ -138,6 +150,7 @@ class qualificationContoller extends Controller
      */
     public function update(Request $request, $id)
     {
+        try{
       $seccionesProfesor =DB::table('sections')
 		->select('sections.id',
 		'sections.section',
@@ -172,6 +185,9 @@ class qualificationContoller extends Controller
 
         session::flash('message', 'notas publicadas correctamente al estudiante '.$request->input('names'));
         return view('qualifications.qualification',['sections' =>$seccionesProfesor]);
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/qualifications');}
     }
 
     /**

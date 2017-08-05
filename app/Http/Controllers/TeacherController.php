@@ -209,7 +209,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names.'/'.$user->identity_card);
+            ->log('Usuario:'.Auth::user()->names.',Edito:'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -246,7 +246,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',Borro :'.$user->names.'/'.$user->identity_card);
+            ->log('Usuario:'.Auth::user()->names.',Elimino :'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -256,12 +256,12 @@ class TeacherController extends Controller
 
         session::flash('message', 'Profesor eliminado correctamente');
         return redirect('/teachers');
-  //code causing exception to be thrown
+ 
     } catch(\Exception $e) {
-  //exception handling
-    }
         session::flash('message2', 'el usuario que intenta eliminar se encuentra en una seccion');
         return redirect('/teachers');
+    }
+        
     }
 
 

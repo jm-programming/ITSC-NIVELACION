@@ -56,10 +56,15 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
+		try{
 		$users = User::find($id);
 
 		return view('users.edit', ['users' => $users]);
 		//dd($usuario);
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+        }
 	}
 
 	/**
@@ -71,7 +76,7 @@ class UserController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		
-
+		try{
 		$users = User::find($id);
 		$users->fill($request->all());
 		$users->save();
@@ -80,7 +85,10 @@ class UserController extends Controller {
 		
 		session::flash('message', 'Usuario editado correctamente...');
 		return Redirect::to('/home');
- 
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+        }
 	}
 
 	/**

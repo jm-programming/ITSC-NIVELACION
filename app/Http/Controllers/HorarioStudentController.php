@@ -47,6 +47,7 @@ class HorarioStudentController extends Controller
      */
     public function show($id)
     {
+        try{
         $seccionesStudent =DB::table('inscribed')
         ->select('inscribed.id',
             'subjects.code_subject',
@@ -68,6 +69,9 @@ class HorarioStudentController extends Controller
 
         
         return view('horarios.horarioStudent', ['sections' => $seccionesStudent]);
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');}
     }
 
     /**

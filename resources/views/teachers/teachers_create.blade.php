@@ -19,7 +19,7 @@
 					<div class="panel-body">
 						@include('alerts.requets')
 
-						{!! Form::open(['route' => 'teachers.store', 'method' => 'POST']) !!}
+						{{ Form::open(['route' => 'teachers.store', 'method' => 'POST']) }}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
 			                    <!-- Prepended text-->
@@ -90,10 +90,12 @@
 			                        <label class="control-label" for="email">Email</label>
 			                        <input type="text" class="form-control" id="email" name="email" placeholder="email profesor">
 			                    </div>
-                                 <div class="form-group col-sm-6 ">
-			                        <label class="control-label" for="password">Contraseña</label>
-			                        <input type="password" class="form-control" id="password" name="password" placeholder="contraseña">
-			                    </div>
+                                 <div class="form-group col-sm-6">
+        					<label class="control-label" for="password">
+           					 Password
+        					</label>
+        						{{ Form::password('password',['class'=>'form-control','placeholder'=>"Ingrese su contraseña"]) }}
+    						</div>
 								<div class="form-group col-sm-6">
         					{!!Form::label('status','Estatus Profesor',['class'=>'control-label'])!!}<br>
         					<input type="radio" name="status" value=1>Activo

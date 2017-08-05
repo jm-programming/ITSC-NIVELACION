@@ -38,7 +38,7 @@ class InscribedController extends Controller
      */
     public function store(Request $request)
     {
-        
+        try{
         //hacer que los checkboxes que ya estan activos no se envien
         //hacer que los checkboxes que ya estaban activos y se desactivan eliminen la inscricion de esa seccion
         //choques de horario 
@@ -110,7 +110,9 @@ class InscribedController extends Controller
         session::flash('message', 'Estudiante Inscrito correctamente...');
 
         return redirect('/students');
-
+        }catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/students');}
     }
 
     /**
