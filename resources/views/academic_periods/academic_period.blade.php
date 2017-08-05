@@ -31,7 +31,7 @@
 @endif
 @if (count($academic_periods) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_id">
         <thead>
             <tr class="headings">
                 <th>

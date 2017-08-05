@@ -126,7 +126,18 @@ class SectionsController extends Controller {
 			->where('classrooms.id','=',$request->input('classrooms_id'))
 			->get();
 
-							
+		$this->validate($request, [
+             			'subjects_id' => 'required',
+            			'users_id' => 'required',
+            			'shift' => 'required',
+            			'classrooms_id' => 'required',
+            			'day_one' => 'required',
+            			'section' => 'required',
+						'quota' => 'required',
+						'time_first' => 'required',
+						'time_last' => 'required',
+						'academic_periods_id' => 'required'
+         				]);		
 
 		
 
@@ -448,7 +459,23 @@ class SectionsController extends Controller {
 					}
 	}
 			
-			
+			$this->validate($request, [
+             				'subjects_id' => 'required',
+            				'users_id' => 'required',
+            				'shift' => 'required',
+            				'classrooms_id' => 'required',
+            				'day_one' => 'required',
+							'day_two' => 'required',
+            				'section' => 'required',
+							'quota' => 'required',
+							'time_first' => 'required',
+							'time_last' => 'required',
+							'second_time_first'=> 'required',
+							'second_time_last'=> 'required',
+							'quota'=> 'required',
+							'academic_periods_id' => 'required'
+         				]);
+
 			
 			
 			

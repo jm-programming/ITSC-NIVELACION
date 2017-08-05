@@ -374,9 +374,7 @@ ITSC - 2017
 @yield('script')
 
             <script>
-              $( document ).ready(function() {
-                $('select').selectpicker();
-              });
+
             </script>
 
         </link>
