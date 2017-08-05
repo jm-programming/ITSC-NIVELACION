@@ -43,9 +43,24 @@
 			                        <input type="date" class="form-control" id="birthday" name="birthday" value="{{ old('birthday')}}" placeholder="Fecha Nacimiento" min="01/01/1900">
 			                    </div>
 			                    <div class="form-group col-sm-6">
+<<<<<<< HEAD
 			                        <label class="control-label" for="identity_card">Identificación</label>
 			                        <input type="text" class="form-control" id="identity_card" name="identity_card" value="{{ old('identity_card')}}">
 			                    </div>
+=======
+    <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Opción<span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+           <li id="cedula"><a href="#">Cedula</a></li>
+          <li id="pasaporte"><a href="#">Pasaporte</a></li>
+        </ul>
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+    </div>
+>>>>>>> Development
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Email</label>
 			                        <input type="email" class="form-control" id="email" name="email" placeholder="Email estudiante" value="{{ old('email')}}">
@@ -125,8 +140,17 @@
 		</div>
 	</div>
 @endsection
+<<<<<<< HEAD
 @section('script')
 	<script>
 		$('#identity_card').inputmask({"mask": "999-9999999-9"}); 
 	</script>
 @endsection
+=======
+
+@include('forms.alerts')
+
+
+
+
+>>>>>>> Development

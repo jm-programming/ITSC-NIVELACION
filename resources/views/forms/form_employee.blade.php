@@ -48,11 +48,20 @@
         </label>
         {{ Form::text('cellphone',null,['class'=>'form-control','placeholder'=>"Ingrese el Telefono celular", 'id'=>"cellphone"]) }}
     </div>
+
     <div class="form-group col-sm-6">
-        <label class="control-label" for="identity_card">
-            Identificación
-        </label>
-        {{ Form::text('identity_card',null,['class'=>'form-control','placeholder'=>"Ingrese la identificación", 'id'=>"identity_card"]) }}
+        
+    <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Opción <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+           <li id="cedula"><a href="#">Cedula</a></li>
+          <li id="pasaporte"><a href="#">Pasaporte</a></li>
+        </ul>
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
     </div>
     <div class="form-group col-sm-8">
         <label class="control-label" for="address">
@@ -73,6 +82,7 @@
 
             ],null,['class' => 'form-control', 'placeholder'=>'-- seleccione una opción --'])!!}
     </div>
+    
     <div class="form-group col-sm-6">
 
         {!! Form::label('gender', 'Genero',['class'=>'control-label']) !!}
@@ -93,18 +103,13 @@
         <br>
         {!!Form::radio('status', '0')!!} Inactivo.
     </div>
+
+
     {!! Form::submit('Crear Empleado',['class' => 'btn btn-primary btn-block']) !!}
     <br/>
 </fieldset>
 
 
-@section('script')
-<script>
-    $(document).ready(function(){
-            $('#identity_card').inputmask({"mask": "999-9999999-9"});
-            $('#cellphone').inputmask({"mask": "999-999-9999"})
-            $('#personal_phone').inputmask({"mask": "999-999-9999"})
-            $('#office_phone').inputmask({"mask": "999-999-9999"})
-        });
-</script>
-@endsection
+
+
+@include('forms.alerts')

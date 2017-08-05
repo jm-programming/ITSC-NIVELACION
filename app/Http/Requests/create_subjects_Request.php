@@ -26,7 +26,7 @@ class create_subjects_Request extends FormRequest
         return [
             'code_subject' =>   'required|unique:subjects',
             'subject'      =>   'required|unique:subjects',
-            'credits'      =>   'required|min:1|max:5|numeric',
+            'credits'      =>   'required|min:1|max:8|numeric',
         ];
     }
 }

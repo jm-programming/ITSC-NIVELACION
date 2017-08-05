@@ -30,7 +30,7 @@ class CreateEmployeeRequest extends FormRequest {
 			'address' => 'required',
 			'identity_card' => 'required',
 			'civil_status' => 'required',
-			'password' => 'required',
+			'password' => 'required|min:8',
 			'status' => 'required',
 		];
 	}

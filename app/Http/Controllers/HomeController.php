@@ -6,6 +6,9 @@ use App\Students;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
+use Redirect;
+
 
 class HomeController extends Controller {
 	/**
@@ -41,9 +44,13 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
+<<<<<<< HEAD
 	try{
 		$users = User::find($id);
+=======
+>>>>>>> Development
 
+		$users = User::find($id);
 		return view('users.edit', ['users' => $users]);
 	}catch(\Exception $e) {
         session::flash('message', 'error inesperado');
@@ -51,8 +58,27 @@ class HomeController extends Controller {
 	}
 	}
 	public function store(Request $request) {
-
+		
 	}
+
+	public function update(Request $request, $id) {
+		
+		$this->validate($request, [
+            'names' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|min:8',
+            
+         ]);
+		$users = User::find($id);
+		$users->names = $request->names;
+		$users->last_name = $request->last_name;
+		$users->password = bcrypt($request->password);
+		$users->save();
+		session::flash('message', 'Usuario editado correctamente...');
+		return Redirect::to('/home');
+ 
+	}
+
 
 	public function search(Request $request) {
 		try{

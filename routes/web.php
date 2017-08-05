@@ -11,6 +11,12 @@
 |
  */
 
+Route::get('/', ['middleware' => 'throttle:2,1', function () {
+ 
+ 	return redirect('login');
+
+}]);
+
 Route::get('/', function () {
 	return redirect('/login');
 });
@@ -46,7 +52,7 @@ Route::get('sections_s', 'SectionsController@search');
 Route::resource('sections', 'SectionsController');
 
 //routes mantenimiento de usuarios
-Route::resource('users', 'UserController');
+Route::resource('users', 'HomeController');
 
 //routes mantenimiento inscribed
 Route::resource('inscribed','InscribedController');

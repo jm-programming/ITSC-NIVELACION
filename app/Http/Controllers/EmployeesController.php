@@ -187,11 +187,15 @@ class EmployeesController extends Controller {
 		try{
 		User::destroy($id);
         session::flash('message', 'Empleado eliminada correctamente...');
+<<<<<<< HEAD
         return view('/employees');
 		}catch(\Exception $e) {
         session::flash('message', 'error inesperado');
         return redirect('/employees');
     }
+=======
+        return Redirect::to('/employees');
+>>>>>>> Development
 
 	}
 

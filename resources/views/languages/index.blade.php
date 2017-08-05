@@ -25,10 +25,10 @@
               <th>#</th>
               <th class="column-title">Nombres </th>
               <th class="column-title">Apellidos </th>
+              <th class="column-title">Nacimiento</th>
               <th class="column-title">Matricula</th>
-              <th class="column-title">Carrera</th>
-              <th class="column-title">Birthday>
               <th class="column-title">Identificación</th>
+              <th class="column-title">Carrera</th>             
               <th class="column-title">Correo</th>
               <th class="column-title">Date</th>
               <th class="column-title">Time</th>
@@ -68,17 +68,20 @@
                 </td>
 
                 <td>
+                    {{ $languages->birthday}}
+                </td>
+
+                <td>
                     {{ $languages->matricula }}
+                </td>
+
+                 <td>
+                    {{ $languages->identity_card }}
                 </td>
                 <td>
                     {{ $languages->career }}
                 </td>
-                <td>
-                    {{ $languages->birthday}}
-                </td>
-                <td>
-                    {{ $languages->identity_card }}
-                </td>
+                
                 <td>
                     {{ $languages->email}}
                 </td>
