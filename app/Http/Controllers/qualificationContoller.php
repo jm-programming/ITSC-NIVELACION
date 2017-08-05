@@ -175,12 +175,20 @@ class qualificationContoller extends Controller
         ->where('sections.status','=',1)
 		->get();
 
+        $score = $request->input('first_midterm') + 
+        $request->input('second_midterm') +
+        $request->input('pratice_score') +
+        $request->input('final_exam');
+
+        
+
         $alumnoInscrito = Inscribed::find($id);
         $alumnoInscrito->first_midterm = $request->input('first_midterm');
         $alumnoInscrito->second_midterm = $request->input('second_midterm');
         $alumnoInscrito->pratice_score = $request->input('pratice_score');
         $alumnoInscrito->final_exam = $request->input('final_exam');
         $alumnoInscrito->score = $request->input('score');
+        $alumnoInscrito->score = $score;
         $alumnoInscrito->save();
 
         session::flash('message', 'notas publicadas correctamente al estudiante '.$request->input('names'));

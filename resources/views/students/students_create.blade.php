@@ -72,7 +72,7 @@
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="condition">Condición</label>
-			                        <select id="condition" name="condition" class="form-control selectpicker">
+			                        <select id="condition" name="condition" class="form-control">
 			                        	<option value="ESP-100">ESP-100 Lengua Española</option>
 			                        	<option value="MAT-100">MAT-100 Matematica</option>
 			                        	<option value="ESP-100/MAT-100">ESP-100 Lengua Española / MAT-100 Matematica</option>

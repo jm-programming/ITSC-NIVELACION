@@ -164,12 +164,9 @@ class StudentsController extends Controller
         }
         
         
-        if(count($sections[0]) == 0){
-            session::flash('message2', 'no hay secciones disponibles para este estudiante');
-            return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student]);
-        }else{
-        return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student ,'inscritos' =>$inscritos]);
-        }
+        
+        return view('sections.offers_student', ['sections'=> $sections, 'student'=> $student]);
+        
         }catch(\Exception $e) {
         session::flash('message', 'error inesperado');
         return redirect('/students');
