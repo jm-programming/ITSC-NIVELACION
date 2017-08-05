@@ -90,13 +90,14 @@
                 </td>
                 <td class=" last">
 
+                    
+                    {!!Form::open(['route'=> ['students.destroy', $students->id], 'method' => 'DELETE'])!!}
                     {!! link_to_route('horariostudent.show', $title = 'Horario', $parameters = $students->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     {!! link_to_route('students.show', $title = 'Inscribir', $parameters = $students->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                     {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
                     {!! link_to_route('students.edit', $title = 'Editar', $parameters = $students->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
 
                     {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
-                    {!!Form::open(['route'=> ['students.destroy', $students->id], 'method' => 'DELETE'])!!}
                      {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
                     
                         {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}

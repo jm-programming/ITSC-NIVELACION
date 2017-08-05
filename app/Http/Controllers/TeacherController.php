@@ -92,7 +92,7 @@ class TeacherController extends Controller
     public function store(Request $request)
         {
            
-        //try{
+        try{
 
            $validator = Validator::make($request->all(), [
             'names' => 'required',
@@ -133,7 +133,7 @@ class TeacherController extends Controller
 			'status' => $request['status'],
 			'rolls_id' => $roll[0]->id,
             ]);
-            dd($user);
+        
             for($x=0;$x<count($request->subject_selected);$x++){
             $subjects = new teachersubjects;
             $subjects->users_id = $user->id;
@@ -156,11 +156,11 @@ class TeacherController extends Controller
 
             session::flash('message', 'Profesor creado correctamente...');
             return redirect('/teachers');
-        //}
-        /*catch(\Exception $e){
+        }
+        catch(\Exception $e){
             session::flash('message','error');
             return redirect('teachers/create');
-        }*/
+        }
         } 
 
 

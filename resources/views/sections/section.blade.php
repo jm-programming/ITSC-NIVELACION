@@ -124,9 +124,10 @@
                 </td>
                
                 <td class=" last">
-                    {{--{!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}--}}
-                  {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'label label-warning']) !!}
+                    
                     {!!Form::open(['route'=> ['sections.destroy', $section->id], 'method' => 'DELETE'])!!}
+                    
+                  {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
                         {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
                     {!!Form::close()!!}
                 </td>
