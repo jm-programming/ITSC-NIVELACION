@@ -44,12 +44,9 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-<<<<<<< HEAD
-	try{
-		$users = User::find($id);
-=======
->>>>>>> Development
 
+	try{
+		
 		$users = User::find($id);
 		return view('users.edit', ['users' => $users]);
 	}catch(\Exception $e) {

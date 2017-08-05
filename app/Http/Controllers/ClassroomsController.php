@@ -124,11 +124,9 @@ class ClassroomsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
-<<<<<<< HEAD
-		try{
-=======
 
->>>>>>> Development
+		try{
+
 		$this->validate($request, [
              'location' => 'required',
              'capacity'=>'required|numeric|min:3|max:35',

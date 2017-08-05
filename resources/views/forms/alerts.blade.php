@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 
-	<script>
-=======
 @section('script')
 <script>
->>>>>>> Development
+
         setTimeout(function() {
             $('#Warning').fadeToggle();
             }, 2000); // <-- time in milliseconds
@@ -13,9 +10,6 @@
             $('#Success').fadeToggle();
             }, 2000); // <-- time in milliseconds
 
-<<<<<<< HEAD
-  </script>
-=======
 
         $('#Datepicker').datetimepicker({
             format: 'hh:mm A'
@@ -45,4 +39,4 @@ function pasaporte(){
   </script>
   
 @endsection
->>>>>>> Development
+
