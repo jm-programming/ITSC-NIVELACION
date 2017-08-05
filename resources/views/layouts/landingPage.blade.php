@@ -40,7 +40,8 @@
                                                             </link>
                                                             <link href="{{ URL::asset('css/jquery.timepicker.min.css') }}" rel="stylesheet">
                                                             </link>
-                                                            
+                                                            <link href="{{ URL::asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
+                                                            </link>
                                                         </link>
                                                     </link>
                                                 </link>
@@ -283,6 +284,7 @@ ITSC - 2017
 </div>
 
 
+<<<<<<< HEAD
 <!-- jQuery -->
 <script src="{{ URL::asset('/vendors/jquery/dist/jquery.min.js') }}">
 </script>
@@ -370,6 +372,12 @@ ITSC - 2017
 <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
 <script src="{{ asset('js/datatable/buttons.print.min.js') }}"></script>
 @yield('script')
+
+            <script>
+              $( document ).ready(function() {
+                $('select').selectpicker();
+              });
+            </script>
 
         </link>
     </body>
