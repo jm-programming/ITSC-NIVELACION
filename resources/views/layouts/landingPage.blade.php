@@ -284,7 +284,6 @@ ITSC - 2017
 </div>
 
 
-<<<<<<< HEAD
 <!-- jQuery -->
 <script src="{{ URL::asset('/vendors/jquery/dist/jquery.min.js') }}">
 </script>
