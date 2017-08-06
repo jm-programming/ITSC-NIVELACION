@@ -15,13 +15,7 @@ class LanguageQuotes extends Migration
     {
         Schema::create('language_quotes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('names', 45);
-            $table->string('last_name', 45);
-            $table->string('matricula', 10);
-            $table->string('career', 45);
-            $table->date('birthday');
-            $table->string('identity_card');
-            $table->string('email', 180)->unique();
+            $table->string('language');
             $table->date('date');
             $table->string('time');
             $table->string('location', 90);

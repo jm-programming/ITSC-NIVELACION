@@ -71,12 +71,10 @@
                     {!!Form::open(['route'=> ['teachers.destroy', $teachers->id], 'method' => 'DELETE'])!!}
                      {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
                     {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
-<<<<<<< HEAD
+
                      
                      {!! link_to_route('teachers.show', $title = 'Materias', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-success btn-xs']) !!}
                        
-=======
->>>>>>> Development
                         {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
                     {!!Form::close()!!}
 
@@ -126,10 +124,6 @@
             $('#Warning').fadeToggle();
             }, 5000); // <-- time in milliseconds
 
-
-    /*$(document).ready( function () {
-    $('#table_id').DataTable();
-    } );*/
 
     $(document).ready(function() {
     $('#table_id').DataTable( {

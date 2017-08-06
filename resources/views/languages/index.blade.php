@@ -23,16 +23,10 @@
           <thead>
             <tr class="headings">
               <th>#</th>
-              <th class="column-title">Nombres </th>
-              <th class="column-title">Apellidos </th>
-              <th class="column-title">Nacimiento</th>
-              <th class="column-title">Matricula</th>
-              <th class="column-title">Identificación</th>
-              <th class="column-title">Carrera</th>             
-              <th class="column-title">Correo</th>
-              <th class="column-title">Date</th>
-              <th class="column-title">Time</th>
-              <th class="column-title">Locación</th>
+              <th class="column-title">Lenguaje</th>
+              <th class="column-title">Fecha de la cita</th>
+              <th class="column-title">Hora</th>
+              <th class="column-title">Ubicación</th>
 
           
                 <th class="column-title no-link last">
@@ -61,30 +55,9 @@
                     {{ $contador }}
                 </td>
                 <td>
-                    {{ $languages->names }}
-                </td>
-                <td>
-                    {{ $languages->last_name }}
+                    {{ $languages->language }}
                 </td>
 
-                <td>
-                    {{ $languages->birthday}}
-                </td>
-
-                <td>
-                    {{ $languages->matricula }}
-                </td>
-
-                 <td>
-                    {{ $languages->identity_card }}
-                </td>
-                <td>
-                    {{ $languages->career }}
-                </td>
-                
-                <td>
-                    {{ $languages->email}}
-                </td>
                 <td>
                     {{ $languages->date }}
                 </td>
@@ -93,8 +66,11 @@
                 </td>
                 <td>{{$languages->location}}</td>
                 <td class="last">    
-                    
+                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal"> Ver</button>
+
                     {!!Form::open(['route'=> ['languages.destroy', $languages->id], 'method' => 'DELETE'])!!}
+                    <!-- Button trigger modal -->
+
                              {!! link_to_route('languages.edit', $title = 'Editar', $parameters = $languages->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
                         {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
 
@@ -106,11 +82,36 @@
         </tbody>
     </table>
 
-    <button class="btn btn-default" onclick="window.print();">
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h1 class="modal-title" id="myModalLabel"> Cita de Idiomas</h1>
+      </div>
+      <div class="modal-body">
+            <h1> Fecha de la Cita <span>{{ $languages->date }}</span></h1> 
+            <h2>Ubicación <span> {{ $languages->location }}</span></h2>
+            <h2>Hora <span>{{ $languages->time }}</span></h2>
+            <p>Fecha de la cita</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button class="btn btn-default" onclick="window.print();">
         <i class="fa fa-print">
         </i>
         Print
     </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
       </div>
 <div class="text-right">
     {{ $language->render() }}

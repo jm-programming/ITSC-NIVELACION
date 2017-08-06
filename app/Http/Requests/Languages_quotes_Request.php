@@ -24,16 +24,11 @@ class Languages_quotes_Request extends FormRequest
     public function rules()
     {
         return [
-            'names' => 'required',
-            'last_name' => 'required',
-            'matricula' => 'required',
-            'career' => 'required',
-            'birthday' => 'required',
-            'identity_card' => 'required',
-            'email' => 'required',
+
             'date' => 'required',
             'time' => 'required',
             'location' => 'required',
+            'language' => 'required',
         ];
     }
 }

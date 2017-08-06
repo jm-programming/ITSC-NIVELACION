@@ -34,7 +34,7 @@ function cedula(){
 }
 
 function pasaporte(){
-    $("#identity_card").inputmask({"mask": "999-999-999999999-9999999"});
+    $("#identity_card").inputmask({"mask": "99999999999"});
 }
   </script>
   

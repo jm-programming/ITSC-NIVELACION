@@ -18,7 +18,7 @@ class Language_quotesController extends Controller
      */
     public function index()
     {
-        $language = Language_quotes::paginate(2);
+        $language = Language_quotes::orderBy('date','ASC')->paginate(8);
         return view('languages.index',['language' => $language]);
     }
 
@@ -42,13 +42,7 @@ class Language_quotesController extends Controller
     public function store(Languages_quotes_Request $request)
     {
         Language_quotes::create([
-            'names' => $request['names'],
-            'last_name' => $request['last_name'],
-            'email' => $request['email'], 
-            'matricula' => $request['matricula'],
-            'identity_card' => $request['identity_card'],
-            'career' => $request['career'],
-            'birthday' => $request['birthday'],
+            'language'=> $request['language'],
             'date' => $request['date'],
             'time' => $request['time'],
             'location' => $request['location'],
