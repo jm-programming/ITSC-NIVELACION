@@ -91,7 +91,7 @@
                 <input class="form-control" type="number"  min="0" max="20" id="final_exam" name="final_exam" placeholder="" value='{{$alumno->final_exam}}'>
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  id="score" name="score" placeholder="" value='' readonly>
+                <input class="form-control" type="number"  id="score" name="score" placeholder="" value='{{$alumno->score}}' readonly>
                 </td>
                 <td class=" last">
                 {!! Form::submit('Guardar',['class' => 'btn btn-primary btn-block']) !!}

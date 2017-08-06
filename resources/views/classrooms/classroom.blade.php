@@ -23,7 +23,7 @@
 </div>
 @if (count($classrooms) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_idclas">
         <thead>
             <tr class="headings">
                 <th>
@@ -112,3 +112,5 @@
 </div>
 @endif
 @endsection
+@include('forms.alerts')
+

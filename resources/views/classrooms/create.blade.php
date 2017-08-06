@@ -19,6 +19,8 @@
                     @include('alerts.requets')
                     {{ Form::open(['route'=>'classrooms.store', 'method'=>'POST']) }}
 @include('forms.form_classroom')
+@include('forms.alerts')
+
 {!! Form::close() !!}
                     <hr>
                     </hr>

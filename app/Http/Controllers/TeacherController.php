@@ -132,9 +132,8 @@ class TeacherController extends Controller
 			'password' => bcrypt($request['password']),
 			'status' => $request['status'],
 			'rolls_id' => $roll[0]->id,
-
-		]);
-
+            ]);
+        
             for($x=0;$x<count($request->subject_selected);$x++){
             $subjects = new teachersubjects;
             $subjects->users_id = $user->id;

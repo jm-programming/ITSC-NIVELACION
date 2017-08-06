@@ -20,6 +20,18 @@ class UsersTableSeeder extends Seeder {
 			'status' => 1,
 			'rolls_id' => 1,
 		]);
+
+		DB::table('users')->insert([
+			'names' => 'Profe',
+			'last_name' => 'Profe Profe',
+			'identity_card' => '223-0155545-5',
+			'civil_status' => 'Soltero',
+			'gender' => 'Masculino',
+			'email' => 'profe@itsc.com',
+			'password' => bcrypt('123456'),
+			'status' => 1,
+			'rolls_id' => 2,
+		]);
 	}
 
 }

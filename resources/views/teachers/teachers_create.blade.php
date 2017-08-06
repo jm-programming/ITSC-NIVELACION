@@ -30,11 +30,11 @@
 
                                 <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="names">Nombres</label>
-			                        <input type="text" class="form-control" id="names" name="names" placeholder="Nombres profesor">
+			                        <input type="text" class="form-control" id="names" name="names" placeholder="Nombres profesor" value="{{ old('names')}}">
 			                    </div>
 			                    <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="last_names">Apellidos</label>
-			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos profesor">
+			                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos profesor" value="{{ old('last_name') }}">
 			                    </div>
 								 <div class="form-group col-sm-6">
 			                    <label class="control-label" for="subjects">Asignaturas</label>
@@ -53,15 +53,15 @@
 							  <label class="control-label" for="gender">Genero</label>
 			                    <select id="gender" name="gender" class="form-control">
 			                        	<option disabled selected value> -- Genero -- </option>
-			                        	<option value='Hombre'>Hombre</option>
-			                        	<option value='Mujer'>Mujer</option>
+			                        	<option value='Hombre' @if(old('gender') == 'Hombre') {{ 'selected' }} @endif>Hombre</option>
+			                        	<option value='Mujer' @if(old('gender') == 'Mujer') {{ 'selected' }} @endif>Mujer</option>
 			                        </select>
 								</div>
 			                   
 								    <div class="form-group col-sm-12">
     <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
     <div class="input-group">
-      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
+      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación" value="{{ old('identity_card') }}">
       <div class="input-group-btn">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Opción<span class="caret"></span></button>
         <ul class="dropdown-menu pull-right">
@@ -74,32 +74,32 @@
 
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="personal_phone">Telefono</label>
-			                        <input type="text" class="form-control" id="personal_phone" name="personal_phone" placeholder="telefono profesor">
+			                        <input type="text" class="form-control" id="personal_phone" name="personal_phone" placeholder="telefono profesor" value="{{ old('personal_phone') }}">
 			                    </div>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="cellphone">Celular</label>
-			                        <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="movil profesor">
+			                        <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="movil profesor" value="{{ old('cellphone') }}">
 			                    </div>
 								 <div class="form-group col-sm-6">
 			                        <label class="control-label" for="civil_status">Estado Civil</label>
 			                        <select id="civil_status" name="civil_status" class="form-control">
 			                        	<option disabled selected value> -- Estado civil -- </option>
-			                        	<option>Soltero/a</option>
-			                        	<option>Casado/a</option>
-			                        	<option>Comprometido/a</option>
-			                        	<option>Divorciado/a</option>
-			                        	<option>Viudo/a</option>
+			                        	<option @if(old('civil_status') == 'Soltero/a') {{ 'selected' }} @endif>Soltero/a</option>
+			                        	<option @if(old('civil_status') == 'Casado/a') {{ 'selected' }} @endif>Casado/a</option>
+			                        	<option @if(old('civil_status') == 'Comprometido/a') {{ 'selected' }} @endif>Comprometido/a</option>
+			                        	<option @if(old('civil_status') == 'Divorciado/a') {{ 'selected' }} @endif>Divorciado/a</option>
+			                        	<option @if(old('civil_status') == 'Viudo/a') {{ 'selected' }} @endif>Viudo/a</option>
 			                        </select>
 			                    </div>
 								<div class="form-group col-sm-6">
 			                        <label class="control-label" for="address">Direccion</label>
-			                        <input type="text" class="form-control" id="address" name="address" placeholder="Direccion del profesor">
+			                        <input type="text" class="form-control" id="address" name="address" placeholder="Direccion del profesor" value="{{ old('address') }}"> 
 			                    </div>
 
                                 <!--Usuario-->
                                 <div class="form-group col-sm-6 ">
 			                        <label class="control-label" for="email">Email</label>
-			                        <input type="text" class="form-control" id="email" name="email" placeholder="email profesor">
+			                        <input type="text" class="form-control" id="email" name="email" placeholder="email profesor" value="{{ old('email') }}">
 			                    </div>
                                  <div class="form-group col-sm-6">
         					<label class="control-label" for="password">
@@ -109,7 +109,7 @@
     						</div>
 								<div class="form-group col-sm-6">
         					{!!Form::label('status','Estatus Profesor',['class'=>'control-label'])!!}<br>
-        					<input type="radio" name="status" value=1>Activo
+        					<input type="radio" name="status" value=1 checked>Activo
         					<br>
         					<input type="radio" name="status" value=0>Inactivo
     						</div>

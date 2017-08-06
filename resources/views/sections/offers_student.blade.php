@@ -51,7 +51,7 @@
 		        <td class="a-center ">
 							
 		          <input type="checkbox" name="subject_selected[]" value="{{$sec->id}}" 
-							id="subject_selected" @foreach($inscritos as $inscrito) @if($inscrito->sections_id == $sec->id) {{ 'checked' }} @endif @endforeach>
+							id="subject_selected">
 						
 		        </td>
 		        <td class="text-center">{{$sec->section}}</td>

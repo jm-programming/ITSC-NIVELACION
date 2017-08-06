@@ -26,7 +26,7 @@
 @endif 
 @if (count($employees) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_idemp">
         <thead>
             <tr class="headings">
                 <th>
@@ -165,5 +165,4 @@
 @endsection
 @section('script')
 @include('forms.alerts')
-
 @endsection
