@@ -44,7 +44,7 @@
 			                    <div class="form-group col-sm-6">
     <label for="identity_card" class="control-label">Cedula o Pasaporte</label>
     <div class="input-group">
-      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación">
+      <input type="text" class="form-control" id="identity_card" name="identity_card" placeholder="Ingrese su identificación" value="{{$student->identity_card}}">
       <div class="input-group-btn">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Opción<span class="caret"></span></button>
         <ul class="dropdown-menu pull-right">
@@ -61,7 +61,7 @@
 			                    <h4>Información Universitaria del estudiante</h4><br>
 			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="condition">Condición</label>
-			                        <select id="condition" name="condition" class="form-control selectpicker">
+			                        <select id="condition" name="condition" class="form-control">
 			                        	<option value="ESP-100" @if($student->condition == "ESP-100") {{ 'selected' }} @endif>ESP-100 Lengua Española</option>
 			                        	<option value="MAT-100" @if($student->condition == "MAT-100") {{ 'selected' }} @endif>MAT-100 Matematica</option>
 			                        	<option value="ESP-100/MAT-100" @if($student->condition == "ESP-100/MAT-100") {{ 'selected' }} @endif>ESP-100 Lengua Española / MAT-100 Matematica</option>

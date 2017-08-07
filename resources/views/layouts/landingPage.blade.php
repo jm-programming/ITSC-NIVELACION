@@ -133,7 +133,11 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/log"><i class="fa fa-list-alt"></i> Auditoria</a>
    </li>
    <li>
-   <a href="/languages"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   <ul class="nav child_menu">
+    <li><a href="/language">Establecer fecha examen de idiomas</a></li>
+    <li><a href="/generatelanguage">Generar citas</a></li>
+   </ul>
    </li>
    <li>
    <a href="/subjects"><i class="fa fa-book"></i> Materias</a>
@@ -374,9 +378,7 @@ ITSC - 2017
 @yield('script')
 
             <script>
-              $( document ).ready(function() {
-                $('select').selectpicker();
-              });
+
             </script>
 
         </link>
