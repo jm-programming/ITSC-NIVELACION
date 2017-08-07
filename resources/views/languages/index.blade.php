@@ -19,7 +19,7 @@
 @if (count($language) > 0)
 
       <div class="table-responsive">
-        <table class="table table-striped jambo_table bulk_action">
+        <table class="table table-striped jambo_table bulk_action" id="table_idlanguaje">
           <thead>
             <tr class="headings">
               <th>#</th>
@@ -59,8 +59,8 @@
                 </td>
 
                 <td>
-                    {{ $languages->date }}
-                </td>
+                   {!! $languages->date !!}
+                                    </td>
                 <td>
                     {{ $languages->time}}
                 </td>
@@ -68,11 +68,11 @@
                 <td class="last">    
                     <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal"> Ver</button>
 
-                    {!!Form::open(['route'=> ['languages.destroy', $languages->id], 'method' => 'DELETE'])!!}
+                   <!-- {!!Form::open(['route'=> ['languages.destroy', $languages->id], 'method' => 'DELETE'])!!}-->
                     <!-- Button trigger modal -->
 
-                             {!! link_to_route('languages.edit', $title = 'Editar', $parameters = $languages->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
-                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                             <!--{!! link_to_route('languages.edit', $title = 'Editar', $parameters = $languages->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!} -->
+                       <!-- {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}-->
 
                     {!!Form::close()!!}
                 </td>
@@ -100,13 +100,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button class="btn btn-default" onclick="window.print();">
-        <i class="fa fa-print">
-        </i>
-        Print
-    </button>
-      </div>
+        <button type="button" class="btn btn-primary" >Imprimir</button>
+              </div>
     </div>
   </div>
 </div>
@@ -129,7 +124,5 @@
 @endif
 
 @endsection
-@section('script')
-@include('forms.alerts')
 
-@endsection
+@include('forms.alerts')

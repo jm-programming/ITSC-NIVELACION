@@ -2,7 +2,11 @@
 
 namespace App;
 
+
 use Illuminate\Database\Eloquent\Model;
+
+
+
 
 class Language_quotes extends Model
 {

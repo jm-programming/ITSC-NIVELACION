@@ -38,12 +38,8 @@ class InscribedController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-        //hacer que los checkboxes que ya estan activos no se envien
-        //hacer que los checkboxes que ya estaban activos y se desactivan eliminen la inscricion de esa seccion
-        //choques de horario 
-        //determinar si kiefer y matador son parajos.
-
+        // try{
+        
 
         //obteniendo los datos de los select id
         $subject_selected = $request->input('subject_selected');
@@ -55,7 +51,219 @@ class InscribedController extends Controller
 
         $matchedObjects = [];
 
+        $sectionSubjectRegisterPushed = [];
+
+        $sectionSubjectPushed = [];
+
+        $sectionTimePushed = [];
+        
             if($subjectCount > 0){
+
+                //validaciones de choques horarios
+
+               
+                for ($z=0; $z < $subjectCount; $z++) { 
+                    
+                    $sectionsTime = DB::table('sections')
+                    ->select('sections.id',
+                        'sections.section',
+                    'sections.day_one',
+                    'sections.day_two',
+                    'sections.time_first',
+                    'sections.time_last',
+                    'sections.second_time_first',
+                    'sections.second_time_last',
+                    'sections.shift')
+                    ->where('sections.id', '=', $subject_selected[$z])
+                    ->get();                  
+                    
+                    //dd($sectionsToSelect);
+                    
+                    array_push($sectionTimePushed, $sectionsTime);
+
+                }
+
+
+                for ($h=0; $h < count($sectionTimePushed); $h++) { 
+                    
+                    for ($o=0; $o < count($sectionTimePushed); $o++) { 
+                        
+                        if(empty($sectionTimePushed[$h][0]->day_two)){
+                            if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->time_first == $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->time_last == $sectionTimePushed[$o][0]->time_last && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora');
+                                    return redirect('/students/'.$id_student);
+
+                            }else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->time_first == $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->time_last == $sectionTimePushed[$o][0]->second_time_last && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora');
+                                    return redirect('/students/'.$id_student);
+
+                            }else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_first >= $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 3');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_last >= $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 4');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_first >= $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->second_time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 5');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_last >= $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->second_time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 6');
+                                    return redirect('/students/'.$id_student);
+
+                            }
+
+                         
+                        // cuando llegan los 2 dias!!!!!!     
+                        }else if(!empty($sectionTimePushed[$h][0]->day_two)){
+                            if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->time_first == $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->time_last == $sectionTimePushed[$o][0]->time_last && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora');
+                                    return redirect('/students/'.$id_student);
+
+                            }else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->time_first == $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->time_last == $sectionTimePushed[$o][0]->second_time_last && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora');
+                                    return redirect('/students/'.$id_student);
+
+                            }else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_first >= $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 3');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_last >= $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 4');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_first >= $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->second_time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 5');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_one == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->time_last >= $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->time_first <= $sectionTimePushed[$o][0]->second_time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 6');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_two == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->second_time_first == $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->second_time_last == $sectionTimePushed[$o][0]->second_time_last && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift){
+                                
+                                session::flash('message', 'Las secciones seleccionadas 2.1'.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 2.2');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_two == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->second_time_first >= $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->second_time_first <= $sectionTimePushed[$o][0]->second_time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 2.3');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_two == $sectionTimePushed[$o][0]->day_two && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->second_time_last >= $sectionTimePushed[$o][0]->second_time_first && $sectionTimePushed[$h][0]->second_time_last <= $sectionTimePushed[$o][0]->second_time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 2.4');
+                                    return redirect('/students/'.$id_student);
+
+                            }else if($sectionTimePushed[$h][0]->day_two == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->second_time_first >= $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->second_time_first <= $sectionTimePushed[$o][0]->time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 2.5');
+                                    return redirect('/students/'.$id_student);
+
+                            } else if($sectionTimePushed[$h][0]->day_two == $sectionTimePushed[$o][0]->day_one && $sectionTimePushed[$h][0]->id != $sectionTimePushed[$o][0]->id && $sectionTimePushed[$h][0]->shift == $sectionTimePushed[$h][0]->shift && ($sectionTimePushed[$h][0]->second_time_last >= $sectionTimePushed[$o][0]->time_first && $sectionTimePushed[$h][0]->second_time_last <= $sectionTimePushed[$o][0]->time_last)){
+                                
+                                session::flash('message', 'Las secciones seleccionadas '.$sectionTimePushed[$h][0]->section.' y '.$sectionTimePushed[$o][0]->section.' tienen la mismas hora 2.6');
+                                    return redirect('/students/'.$id_student);
+
+                            }  
+                        }
+
+                        // if($sectionSubjectPushed[$h][0]->code_subject == $sectionSubjectPushed[$o][0]->code_subject && $sectionSubjectPushed[$h][0]->id != $sectionSubjectPushed[$o][0]->id){
+                            
+                        //     session::flash('message', 'Las secciones seleccionadas '.$sectionSubjectPushed[$h][0]->section.' y '.$sectionSubjectPushed[$o][0]->section.' tienen la mismas materias');
+                        //     return redirect('/students/'.$id_student);
+                        // }
+                    }
+                } 
+
+                //end validaciones de choques horarios
+
+
+
+
+
+
+
+
+
+
+
+
+                //obteniendo las los codigo de secciones registradas
+                $registerSubjects = DB::table('inscribed')
+                ->select(
+                    'inscribed.id',
+                    'subjects.code_subject'
+                    )
+                ->join('sections','inscribed.sections_id','=','sections.id')
+                ->join('subjects','sections.subjects_id','=','subjects.id')
+                ->where('inscribed.students_id', '=', $id_student)
+                ->get();
+               
+                //selected match subject section
+                for ($z=0; $z < $subjectCount; $z++) { 
+                    
+                    $sectionsToSelect = DB::table('sections')
+                    ->select('sections.id','subjects.code_subject','sections.section')
+                    ->join('subjects','sections.subjects_id','=','subjects.id')
+                    ->where('sections.id', '=', $subject_selected[$z])
+                    ->get();                  
+                    
+                    //dd($sectionsToSelect);
+                    
+                    array_push($sectionSubjectPushed, $sectionsToSelect);
+
+                }
+
+                for ($h=0; $h < count($sectionSubjectPushed); $h++) { 
+                    
+                    for ($o=0; $o < count($sectionSubjectPushed); $o++) { 
+                        
+                        if($sectionSubjectPushed[$h][0]->code_subject == $sectionSubjectPushed[$o][0]->code_subject && $sectionSubjectPushed[$h][0]->id != $sectionSubjectPushed[$o][0]->id){
+                            
+                            session::flash('message', 'Las secciones seleccionadas '.$sectionSubjectPushed[$h][0]->section.' y '.$sectionSubjectPushed[$o][0]->section.' tienen la mismas materias');
+                            return redirect('/students/'.$id_student);
+                        }
+                    }
+                }
+                //end obteniendo las los codigo de secciones registradas
+                
+                for ($a=0; $a < count($registerSubjects); $a++) { 
+
+                   $sectionSubjectId = DB::table('sections')
+                    ->join('subjects','sections.subjects_id','=','subjects.id')
+                    ->where('sections.id', '=', $subject_selected[$a])
+                    ->get(); 
+
+                    array_push($sectionSubjectRegisterPushed, $sectionSubjectId);
+
+
+                    for ($j=0; $j < count($sectionSubjectRegisterPushed); $j++) { 
+
+                       if($sectionSubjectRegisterPushed[$j][0]->code_subject == $registerSubjects[$a]->code_subject){
+
+                            session::flash('message', 'El estudiante ya esta inscrito en la seccion '.$sectionSubjectRegisterPushed[$j][0]->section);
+                            return redirect('/students/'.$id_student);
+
+                       }
+                    }
+                    //----
+                    
+                }
                 
                 $registerSections = DB::table('inscribed')
                 ->join('students','inscribed.students_id','=','students.id')              
@@ -65,33 +273,40 @@ class InscribedController extends Controller
                 $registerSectionsCount = count($registerSections);
                 if($registerSectionsCount > 0){
 
-                    for ($i=0; $i < $registerSectionsCount; $i++) { 
-                                        
-                        // $sections_all[$i] = DB::table('sections')
-                        // ->select('sections.id',
-                        //     'sections.day_one',
-                        //     'sections.day_two',
-                        //     'sections.time_first',
-                        //     'sections.time_last',
-                        //     'sections.second_time_first',
-                        //     'sections.second_time_last',
-                        //     'subjects.code_subject'
-                        //     )
-                        // ->join('subjects','sections.subjects_id','=','subjects.id')              
-                        // ->where('sections.id', '=', $subject_selected[$i])
-                        // ->get();
+                    for ($i=0; $i < $subjectCount; $i++) { 
 
-                        for ($x=0; $x < $subjectCount; $x++) { 
-                            if ($registerSections[$i]->sections_id == $subject_selected[$x]) {
+                        for ($x=0; $x < $registerSectionsCount; $x++) { 
+
+                            $sections_quota = DB::table('sections')
+                            ->select('sections.id',
+                                'sections.section',
+                                'sections.quota'
+                                )
+                            ->where('sections.id', '=', $subject_selected[$i])
+                            ->get();
+                                    
+                           $inscribedStudent = DB::table('inscribed')
+                            ->where('inscribed.sections_id', '=', $subject_selected[$i])
+                            ->get();
+
+                            
+                            if(count($inscribedStudent) == $sections_quota[0]->quota){
+                                session::flash('message', 'Sección '.$sections_quota[0]->section.' esta llena...');
+                                return redirect('/students');
+                            }
+
+                            if ($registerSections[$x]->sections_id == $subject_selected[$i]) {
                                     //dd($registerSections[$x]->sections_id );
                                   array_push($matchedObjects, $subject_selected[$x]);
                                   session::flash('message', 'Estudiante ya inscrito en esta sección...');
-
-        
                                 
                             }
                         }
+
+
                 }
+               
+
                 }
 
                 $newSections = array_diff($subject_selected, $matchedObjects);
@@ -106,8 +321,6 @@ class InscribedController extends Controller
                         ]);
 
                     session::flash('message', 'Estudiante Inscrito correctamente...');
-
-                    
                 }
 
                 return redirect('/students');
@@ -116,9 +329,9 @@ class InscribedController extends Controller
 
         
         
-        }catch(\Exception $e) {
-        session::flash('message', 'error inesperado');
-        return redirect('/students');}
+        // }catch(\Exception $e) {
+        // session::flash('message', 'error inesperado');
+        // return redirect('/students');}
     }
 
     /**

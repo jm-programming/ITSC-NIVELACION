@@ -23,9 +23,11 @@
         {{ Form::text('location',null,['class'=>'form-control','placeholder'=>"Ingrese la ubicación"]) }}
     </div>
      <div class="form-group col-sm-6">
-                                    <label class="control-label" for="nombres">Fecha del examen</label>
-                                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date')}}" min="01/01/1900">
-                                </div>
+         <label class="control-label" for="nombres">Fecha del examen</label>
+         <input type="date" class="form-control" id="date" name="date" value="{{ old('date')}}" min="01/01/2017">
+         
+
+    </div>
     
     <div class='form-group col-sm-6'>
                     <label for="date">Hora del Examen</label>
