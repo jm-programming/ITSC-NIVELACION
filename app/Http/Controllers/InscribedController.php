@@ -241,8 +241,7 @@ class InscribedController extends Controller
                     }
                 }
                 //end obteniendo las los codigo de secciones registradas
-                
-                for ($a=0; $a < count($registerSubjects); $a++) { 
+                for ($a=0; $a < count($subject_selected); $a++) { 
 
                    $sectionSubjectId = DB::table('sections')
                     ->join('subjects','sections.subjects_id','=','subjects.id')
@@ -262,8 +261,8 @@ class InscribedController extends Controller
                        }
                     }
                     //----
-                    
                 }
+                
                 
                 $registerSections = DB::table('inscribed')
                 ->join('students','inscribed.students_id','=','students.id')              
@@ -273,33 +272,32 @@ class InscribedController extends Controller
                 $registerSectionsCount = count($registerSections);
                 if($registerSectionsCount > 0){
 
-                    for ($i=0; $i < $subjectCount; $i++) { 
+                    for ($i=0; $i < $registerSectionsCount; $i++) { 
 
-                        for ($x=0; $x < $registerSectionsCount; $x++) { 
+                        for ($x=0; $x < $subjectCount; $x++) { 
 
                             $sections_quota = DB::table('sections')
                             ->select('sections.id',
                                 'sections.section',
                                 'sections.quota'
                                 )
-                            ->where('sections.id', '=', $subject_selected[$i])
+                            ->where('sections.id', '=', $subject_selected[$x])
                             ->get();
                                     
                            $inscribedStudent = DB::table('inscribed')
-                            ->where('inscribed.sections_id', '=', $subject_selected[$i])
+                            ->where('inscribed.sections_id', '=', $subject_selected[$x])
                             ->get();
 
                             
                             if(count($inscribedStudent) == $sections_quota[0]->quota){
                                 session::flash('message', 'Sección '.$sections_quota[0]->section.' esta llena...');
-                                return redirect('/students');
+                                return redirect('/students/'.$id_student);
                             }
-
-                            if ($registerSections[$x]->sections_id == $subject_selected[$i]) {
+                            if ($registerSections[$i]->sections_id == $subject_selected[$x]) {
                                     //dd($registerSections[$x]->sections_id );
                                   array_push($matchedObjects, $subject_selected[$x]);
                                   session::flash('message', 'Estudiante ya inscrito en esta sección...');
-                                
+                                  return redirect('/students/'.$id_student);
                             }
                         }
 
@@ -378,4 +376,3 @@ class InscribedController extends Controller
         //
     }
 }
-
