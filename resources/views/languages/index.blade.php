@@ -62,8 +62,8 @@
                 </td>
                 <td>{{$languages->location}}</td>
                 <td class="last">    
-                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal"> Ver</button>
-
+                   
+                  <a href="{{ route('idioma_show_path',['language'=> $languages->id]) }}" class="btn btn-primary btn-xs">Imprimir</a>
                   <a href="{{ route('idioma_edit_path',['language'=> $languages->id]) }}" class="btn btn-primary btn-xs">Editar</a>
               
                 </td>
@@ -71,37 +71,7 @@
             </tr>
             @endforeach
         </tbody>
-    </table>
-
-
-
-  <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h1 class="modal-title" id="myModalLabel"> Cita de Idiomas</h1>
-      </div>
-      <div class="modal-body">
-       <table class="table table-striped" >
-            <h1> Fecha de la Cita <span>{{ $languages->date }}</span></h1> 
-            <h2>Ubicación <span> {{ $languages->location }}</span></h2>
-            <h2>Hora <span>{{ $languages->time }}</span></h2>
-            
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" >Imprimir</button>
-              </div>
-    </div>
-  </div>
-</div>
-
-
-
-    
+    </table>    
       </div>
 <div class="text-right">
     {{ $language->render() }}

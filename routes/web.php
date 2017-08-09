@@ -10,12 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::get('ingles', 'IdiomaController@ingles');
-Route::get('frances', 'IdiomaController@frances');
-Route::name('idioma_create_path')->get('idioma/create', 'IdiomaController@create');
-Route::name('idioma_store_path')->post('idioma', 'IdiomaController@store');
-Route::name('idioma_edit_path')->get('idioma/{id}/edit', 'IdiomaController@edit');
-Route::name('idioma_update_path')->put('idioma/{id}', 'IdiomaController@update');
+
 
 Route::get('/', function () {
 	return redirect('/login');
@@ -66,8 +61,13 @@ Route::resource('inscribed','InscribedController');
  Route::resource('log', 'LogController');
 
 //routes mantenimiento de citas de idiomas
-Route::resource('languages','Language_quotesController');
-
+Route::get('ingles', 'IdiomaController@ingles');
+Route::get('frances', 'IdiomaController@frances');
+Route::name('idioma_create_path')->get('idioma/create', 'IdiomaController@create');
+Route::name('idioma_store_path')->post('idioma', 'IdiomaController@store');
+Route::name('idioma_edit_path')->get('idioma/{id}/edit', 'IdiomaController@edit');
+Route::name('idioma_update_path')->put('idioma/{id}', 'IdiomaController@update');
+Route::name('idioma_show_path')->get('idioma/{id}', 'IdiomaController@show');
 
 //routes mantenimiento de Subjects
 Route::resource('subjects', 'SubjectController');

@@ -58,4 +58,9 @@ class IdiomaController extends Controller {
         return Redirect::to('home');
     }
 
+    public function show($id){
+    	$language = Language_quotes::find($id);
+    	return view('languages.show', ['language' => $language]);
+    }
+
 }
