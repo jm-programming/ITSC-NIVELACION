@@ -121,7 +121,7 @@
                
                 <td class=" last">
                     {{--{!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}--}}
-                  {!! link_to_route('qualifications.show', $title = 'alumnos', $parameters = $section->id, $attributes = ['class' => 'btn btn-primary']) !!}
+                  {!! link_to_route('qualifications.show', $title = 'Calificar', $parameters = $section->id, $attributes = ['class' => 'btn btn-primary']) !!}
             
                 </td>
             </tr>

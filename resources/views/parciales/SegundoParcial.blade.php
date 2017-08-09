@@ -14,7 +14,9 @@
   @endif
 
 @if (count($alumnos) > 0)
+{!! Form::open(['route' => ['segundoParcial.update', $id], 'method' => 'PUT']) !!}
 <div class="table-responsive">
+{!!Form::token()!!}
     <table class="table table-striped jambo_table bulk_action">
         <thead>
             <tr class="headings">
@@ -22,16 +24,16 @@
                     #
                 </th>
                 <th class="column-title">
-                    PrimerParcial
+                    Nombres
                 </th>
                 <th class="column-title">
-                    SegundoParcial
+                    Apellidos
                 </th>
                 <th class="column-title">
-                    Practicas
+                    identificacion
                 </th>
                 <th class="column-title">
-                    ExamenFinal
+                    Segundo_Parcial
                 </th>
                 <th class="bulk-actions" colspan="7">
                     <a class="antoo" style="color:#fff; font-weight:500;">
@@ -46,32 +48,40 @@
             </tr>
         </thead>
         <tbody>
-            <?php $contador = 0;?>
-            <?php $contador++?>
+        <?php $contador = 0;?>
+            @foreach ($alumnos as $alumno)
+              <?php $contador++?>
             <tr class="even pointer">
                 <td class="a-center ">
                     {{$contador}}
                 </td>
-                <td class=" ">
-                {!! link_to_route('primerParcial.edit','PrimerParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                <td class=" " style="display: none;">
+                <input class="form-control" type="text"  id="names" name="id[]" placeholder="" value='{{$alumno->id}}' readonly style="display: none;"> 
                 </td>
                 <td class=" ">
-                    {!! link_to_route('segundoParcial.edit','SegundoParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                <input class="form-control" type="text"  id="names" name="names[]" placeholder="" value='{{$alumno->names}}' readonly> 
                 </td>
                 <td class=" ">
-                   {!! link_to_route('practicas.edit','Practicas',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                <input class="form-control" type="text"  id="names" name="last_name[]" placeholder="" value='{{$alumno->last_name}}' readonly>    
                 </td>
                 <td class=" ">
-                   {!! link_to_route('examenFinal.edit','ExamenFinal',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                <input class="form-control" type="text"  id="names" name="identity_card[]" placeholder="" value='{{$alumno->identity_card}}' readonly>         
                 </td>
-                 
+                <td class=" ">
+                <input class="form-control" type="number"  min="0" max="10" id="second_midterm" name="second_midterm[]" placeholder="" value='{{$alumno->second_midterm}}' >
+                </td>
+                
             </tr>
+            @endforeach
         </tbody>
     </table>
+    {!! Form::submit('Guardar',['class' => 'btn btn-primary btn-block']) !!}
     </div>
 
+{!! Form::close() !!}
     @else
     <div class="container" id="error">
+        @include('forms.search_student',['url'=>'students','link'=>'students'])
         <figure id="img-error">
           <img src="img/sad-face.png" alt="sad-face">
         </figure>

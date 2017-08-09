@@ -250,7 +250,7 @@ class InscribedController extends Controller
 
                     array_push($sectionSubjectRegisterPushed, $sectionSubjectId);
 
-
+                    if(count($registerSubjects) > 0){
                     for ($j=0; $j < count($sectionSubjectRegisterPushed); $j++) { 
 
                        if($sectionSubjectRegisterPushed[$j][0]->code_subject == $registerSubjects[$a]->code_subject){
@@ -262,6 +262,8 @@ class InscribedController extends Controller
                     }
                     //----
                 }
+                }
+                
                 
                 
                 $registerSections = DB::table('inscribed')

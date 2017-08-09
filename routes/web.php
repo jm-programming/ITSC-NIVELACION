@@ -82,3 +82,9 @@ Route::get('/ajax-teacher',function(){
 			->get();
 		return Response::json($teachers);
 });
+
+//routes para notas
+Route::resource('primerParcial','PrimerParcialController');
+Route::resource('segundoParcial','SegundocialController');
+Route::resource('practicas','PracticasController');
+Route::resource('examenFinal','ExamenFinalController');
