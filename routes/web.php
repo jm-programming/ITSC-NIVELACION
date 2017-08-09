@@ -10,13 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-
+Route::get('ingles', 'IdiomaController@ingles');
+Route::get('frances', 'IdiomaController@frances');
+Route::name('idioma_create_path')->get('idioma/create', 'IdiomaController@create');
+Route::name('idioma_store_path')->post('idioma', 'IdiomaController@store');
+Route::name('idioma_edit_path')->get('idioma/{id}/edit', 'IdiomaController@edit');
+Route::name('idioma_update_path')->put('idioma/{id}', 'IdiomaController@update');
 
 Route::get('/', function () {
 	return redirect('/login');
 });
 
+#Route::get('password/email', 'Auth\PasswordController@getEmail');
+#Route::post('password/email', 'Auth\PasswordController@postEmail');
+
 Auth::routes();
+
+
 
 Route::get('home_s', 'HomeController@search');
 Route::resource('home', 'HomeController');
@@ -57,6 +67,7 @@ Route::resource('inscribed','InscribedController');
 
 //routes mantenimiento de citas de idiomas
 Route::resource('languages','Language_quotesController');
+
 
 //routes mantenimiento de Subjects
 Route::resource('subjects', 'SubjectController');

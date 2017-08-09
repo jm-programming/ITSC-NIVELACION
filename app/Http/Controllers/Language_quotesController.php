@@ -18,9 +18,10 @@ class Language_quotesController extends Controller
      */
     public function index()
     {
-        $language = Language_quotes::orderBy('date','ASC')->paginate(8);
+        $language = Language_quotes::orderBy('date','ASC')->where('language','Ingles')->paginate(8);
         return view('languages.index',['language' => $language]);
     }
+    
 
     /**
      * Show the form for creating a new resource.

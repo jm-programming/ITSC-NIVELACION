@@ -18,7 +18,7 @@
                 </div>
                 <div class="panel-body">
                     @include('alerts.requets')
-                    {{ Form::open(['route'=>'languages.store', 'method'=>'POST']) }}
+                    {{ Form::open(['route'=>'idioma_store_path', 'method'=>'POST']) }}
 						@include('forms.form_language');
                         {!! Form::close() !!}
                     </hr>

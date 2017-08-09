@@ -133,10 +133,10 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/log"><i class="fa fa-list-alt"></i> Auditoria</a>
    </li>
    <li>
-   <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   <a href="#"><i class="fa fa-bar-chart-o"></i> Citas de idiomas</a>
    <ul class="nav child_menu">
-    <li><a href="/language">Establecer fecha examen de idiomas</a></li>
-    <li><a href="/generatelanguage">Generar citas</a></li>
+    <li><a href="\ingles">Ingles</a></li>
+    <li><a href="\frances">Frances</a></li>
    </ul>
    </li>
    <li>

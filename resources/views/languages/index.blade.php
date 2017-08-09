@@ -4,10 +4,6 @@
 @section('content')
 
 
-   <div class="text-right ">
-        {!!link_to('languages/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
-    </div>
-</div>
 
 @if(Session::has('message'))
 <div class="alert alert-success" id="Success">
@@ -60,7 +56,7 @@
 
                 <td>
                    {!! $languages->date !!}
-                                    </td>
+                </td>
                 <td>
                     {{ $languages->time}}
                 </td>
@@ -68,13 +64,8 @@
                 <td class="last">    
                     <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal"> Ver</button>
 
-                   <!-- {!!Form::open(['route'=> ['languages.destroy', $languages->id], 'method' => 'DELETE'])!!}-->
-                    <!-- Button trigger modal -->
-
-                             <!--{!! link_to_route('languages.edit', $title = 'Editar', $parameters = $languages->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!} -->
-                       <!-- {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}-->
-
-                    {!!Form::close()!!}
+                  <a href="{{ route('idioma_edit_path',['language'=> $languages->id]) }}" class="btn btn-primary btn-xs">Editar</a>
+              
                 </td>
                 
             </tr>
@@ -84,7 +75,7 @@
 
 
 
-<!-- Modal -->
+  <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -93,10 +84,12 @@
         <h1 class="modal-title" id="myModalLabel"> Cita de Idiomas</h1>
       </div>
       <div class="modal-body">
+       <table class="table table-striped" >
             <h1> Fecha de la Cita <span>{{ $languages->date }}</span></h1> 
             <h2>Ubicación <span> {{ $languages->location }}</span></h2>
             <h2>Hora <span>{{ $languages->time }}</span></h2>
-            <p>Fecha de la cita</p>
+            
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -106,12 +99,19 @@
   </div>
 </div>
 
+
+
     
       </div>
 <div class="text-right">
     {{ $language->render() }}
 </div>
 @else
+<div class="text-right ">
+        
+      <a href="{{ route('idioma_create_path')}}" class="fa fa-plus fa-3x pointer blackColor"> </a>
+  </div>
+</div>
 <div class="container" id="error">
     <figure id="img-error">
         <img alt="sad-face" src="img/sad-face.png">
