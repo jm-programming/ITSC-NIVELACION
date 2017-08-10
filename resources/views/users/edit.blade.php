@@ -29,14 +29,18 @@
 			                        <label class="control-label" for="nombres">Apellidos</label>
 			                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $users->last_name }}">
 			                    </div>
-			                     <div class="form-group col-sm-8">
+			                     <div class="form-group col-sm-12">
 			                        <label class="control-label" for="nombres">Correo</label>
 			                        <input type="text" class="form-control" id="email" name="email" value="{{ $users->email }}">
 			                    </div>
 
-			                    <div class="form-group col-sm-4">
+			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="nombres">Contraseña</label>
-			                        <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}">
+			                        <input type="password" class="form-control" id="password" name="password">
+			                    </div>
+			                    <div class="form-group col-sm-6">
+			                        <label class="control-label" for="nombres">Confirmar contraseña</label>
+			                        <input type="password" class="form-control"  name="password_confirmation">
 			                    </div>
 
 			                    {!! Form::submit('Editar Usuario',['class' => 'btn btn-primary btn-block']) !!}

@@ -16,12 +16,8 @@ Route::get('/', function () {
 	return redirect('/login');
 });
 
-#Route::get('password/email', 'Auth\PasswordController@getEmail');
-#Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 Auth::routes();
-
-
 
 Route::get('home_s', 'HomeController@search');
 Route::resource('home', 'HomeController');
