@@ -1,4 +1,4 @@
- <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+ <form class="form-horizontal" role="form" method="POST" action="{{ {{ url('password/email') }} }}">
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
                                 {{ csrf_field() }}

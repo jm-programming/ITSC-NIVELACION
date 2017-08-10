@@ -38,7 +38,8 @@
                                     </span>
                                 @endif
                                 <br><input type="submit" id="form-submit" class="btn btn-lg btn-block" value="Acceder">
-                                <a href="#">Olvido su contraseña?</a>
+<br>
+                                {{ link_to('password/email', $title = 'Olvido su contraseña?') }}
                             </div>
                            
                         </form>

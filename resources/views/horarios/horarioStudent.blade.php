@@ -1,5 +1,5 @@
 @extends('layouts.landingPage')
-@section('title', 'HorarioProfesores')
+@section('title', 'HorarioEstudiante')
 @section('title-content', 'Horario')
 @section('content')
 

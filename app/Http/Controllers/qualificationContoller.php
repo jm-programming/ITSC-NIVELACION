@@ -111,14 +111,8 @@ class qualificationContoller extends Controller
      */
     public function edit($id)
     {
-        try{
-        $url = url()->full();
-        $urlExplode = explode("?",$url);
-        $studentID = $urlExplode[1];
-
-        $alumno = DB::table('inscribed')
+        $notas = DB::table('inscribed')
         ->select(
-        'inscribed.id',
         'students.names',
         'students.last_name',
         'students.identity_card',
@@ -126,19 +120,15 @@ class qualificationContoller extends Controller
         'inscribed.second_midterm',
         'inscribed.pratice_score',
         'inscribed.final_exam',
-        'inscribed.score')
+        'inscribed.score',
+        'inscribed.literal',
+        'students.condition')
         ->join('students','inscribed.students_id','students.id')
         ->join('sections','inscribed.sections_id','sections.id')
-        ->where('inscribed.students_id','=',$studentID)
         ->where('sections.id','=',$id)
         ->get();
 
-        
-       
-        return view('qualifications.qualification_notes',['alumno' =>$alumno[0]]);
-        }catch(\Exception $e) {
-        session::flash('message', 'error inesperado');
-        return redirect('/qualifications');}
+        return view('qualifications.qualification_notes',['notas'=>$notas]);
     }
 
     /**
@@ -150,52 +140,7 @@ class qualificationContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-      $seccionesProfesor =DB::table('sections')
-		->select('sections.id',
-		'sections.section',
-		'sections.status',
-		'sections.time_first',
-		'sections.time_last',
-		'classrooms.location',
-		'sections.quota',
-		'sections.shift',
-		'sections.day_one',
-		'sections.day_two',
-		'sections.second_time_first',
-		'sections.second_time_last',
-		'subjects.subject',
-		'subjects.code_subject',
-		'users.names'
-		)
-		->join('subjects','sections.subjects_id', '=','subjects.id' )
-		->join('classrooms','sections.classrooms_id', '=','classrooms.id' )
-		->join('users','sections.users_id','=','users.id')
-        ->where('sections.users_id','=',Auth::user()->id)
-        ->where('sections.status','=',1)
-		->get();
-
-        $score = $request->input('first_midterm') + 
-        $request->input('second_midterm') +
-        $request->input('pratice_score') +
-        $request->input('final_exam');
-
         
-
-        $alumnoInscrito = Inscribed::find($id);
-        $alumnoInscrito->first_midterm = $request->input('first_midterm');
-        $alumnoInscrito->second_midterm = $request->input('second_midterm');
-        $alumnoInscrito->pratice_score = $request->input('pratice_score');
-        $alumnoInscrito->final_exam = $request->input('final_exam');
-        $alumnoInscrito->score = $request->input('score');
-        $alumnoInscrito->score = $score;
-        $alumnoInscrito->save();
-
-        session::flash('message', 'notas publicadas correctamente al estudiante '.$request->input('names'));
-        return view('qualifications.qualification',['sections' =>$seccionesProfesor]);
-        }catch(\Exception $e) {
-        session::flash('message', 'error inesperado');
-        return redirect('/qualifications');}
     }
 
     /**
