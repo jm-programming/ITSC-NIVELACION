@@ -13,11 +13,9 @@
     </div>
   @endif
 
-@if (count($alumno) > 0)
-{!! Form::open(['route' => ['qualifications.update', $alumno->id], 'method' => 'PUT']) !!}
+@if (count($notas) > 0)
 <div class="table-responsive">
-{!!Form::token()!!}
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_id">
         <thead>
             <tr class="headings">
                 <th>
@@ -47,10 +45,11 @@
                 <th class="column-title">
                     Total
                 </th>
-                <th class="column-title no-link last">
-                    <span class="nobr">
-                        Acción
-                    </span>
+                <th class="column-title">
+                    literal
+                </th>
+                <th class="column-title">
+                    condicion
                 </th>
                 <th class="bulk-actions" colspan="7">
                     <a class="antoo" style="color:#fff; font-weight:500;">
@@ -65,51 +64,82 @@
             </tr>
         </thead>
         <tbody>
+        <?php $contador = 0;?>
+            @foreach ($notas as $nota)
+            <?php $contador++?>
             <tr class="even pointer">
                 <td class="a-center ">
-                    1
+                    {{$contador}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="text"  id="names" name="names" placeholder="" value='{{$alumno->names}}' readonly> 
+                    {{$nota->names}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="text"  id="names" name="last_name" placeholder="" value='{{$alumno->last_name}}' readonly>    
+                    {{$nota->last_name}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="text"  id="names" name="identity_card" placeholder="" value='{{$alumno->identity_card}}' readonly>         
+                    {{$nota->identity_card}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="10" id="first_midterm" name="first_midterm" placeholder="" value='{{$alumno->first_midterm}}' >
+                    {{$nota->first_midterm}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="10" id="second_midterm" name="second_midterm" placeholder="" value='{{$alumno->second_midterm}}'>
+                    {{$nota->second_midterm}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="60" id="pratice_score" name="pratice_score" placeholder="" value='{{$alumno->pratice_score}}'>
+                    {{$nota->pratice_score}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  min="0" max="20" id="final_exam" name="final_exam" placeholder="" value='{{$alumno->final_exam}}'>
+                    {{$nota->final_exam}}
                 </td>
                 <td class=" ">
-                <input class="form-control" type="number"  id="score" name="score" placeholder="" value='{{$alumno->score}}' readonly>
+                    {{$nota->score}}
                 </td>
-                <td class=" last">
-                {!! Form::submit('Guardar',['class' => 'btn btn-primary btn-block']) !!}
+                <td class=" ">
+                    {{$nota->literal}}
+                </td>
+                <td class="last">
+                    {{$nota->condition}}
+                </td>
+                
             </tr>
+            @endforeach
         </tbody>
     </table>
     </div>
-{!! Form::close() !!}
     @else
     <div class="container" id="error">
-        @include('forms.search_student',['url'=>'students','link'=>'students'])
         <figure id="img-error">
           <img src="img/sad-face.png" alt="sad-face">
         </figure>
         <h2 class="text-center">Oops, no se encontro ningun dato.</h2>
     </div>
-
   @endif
+@endsection
+@section('script')
+	<script>
 
 
+    $(document).ready(function() {
+    $('#table_id').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                        );
+ 
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            }
+        ]
+    } );
+} );
+  </script>
 @endsection
