@@ -40,7 +40,7 @@ class IdiomaController extends Controller {
 
         ]);
 
-        return redirect('home')->with('message', 'Cita creada con exito...');
+        return redirect('home')->with('message', 'Cita de '.$request['language'] . 'creada con exito...');
     }
 
 	public function edit($id)
@@ -54,7 +54,7 @@ class IdiomaController extends Controller {
         $languages = Language_quotes::find($id);
         $languages->fill($request->all());
         $languages->save();
-        session::flash('message', 'Cita editada correctamente...');
+        session::flash('message', 'Cita de '.$request['language'] .' editada correctamente...');
         return Redirect::to('home');
     }
 

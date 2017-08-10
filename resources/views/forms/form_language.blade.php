@@ -26,7 +26,7 @@
     </div>
      <div class="form-group col-sm-6">
          <label class="control-label" for="nombres">Fecha del examen</label>
-         <input type="date" class="form-control" id="date" name="date" value="{{$language->date}}" min="01/01/2017">
+         <input type="date" class="form-control" id="date" name="date" value="{{$language->date}}" min="2017-01-01">
          
 
     </div>

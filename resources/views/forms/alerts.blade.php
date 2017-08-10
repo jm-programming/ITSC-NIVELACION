@@ -13,7 +13,8 @@
 
         $('#Datepicker').datetimepicker({
             format: 'hh:mm A'
-             });
+         });
+       
 
 $(document).ready(inicializar);
 

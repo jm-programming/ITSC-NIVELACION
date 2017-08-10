@@ -4,12 +4,18 @@
 
 
 <div class="container">
+<div class="text-center">
+  <img src="{{ asset('img/logo.png') }}" alt="Logo del ITSC" class="text-center">
+<br><br>
+            <h4>La cita de {{ $language->language }} esta pautada para el
+            {{ $language->date }}
+            en el edificio
+            {{ $language->location }} 
+            a las 
+           {{ $language->time }}</h4>
 
-            <p> Fecha de la Cita <span>{{ $language->date }}</span></p> 
-            <p>Ubicación <span> {{ $language->location }}</span></p>
-            <p>Hora <span>{{ $language->time }}</span></p>
             
-       
+      </div> 
 </div>
 
 @endsection
