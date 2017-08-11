@@ -118,7 +118,11 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/teachers"><i class="fa fa-graduation-cap"></i> Docentes</a>
    </li>
    <li>
-   <a href="/sections"><i class="fa fa-table"></i> Secciones</a>
+   <a href="#"><i class="fa fa-bar-chart-o"></i> Secciones <span class="glyphicon glyphicon-menu-down"></span></a>
+   <ul class="nav child_menu">
+    <li> <a href="/sections"><i class="fa fa-table"></i> Secciones</a></li>
+    <li><a href="dates/create"><i class="fa fa-table"></i>Fecha de Calificaciones</a></li>
+   </ul>
    </li>
    <li>
     <a href="/employees"><i class="fa fa-group"></i> Empleados</a>
@@ -133,7 +137,7 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/log"><i class="fa fa-list-alt"></i> Auditoria</a>
    </li>
    <li>
-   <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas</a>
+   <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas<span class="glyphicon glyphicon-menu-down"></span></a>
    <ul class="nav child_menu">
     <li><a href="/language">Establecer fecha examen de idiomas</a></li>
     <li><a href="/generatelanguage">Generar citas</a></li>

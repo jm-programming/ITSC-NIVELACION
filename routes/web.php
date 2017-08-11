@@ -88,3 +88,6 @@ Route::resource('primerParcial','PrimerParcialController');
 Route::resource('segundoParcial','SegundocialController');
 Route::resource('practicas','PracticasController');
 Route::resource('examenFinal','ExamenFinalController');
+
+//routes para fecha de notas
+Route::resource('dates','DatesController');
