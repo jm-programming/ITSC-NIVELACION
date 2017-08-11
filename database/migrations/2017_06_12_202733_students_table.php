@@ -16,14 +16,17 @@ class StudentsTable extends Migration {
 			$table->string('names', 45);
 			$table->string('last_name', 45);
 			$table->string('career', 100);
-			$table->date('birthday');
-			$table->string('identity_card', 15);
-			$table->string('civil_status', 45);
-			$table->string('email', 180)->unique();
+			$table->date('birthday')->nullable();
+			$table->string('identity_card', 15)->nullable();
+			$table->string('civil_status', 45)->nullable();
+			$table->string('email', 180)->unique()->nullable();
 			$table->string('shift', 20);
-			$table->integer('inscribed_opportunity');
-			$table->boolean('debt');
+			$table->integer('inscribed_opportunity')->nullable();
+			$table->boolean('debt')->nullable();
 			$table->string('condition', 180);
+			$table->string('Period',180);
+			$table->string('spanish',180);
+			$table->string('math',180);
 			$table->timestamps();
 		});
 	}

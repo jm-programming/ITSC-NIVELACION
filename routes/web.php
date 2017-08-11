@@ -91,3 +91,6 @@ Route::resource('examenFinal','ExamenFinalController');
 
 //routes para fecha de notas
 Route::resource('dates','DatesController');
+
+//route para excell
+Route::resource('listaEstudiantes','ExcellController');

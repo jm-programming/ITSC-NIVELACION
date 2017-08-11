@@ -7,10 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Cache\RateLimiter;
 use Symfony\Component\HttpFoundation\Response;
 
-
-use App\User;
-use DB;
-
 class ThrottleRequests
 {
     /**
@@ -40,14 +36,12 @@ class ThrottleRequests
      * @param  float|int  $decayMinutes
      * @return mixed
      */
-    public function handle($request, Closure $next, $maxAttempts = 2, $decayMinutes = 1)
+    public function handle($request, Closure $next, $maxAttempts = 60, $decayMinutes = 1)
     {
-         
-        
         $key = $this->resolveRequestSignature($request);
 
         if ($this->limiter->tooManyAttempts($key, $maxAttempts, $decayMinutes)) {
-            return $this->buildResponse($key, $maxAttempts)
+            return $this->buildResponse($key, $maxAttempts);
         }
 
         $this->limiter->hit($key, $decayMinutes);
@@ -78,9 +72,8 @@ class ThrottleRequests
      * @param  int  $maxAttempts
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function buildResponse($key, $maxAttempts, $estatus)
+    protected function buildResponse($key, $maxAttempts)
     {
-       
         $response = new Response('Too Many Attempts.', 429);
 
         $retryAfter = $this->limiter->availableIn($key);

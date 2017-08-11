@@ -112,7 +112,12 @@ $name = ucfirst(strtok($email, '@'));
    <a href="/home"><i class="fa fa-home"></i> Home</a>
    </li>
    <li>
-   <a href="/students"><i class="fa fa-edit"></i> Estudiantes</a>
+   <a href="#"><i class="fa fa-bar-chart-o"></i> Estudiantes<span class="glyphicon glyphicon-menu-down"></span></a>
+   <ul class="nav child_menu">
+    <li><a href="/students"><i class="fa fa-edit"></i> Estudiantes</a></li>
+    <li><a href="/listaEstudiantes"><i class="fa fa-table"></i>Subir lista de estudiantes</a></li>
+   </ul>
+   
    </li>
    <li>
    <a href="/teachers"><i class="fa fa-graduation-cap"></i> Docentes</a>

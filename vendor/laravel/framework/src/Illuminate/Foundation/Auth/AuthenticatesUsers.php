@@ -4,7 +4,6 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\Models\Activity;
 
 trait AuthenticatesUsers
 {
@@ -114,15 +113,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        activity('User')
-            ->causedBy($user->id)
-            ->log('El usuario:'.$user->names.' hizo Log In Satisfactoriamente');
-            
-            $lastLoggedActivity = Activity::all()->last();
-            $lastLoggedActivity->subject; //returns an instance of an eloquent model
-            $lastLoggedActivity->causer; //returns an instance of your user model
-            $lastLoggedActivity->description; //returns 'Look, I logged something'
-            $lastLoggedActivity->log_name;
+        //
     }
 
     /**
@@ -164,9 +155,7 @@ trait AuthenticatesUsers
     {
         $this->guard()->logout();
 
-        $request->session()->flush();
-
-        $request->session()->regenerate();
+        $request->session()->invalidate();
 
         return redirect('/');
     }
