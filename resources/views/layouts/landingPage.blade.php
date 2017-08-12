@@ -144,8 +144,8 @@ $name = ucfirst(strtok($email, '@'));
    <li>
    <a href="#"><i class="fa fa-bar-chart-o"></i> Examen de idiomas<span class="glyphicon glyphicon-menu-down"></span></a>
    <ul class="nav child_menu">
-    <li><a href="/language">Establecer fecha examen de idiomas</a></li>
-    <li><a href="/generatelanguage">Generar citas</a></li>
+    <li><a href="/#">Establecer fecha examen de idiomas</a></li>
+    <li><a href="/#">Generar citas</a></li>
    </ul>
    </li>
    <li>
