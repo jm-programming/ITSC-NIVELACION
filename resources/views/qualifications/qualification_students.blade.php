@@ -53,7 +53,7 @@
                     {{$contador}}
                 </td>
                 <td class=" ">
-<<<<<<< HEAD
+
                 {!! link_to_route('primerParcial.edit','PrimerParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                 </td>
                 <td class=" ">
@@ -64,7 +64,7 @@
                 </td>
                 <td class=" ">
                    {!! link_to_route('examenFinal.edit','ExamenFinal',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
-=======
+
                 @if($time >= $fecha->first_midterm_date_from   && $time <= $fecha->first_midterm_date_to)
                 {!! link_to_route('primerParcial.edit','PrimerParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                 @else
@@ -93,7 +93,7 @@
                 @endif
                 </td>
                 <td class=" ">
-                 @if($time >= $fecha->pratice_score_date_from   && $time <= $fecha->pratice_score_date_to)
+                 @if($time >= $fecha->final_exam_date_from   && $time <= $fecha->final_exam_date_to)
                    {!! link_to_route('examenFinal.edit','ExamenFinal',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                 @else
                 <span class="btn btn-primary btn-xs" disabled>

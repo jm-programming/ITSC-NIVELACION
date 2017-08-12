@@ -144,8 +144,10 @@ $name = ucfirst(strtok($email, '@'));
    <li>
    <a href="#"><i class="fa fa-bar-chart-o"></i> Citas de idiomas</a>
    <ul class="nav child_menu">
+
     <li><a href="\ingles">Ingles</a></li>
     <li><a href="\frances">Frances</a></li>
+
    </ul>
    </li>
    <li>
@@ -189,47 +191,7 @@ $name = ucfirst(strtok($email, '@'));
  </ul>
               </div>
             </div>
-            @elseif($roll == 3)
-               <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                 <ul class="nav side-menu">
-   <li>
-   <a href="/home"><i class="fa fa-home"></i> Home</a>
-   </li>
-   <li>
-   <a href="/students"><i class="fa fa-edit"></i> Estudiantes</a>
-   </li>
-   <li>
-   <a href="/teachers"><i class="fa fa-graduation-cap"></i> Docentes</a>
-   </li>
-   <li>
-   <a href="/sections"><i class="fa fa-table"></i> Secciones</a>
-   </li>
-  
-   <li>
-   <a href="/classrooms"><i class="fa fa-building-o""></i> Aulas</a>
-   </li>
-   <li>
-   <a href="/academic_periods"><i class="fa fa-table"></i> Periodos Academicos</a>
-   </li>
-   <li>
-   <a href="/log"><i class="fa fa-list-alt"></i> Auditoria</a>
-   </li>
-   <li>
-   <a href="#"><i class="fa fa-bar-chart-o"></i> Citas de idiomas</a>
-   <ul class="nav child_menu">
-    <li><a href="\ingles">Ingles</a></li>
-    <li><a href="\frances">Frances</a></li>
-   </ul>
-   </li>
-   <li>
-   <a href="/subjects"><i class="fa fa-book"></i> Materias</a>
-   </li>
 
- </ul>
-
-              </div>
-            </div>
 
 
             
