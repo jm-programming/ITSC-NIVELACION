@@ -13,7 +13,7 @@
     </div>
   @endif
 
-@if (count($alumnos) > 0)
+@if (count($alumnos) > 0 && count($fecha) > 0)
 <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
         <thead>
@@ -53,6 +53,7 @@
                     {{$contador}}
                 </td>
                 <td class=" ">
+<<<<<<< HEAD
                 {!! link_to_route('primerParcial.edit','PrimerParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
                 </td>
                 <td class=" ">
@@ -63,6 +64,43 @@
                 </td>
                 <td class=" ">
                    {!! link_to_route('examenFinal.edit','ExamenFinal',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+=======
+                @if($time >= $fecha->first_midterm_date_from   && $time <= $fecha->first_midterm_date_to)
+                {!! link_to_route('primerParcial.edit','PrimerParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                @else
+                <span class="btn btn-primary btn-xs" disabled>
+                    PrimerParcial
+                </span>
+                @endif
+                </td>
+
+                <td class=" ">
+                @if($time >= $fecha->second_midterm_date_from   && $time <= $fecha->second_midterm_date_to)
+                    {!! link_to_route('segundoParcial.edit','SegundoParcial',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                @else
+                <span class="btn btn-primary btn-xs" disabled>
+                    SegundoParcial
+                </span>
+                @endif
+                </td>
+                <td class=" ">
+                 @if($time >= $fecha->pratice_score_date_from   && $time <= $fecha->pratice_score_date_to)
+                   {!! link_to_route('practicas.edit','Practicas',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                @else
+                <span class="btn btn-primary btn-xs" disabled>
+                    Practicas
+                </span>
+                @endif
+                </td>
+                <td class=" ">
+                 @if($time >= $fecha->pratice_score_date_from   && $time <= $fecha->pratice_score_date_to)
+                   {!! link_to_route('examenFinal.edit','ExamenFinal',$parameters = [$seccionID], $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                @else
+                <span class="btn btn-primary btn-xs" disabled>
+                    ExamenFinal
+                </span>
+                @endif
+>>>>>>> 27559091baa02437f32ef1cf98d3258e526e4ed9
                 </td>
                  
             </tr>

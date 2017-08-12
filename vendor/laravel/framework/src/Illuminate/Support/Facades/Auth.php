@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Illuminate\Support\Facades;
 
 /**

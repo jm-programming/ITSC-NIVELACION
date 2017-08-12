@@ -16,11 +16,7 @@ Route::get('/', function () {
 	return redirect('/login');
 });
 
-<<<<<<< HEAD
-Route::get('password/email', 'Auth\PasswordController@getEmail');
-Route::post('password/email', 'Auth\PasswordController@postEmail');
-=======
->>>>>>> nuevo
+
 
 Auth::routes();
 
@@ -103,4 +99,11 @@ Route::get('/ajax-teacher',function(){
 Route::resource('primerParcial','PrimerParcialController');
 Route::resource('segundoParcial','SegundocialController');
 Route::resource('practicas','PracticasController');
+
 Route::resource('examenFinal','ExamenFinalController');
+
+//routes para fecha de notas
+Route::resource('dates','DatesController');
+
+//route para excell
+Route::resource('listaEstudiantes','ExcellController');

@@ -95,9 +95,13 @@ class qualificationContoller extends Controller
         ->where('sections.id','=',$id)
         ->get();
         
-        
-      
-        return view('qualifications.qualification_students',['alumnos' =>$alumnos, 'seccionID' => $id]);
+        $fechas = DB::table('qualification_dates')->orderBy('first_midterm_date_from', 'desc')->first();
+
+        $time = date("Y-m-d");
+
+       
+
+        return view('qualifications.qualification_students',['alumnos' =>$alumnos, 'seccionID' => $id, 'fecha'=> $fechas ,'time' =>$time]);
         }catch(\Exception $e) {
         session::flash('message', 'error inesperado');
         return redirect('/qualifications');}

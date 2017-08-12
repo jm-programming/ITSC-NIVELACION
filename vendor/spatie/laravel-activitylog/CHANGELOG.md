@@ -2,6 +2,12 @@
 
 All notable changes to `spatie/laravel-activitylog` will be documented in this file
 
+## 1.15.5 - 2017-08-08
+- fix model scope
+
+## 1.15.4 - 2017-08-05
+- fix detecting `SoftDeletes`
+
 ## 1.15.3 - 2017-06-23
 - fix for when there is no 'web' guard
 
