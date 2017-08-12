@@ -13,7 +13,7 @@
     </div>
   @endif
 
-@if (count($alumnos) > 0)
+@if (count($alumnos) > 0 && count($fecha) > 0)
 <div class="table-responsive">
     <table class="table table-striped jambo_table bulk_action">
         <thead>
