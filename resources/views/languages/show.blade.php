@@ -22,6 +22,7 @@
 
 @section('script')
 <script>
+
   $(document).ready(inicio);
   
   function inicio(){

@@ -16,15 +16,20 @@ Route::get('/', function () {
 	return redirect('/login');
 });
 
+<<<<<<< HEAD
 Route::get('password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');
+=======
+>>>>>>> nuevo
 
 Auth::routes();
 
-
-
 Route::get('home_s', 'HomeController@search');
 Route::resource('home', 'HomeController');
+
+Route::get('admin/profile', ['middleware' => 'auth', function () {
+    
+}]);
 
 //routes manteniemiento estudiante
 Route::get('students_s', 'StudentsController@search');

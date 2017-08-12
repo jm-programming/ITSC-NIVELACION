@@ -63,16 +63,20 @@ class HomeController extends Controller {
 		$this->validate($request, [
             'names' => 'required',
             'last_name' => 'required',
-            'password' => 'required|min:8',
-            
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation'=>'required|min:8',
          ]);
 		$users = User::find($id);
 		$users->names = $request->names;
 		$users->last_name = $request->last_name;
 		$users->password = bcrypt($request->password);
-		$users->save();
-		session::flash('message', 'Usuario editado correctamente...');
-		return Redirect::to('/home');
+		if ($request->password == $request->password_confirmation) {
+			$users->save();
+			session::flash('message', 'Usuario editado correctamente...');
+			return Redirect::to('/home');
+		}
+		
+		
  
 	}
 

@@ -38,8 +38,12 @@
                                     </span>
                                 @endif
                                 <br><input type="submit" id="form-submit" class="btn btn-lg btn-block" value="Acceder">
+<<<<<<< HEAD
 <br>
                                 {{ link_to('password/email', $title = 'Olvido su contraseña?') }}
+=======
+                               
+>>>>>>> nuevo
                             </div>
                            
                         </form>

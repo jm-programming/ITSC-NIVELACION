@@ -130,7 +130,7 @@
                 text: 'PDF',
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [ 1, 2, 3,4,5,6,7,8]
+                    columns: [ 1, 2, 3,4,5,6,7]
                 },
                 customize: function ( doc ) {
                     doc.content.splice( 1, 0, {

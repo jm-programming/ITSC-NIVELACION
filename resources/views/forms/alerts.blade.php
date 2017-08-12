@@ -20,9 +20,9 @@ $(document).ready(inicializar);
 
 
 function inicializar(){
-    var x;
-    x = $("#cedula").click(cedula);
-    x = $("#pasaporte").click(pasaporte);
+   
+    $("#cedula").click(cedula);
+    $("#pasaporte").click(pasaporte);
 
     $('#cellphone').inputmask({"mask": "(999)-999-9999"})
     $('#personal_phone').inputmask({"mask": "(999)-999-9999"})
