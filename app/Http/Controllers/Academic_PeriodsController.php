@@ -22,7 +22,7 @@ class Academic_PeriodsController extends Controller {
 		$academic_periods = Academic_periods::paginate(8);
 		return view('academic_periods.academic_period', ['academic_periods' => $academic_periods]);
 		}catch(\Exception $e) {
-        session::flash('message', 'error inesperado');
+        session::flash('message', 'Error inesperado');
         return redirect('/academic_periods');
         }
 	}

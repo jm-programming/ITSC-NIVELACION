@@ -30,3 +30,4 @@
     {!! Form::submit('Crear Periodo Academico',['class' => 'btn btn-primary btn-block']) !!}
     <br>
     </br>
+    @include('forms.alerts')
