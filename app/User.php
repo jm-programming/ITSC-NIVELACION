@@ -28,11 +28,11 @@ class User extends Authenticatable {
 	];
 
 
-	public function setPasswordAttribute($valor){
+	/*public function setPasswordAttribute($valor){
 		if(!empty($valor)){
 			$this->attributes['password'] = \Hash::make($valor);
 		}
-	}
+	}*/
 	
 	public function historical_activities() {
 		return $this->belongsTo('App\Historical_activities');

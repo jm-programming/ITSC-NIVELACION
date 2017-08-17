@@ -8,11 +8,7 @@
     {{ session::get('message') }}
 </div>
 @endif
-@if(Session::has('message2'))
-<div class="alert alert-warning" id="Warning">
-    {{ session::get('message2') }}
-</div>
-@endif
+
 <div class="row padding">
     <div class="col-lg-4 col-md-4">
         <div class="input-group">
@@ -27,7 +23,7 @@
 </div>
 @if (count($classrooms) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_idclas">
         <thead>
             <tr class="headings">
                 <th>
@@ -95,11 +91,7 @@
             @endforeach
         </tbody>
     </table>
-    <button class="btn btn-default" onclick="window.print();">
-        <i class="fa fa-print">
-        </i>
-        Print
-    </button>
+   
 </div>
 <div class="text-right">
     {{ $classrooms->render() }}
@@ -116,15 +108,5 @@
 </div>
 @endif
 @endsection
-@section('script')
-	<script>
-        setTimeout(function() {
-            $('#Warning').fadeToggle();
-            }, 5000); // <-- time in milliseconds
+@include('forms.alerts')
 
-        setTimeout(function() {
-            $('#Success').fadeToggle();
-            }, 5000); // <-- time in milliseconds
-
-  </script>
-@endsection

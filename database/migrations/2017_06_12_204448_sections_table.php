@@ -15,7 +15,7 @@ class SectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('section', 15)->unique();
+            $table->string('section', 15);
             $table->boolean('status');
             $table->timeTz('time_first');
             $table->timeTz('time_last');

@@ -12,23 +12,13 @@
     </div>
   @endif
 
-  <div class="row padding">
-    <div class="col-lg-4 col-md-4">
-        <div class="input-group">
-            @if (count($sections) > 0)
-            <div class="input-group">
-                @include('forms.search_section',['url'=>'students','link'=>'students'])
-            </div>
-            @endif
-        </div>
-    </div>
-    <div class="col-lg-8 col-md-8 text-right ">
+    <div class="col-lg-12 col-md-12 text-right ">
         {!!link_to('sections/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
 </div>
 @if (count($sections) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_id">
         <thead>
             <tr class="headings">
                 <th>
@@ -36,6 +26,9 @@
                 </th>
                 <th class="column-title">
                     Sección
+                </th>
+                <th class="column-title">
+                    Profesor
                 </th>
                 <th class="column-title">
                     Cupos
@@ -58,7 +51,7 @@
                 <th class="column-title">
                     Tanda
                 </th>
-                
+
                 <th class="column-title no-link last">
                     <span class="nobr">
                         Acción
@@ -77,15 +70,32 @@
             </tr>
         </thead>
         <tbody>
+       
             <?php $contador = 0;?>
             @foreach ($sections as $section)
             <?php $contador++?>
+             <?php
+            $timelast       = $section->time_last;
+            $secondTimeLast = $section->second_time_last;
+            $timeToAdd = 1;
+
+            $timelastHourToSecond       = strtotime($timelast);
+            $secondTimelastHourToSecond = strtotime($secondTimeLast);
+
+            $minutesToAdd = $timeToAdd * 60;
+
+            $timeLastNewHour       = date('H:i:s', $timelastHourToSecond + $minutesToAdd);
+            $secondTimelastNewHour = date('H:i:s', $secondTimelastHourToSecond + $minutesToAdd);
+        ?>
             <tr class="even pointer">
                 <td class="a-center ">
                     {{$contador}}
                 </td>
                 <td class=" ">
                     {{$section->section}}
+                </td>
+                 <td class=" ">
+                    {{$section->names}}
                 </td>
                 <td class=" ">
                     {{$section->quota}}
@@ -100,37 +110,38 @@
                     {{$section->day_one}} / {{$section->day_two}}
                 </td>
                 <td class=" ">
-                    {{$section->time_first}} / {{$section->time_last}}
+                    {{$section->time_first}} / {{$timeLastNewHour }}
                 </td>
                 <td class=" ">
                 @if(empty($section->second_time_first) && empty($section->second_time_last))
                     NULL / NULL
                 @else
-                {{$section->second_time_first}} / {{$section->second_time_last}}
+                {{$section->second_time_first}} / {{$secondTimelastNewHour}}
                  @endif    
                 </td>
                 <td class=" ">
                     {{$section->shift}}
                 </td>
+               
                 <td class=" last">
-                    {!! link_to_route('sections.edit', $title = 'Ver', $parameters = $section->id, $attributes = ['class' => 'label label-info']) !!}
-                  {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'label label-warning']) !!}
-                    <a data-target="#delete-modal" data-toggle="modal" href="#">
-                        <span class="label label-danger">
-                            Eliminar
-                        </span>
-                    </a>
+                    
+                    {!!Form::open(['route'=> ['sections.destroy', $section->id], 'method' => 'DELETE'])!!}
+                    
+                  {!! link_to_route('sections.edit', $title = 'Editar', $parameters = $section->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                  {!! link_to_route('qualifications.edit', $title = 'Calificaciones', $parameters = $section->id, $attributes = ['class' => 'btn btn-primary btn-xs']) !!}
+                {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
+                    {!!Form::close()!!}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-    <nav aria-label="Page navigation example">
+    {{--<nav aria-label="Page navigation example">
         <ul class="pagination text-center">
             {!! $sections->links() !!}
         </ul>
-    </nav>
+    </nav>--}}
     <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
     @else
     <div class="container" id="error">
@@ -144,4 +155,29 @@
     </div>
     @endif
 
+@endsection
+@section('script')
+	<script>
+     $(document).ready(function() {
+    $('#table_id').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                        );
+ 
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            }
+        ]
+    } );
+} );
+  </script>
 @endsection

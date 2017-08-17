@@ -6,6 +6,9 @@ use App\Students;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
+use Redirect;
+
 
 class HomeController extends Controller {
 	/**
@@ -23,9 +26,13 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-
+		try{
 		$query = User::orderBy('names', 'asc')->paginate(8);
 		return view('home', ['query' => $query]);
+		}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+    }
 
 		//return view('layouts.landingPage', ['users' => $users]);
 
@@ -37,18 +44,45 @@ class HomeController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
+
+	try{
+		
 		$users = User::find($id);
-
 		return view('users.edit', ['users' => $users]);
-
+	}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
 	}
-
+	}
 	public function store(Request $request) {
-
+		
 	}
+
+	public function update(Request $request, $id) {
+		
+		$this->validate($request, [
+            'names' => 'required',
+            'last_name' => 'required',
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation'=>'required|min:8',
+         ]);
+		$users = User::find($id);
+		$users->names = $request->names;
+		$users->last_name = $request->last_name;
+		$users->password = bcrypt($request->password);
+		if ($request->password == $request->password_confirmation) {
+			$users->save();
+			session::flash('message', 'Usuario editado correctamente...');
+			return Redirect::to('/home');
+		}
+		
+		
+ 
+	}
+
 
 	public function search(Request $request) {
-
+		try{
 		$userType = $request->input('user');
 		$data = \Request::get('query');
 
@@ -87,5 +121,13 @@ class HomeController extends Controller {
 
 			return view('employees.employee', ['employees' => $query]);
 		}
-	}
+	}catch(\Exception $e) {
+        session::flash('message', 'error inesperado');
+        return redirect('/home');
+		}
+
+
+
+
+}
 }

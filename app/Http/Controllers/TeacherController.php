@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
-
+use App\teacherSubjects;
+use Validator;
 class TeacherController extends Controller
 {
     /**
@@ -25,15 +26,39 @@ class TeacherController extends Controller
         
     public function index()
     {
-
-        $teachersList = User::orderBy('names', 'asc')
-        ->where('users.rolls_id', '=' , 2)
+        try{
+        $teachersList = DB::table('rolls')
+        ->join('users','rolls.id','=','users.rolls_id')
+        ->where('rolls.roll', '=' , 'Profesor')
         ->paginate(8);
 
         return view('teachers.teachers', ['teachersList' => $teachersList]);
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
- 
+    public function show($id)
+    {
+        try{
+        $teacherSubjects = DB::table('teachersubjects')
+         ->select('teachersubjects.id',
+                  'subjects.subject',
+                  'subjects.code_subject')
+         ->join('subjects','teachersubjects.subjects_id','subjects.id')
+         ->join('users','teachersubjects.users_id','users.id')
+         ->where('users.id','=',$id)
+         ->get();
+
+        
+        return view('teachers.teacher_subjects',['subjects'=>$teacherSubjects,'id'=>$id]);
+
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
+    }
 
     
     /*se pasa el parametro request a la funcion,se almacena una peticion get con el nombre del 
@@ -43,85 +68,6 @@ class TeacherController extends Controller
 
     public function search(Request $request){
 
-        $teachersSearch = \Request::get('teachersSearch');
-        $Status = \Request::get('Status');
-        
-        
-        /*se declaro una variable status para obtener el estado del select en la url*/
-
-        /*en esta condicion validamos que si el valor de la variable status es igual a all y el
-        teachersSearch no es vacio que ejecute la consulta hacia todos los datos de la base de datos, permitiendo filtrar
-          por el nombre que se introdusca en la variable teacherSearch y los pagine en 8*/
-
-   if($Status == 'All' && !empty($teachersSearch))
-        {
-        $query = ['users.names' => $teachersSearch,'users.rolls_id' => 2];
-        $query2 = ['users.last_name' => $teachersSearch,'users.rolls_id' => 2];
-
-            $teachersList = User::where($query)
-            ->orwhere($query2)
-            ->orderBy('users.names')
-            ->paginate(8);
-
-            /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-
-
-       }
-       
-       elseif($Status == 'All' && empty($teachersSearch))
-        {
-        
-            $teachersList = User::orderBy('names', 'asc')
-            ->where('users.rolls_id', '=' , 2)
-            ->paginate(8);
-
-            /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-
-
-
-        }
-        /*en esta segunda condicion se valida que si status es 1 y la url de teacherSearch llega vacia
-          o si estatus es 0 y la url llega vacia , que traiga todos los datos donde el teacher.teacher_status
-          sea igual a la variable status y los pagine en 8*/
-
-   elseif(($Status == 1 && empty($teachersSearch)) ||
-               ($Status == 0 && empty($teachersSearch)))
-        {
-            $query = ['users.status' => $Status,'users.rolls_id' => 2 ];
-
-            $teachersList = User::where($query)
-            ->orderBy('users.names')
-            ->paginate(8);
-
-        /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-        
-        }
-        /*en esta tercera validacion validamos que si la variable status es 1 o 0 y la variable
-          teacherSearch no esta vacia, entonces haga las siguientes consultas*/
-   elseif(($Status == 1 && !empty($teachersSearch)) ||
-               ($Status == 0 && !empty($teachersSearch)))
-        {
-            
-            /*guardamos en una variable la primera consulta que buscara los nombres que coincidan
-              con recibidos en la url , y el status que se reciba por la url , en la segunda consulta
-              se hace lo mismo pero con el apellido*/
-             $query = ['users.names' => $teachersSearch,'users.status' => $Status,'users.rolls_id' => 2];
-             $query2 = ['users.last_name' => $teachersSearch,'users.status' => $Status,'users.rolls_id' => 2];
-
-            $teachersList = User::where($query)
-            ->orwhere($query2)
-            ->orderBy('users.names')
-            ->paginate(8);
-
-            /*devolvemos a la vista teacher la variable teacherlist*/
-            return view('teachers.teachers', ['teachersList' => $teachersList]);
-        
-        }
- 
-        
      }
 
 
@@ -130,102 +76,139 @@ class TeacherController extends Controller
       a la vista de creacion de profesores(a la parte de creacion de usuario)*/
     public function create ()
     {
-        return view('teachers.teachers_create');
+        try{
+        $subjects = DB::table('subjects')
+        ->get();
+        
+        
+        return view('teachers.teachers_create',['subjects'=>$subjects]);
+        }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
     
 
     public function store(Request $request)
         {
-            /*se declara una variable pw de password para almacenar el valor de la
-              solicitud que recibe del formulario, luego se crea la variable bpw de bcrypt 
-              password para encryptar esa informacion y se le pasa como valor al modelo de User 
-              para que la password sea igual a la clave encryptada*/
+           
         try{
-            $user = new User;
-            $pw = $request->password;
-            $bpw = bcrypt($pw);
-            
 
+           $validator = Validator::make($request->all(), [
+            'names' => 'required',
+            'last_name' => 'required',
+            'identity_card' => 'required',
+            'civil_status' => 'required',
+            'email' => 'email|unique:users',
+            'personal_phone' => 'required',
+            //'cellphone' => 'required',
+            //'address' => 'required',
+            'gender' => 'required',
+            'civil_status' => 'required',
+            'password' => 'required',
+            'subject_selected' => 'required'
 
-            $user->names = $request->names;
-            $user->last_name = $request->last_name;
-            $user->personal_phone = $request->personal_phone;
-            $user->cellphone = $request->cellphone;
-            $user->address = $request->address;
-            $user->identity_card = $request->identity_card;
-            $user->gender = $request->gender;
-            $user->civil_status = $request->civil_status;
-            $user->email = $request->email;
-            $user->password = $bpw;
-            $user->status = $request->status;
-            $user->rolls_id = 2;
+         ]);
+        if ($validator->fails()) {
+            return redirect('teachers/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
-            $user->save();
+            $roll = DB::table('rolls')
+            ->where('rolls.roll', '=' , 'Profesor')
+            ->get();
 
+            $user= User::create([
+			'names' => $request['names'],
+			'last_name' => $request['last_name'],
+			'email' => $request['email'],
+			'personal_phone' => $request['personal_phone'],
+			'cellphone' => $request['cellphone'],
+			'address' => $request['address'],
+			'gender' => $request['gender'],
+			'identity_card' => $request['identity_card'],
+			'civil_status' => $request['civil_status'],
+			'password' => bcrypt($request['password']),
+			'status' => $request['status'],
+			'rolls_id' => $roll[0]->id,
+            ]);
+        
+            for($x=0;$x<count($request->subject_selected);$x++){
+            $subjects = new teachersubjects;
+            $subjects->users_id = $user->id;
+            $subjects->subjects_id = $request->subject_selected[$x];
+            $subjects->save();
+            }
            
             $userModel = Auth::user();
             $someContentModel = $user;
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',Creo :'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',Creo :'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
             $lastLoggedActivity->causer; //returns an instance of your user model
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
+
+            session::flash('message', 'Profesor creado correctamente...');
             return redirect('/teachers');
         }
         catch(\Exception $e){
+            session::flash('message','error');
             return redirect('teachers/create');
         }
-
         } 
 
 
     public function edit($id){
-
+    
+    try{
      $users = User::find($id);
         return view('teachers.teachers_edit', ['users' => $users]);
 
-
-        
+    }catch(\Exception $e){
+            session::flash('message','error inexperado');
+            return redirect('/teachers');
+        }
     }
 
     public function update(Request $request, $id){
 
         try{
-        $user = User::find($id);
-        $pw = $request->password;
-        $bpw = bcrypt($pw);
 
-
-        $user->fill([
-            'names' => $request->names,
-            'last_name' => $request->last_name,
-            'personal_phone' => $request->personal_phone,
-            'cellphone' => $request->cellphone,
-            'address' => $request->address,
-            'identity_card' => $request->identity_card,
-            'gender' => $request->gender,
-            'civil_status' =>$request->civil_status,
-            'email' => $request->email,
-            'password' => $bpw,
-            'status' => $request->status,
-            'rolls_id' => 2
+        $validator = Validator::make($request->all(), [
+            'names' => 'required',
+            'last_name' => 'required',
+            'identity_card' => 'required',
+            'civil_status' => 'required',
+            'email' => 'email',
+            'personal_phone' => 'required',
+            //'cellphone' => 'required',
+            //'address' => 'required',
+            'gender' => 'required',
+            'civil_status' => 'required',
             
-        ]);
 
+         ]);
+        if ($validator->fails()) {
+            return redirect('teachers/'.$id.'/edit')
+                        ->withErrors($validator);
+        }
 
+        $user = User::find($id);
+        $user->fill($request->all());
         $user->save();
-
+       
             $userModel = Auth::user();
             $someContentModel = $user;
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',cambio en:'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',Edito:'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -233,12 +216,13 @@ class TeacherController extends Controller
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
 
+        session::flash('message', 'Profesor editado correctamente');
         return redirect('/teachers');
         }
-        catch(\Exception $e) {
-  
-        return redirect('/teachers');
-    }
+        catch(\Exception $e){
+            session::flash('message',$e);
+            return redirect('/teachers');
+        }
        
     }
 
@@ -249,6 +233,11 @@ class TeacherController extends Controller
     {
     try {
         $user = User::find($id);
+        $subjects = DB::table('teachersubjects')
+        ->where('teachersubjects.users_id','=',$id)
+        ->delete();
+
+        
         $user->delete();
 
             $userModel = Auth::user();
@@ -256,7 +245,7 @@ class TeacherController extends Controller
             activity('Profesor')
             ->causedBy($userModel)
             ->performedOn($someContentModel)
-            ->log('Usuario:'.Auth::user()->names.',Borro :'.$user->names);
+            ->log('Usuario:'.Auth::user()->names.',Elimino :'.$user->names.'/'.$user->identity_card);
             
             $lastLoggedActivity = Activity::all()->last();
             $lastLoggedActivity->subject; //returns an instance of an eloquent model
@@ -264,13 +253,14 @@ class TeacherController extends Controller
             $lastLoggedActivity->description; //returns 'Look, I logged something'
             $lastLoggedActivity->log_name;
 
+        session::flash('message', 'Profesor eliminado correctamente');
         return redirect('/teachers');
-  //code causing exception to be thrown
+ 
     } catch(\Exception $e) {
-  //exception handling
-    }
-        session::flash('message', 'el usuario que intenta eliminar se encuentra en una seccion');
+        session::flash('message2', 'el usuario que intenta eliminar se encuentra en una seccion');
         return redirect('/teachers');
+    }
+        
     }
 
 

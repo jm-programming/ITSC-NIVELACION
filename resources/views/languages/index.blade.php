@@ -4,13 +4,9 @@
 @section('content')
 
 
-   <div class="text-right ">
-        {!!link_to('languages/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
-    </div>
-</div>
 
 @if(Session::has('message'))
-<div class="alert alert-success">
+<div class="alert alert-success" id="Success">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ session::get('message') }}
 </div>
@@ -19,20 +15,14 @@
 @if (count($language) > 0)
 
       <div class="table-responsive">
-        <table class="table table-striped jambo_table bulk_action">
+        <table class="table table-striped jambo_table bulk_action" id="table_idlanguaje">
           <thead>
             <tr class="headings">
               <th>#</th>
-              <th class="column-title">Nombres </th>
-              <th class="column-title">Apellidos </th>
-              <th class="column-title">Matricula</th>
-              <th class="column-title">Carrera</th>
-              <th class="column-title">Birthday>
-              <th class="column-title">Identificación</th>
-              <th class="column-title">Correo</th>
-              <th class="column-title">Date</th>
-              <th class="column-title">Time</th>
-              <th class="column-title">Locación</th>
+              <th class="column-title">Lenguaje</th>
+              <th class="column-title">Fecha de la cita</th>
+              <th class="column-title">Hora</th>
+              <th class="column-title">Ubicación</th>
 
           
                 <th class="column-title no-link last">
@@ -61,58 +51,37 @@
                     {{ $contador }}
                 </td>
                 <td>
-                    {{ $languages->names }}
-                </td>
-                <td>
-                    {{ $languages->last_name }}
+                    {{ $languages->language }}
                 </td>
 
                 <td>
-                    {{ $languages->matricula }}
-                </td>
-                <td>
-                    {{ $languages->career }}
-                </td>
-                <td>
-                    {{ $languages->birthday}}
-                </td>
-                <td>
-                    {{ $languages->identity_card }}
-                </td>
-                <td>
-                    {{ $languages->email}}
-                </td>
-                <td>
-                    {{ $languages->date }}
+                   {!! $languages->date !!}
                 </td>
                 <td>
                     {{ $languages->time}}
                 </td>
                 <td>{{$languages->location}}</td>
                 <td class="last">    
-                    
-                    {!!Form::open(['route'=> ['languages.destroy', $languages->id], 'method' => 'DELETE'])!!}
-                             {!! link_to_route('languages.edit', $title = 'Editar', $parameters = $languages->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
-                        {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
-
-                    {!!Form::close()!!}
+                   
+                  <a href="{{ route('idioma_show_path',['language'=> $languages->id]) }}" class="btn btn-primary btn-xs">Imprimir</a>
+                  <a href="{{ route('idioma_edit_path',['language'=> $languages->id]) }}" class="btn btn-primary btn-xs">Editar</a>
+              
                 </td>
                 
             </tr>
             @endforeach
         </tbody>
-    </table>
-
-    <button class="btn btn-default" onclick="window.print();">
-        <i class="fa fa-print">
-        </i>
-        Print
-    </button>
+    </table>    
       </div>
 <div class="text-right">
     {{ $language->render() }}
 </div>
 @else
+<div class="text-right ">
+        
+      <a href="{{ route('idioma_create_path')}}" class="fa fa-plus fa-3x pointer blackColor"> </a>
+  </div>
+</div>
 <div class="container" id="error">
     <figure id="img-error">
         <img alt="sad-face" src="img/sad-face.png">
@@ -125,3 +94,5 @@
 @endif
 
 @endsection
+
+@include('forms.alerts')

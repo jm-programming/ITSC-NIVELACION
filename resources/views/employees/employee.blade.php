@@ -19,14 +19,14 @@
 </div>
 
 @if(Session::has('message'))
-<div class="alert alert-success">
+<div class="alert alert-success" id="Success">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ session::get('message') }}
 </div>
 @endif 
 @if (count($employees) > 0)
 <div class="table-responsive">
-    <table class="table table-striped jambo_table bulk_action">
+    <table class="table table-striped jambo_table bulk_action" id="table_idemp">
         <thead>
             <tr class="headings">
                 <th>
@@ -162,7 +162,7 @@
     </h2>
 </div>
 @endif
-
-
-
+@endsection
+@section('script')
+@include('forms.alerts')
 @endsection

@@ -3,21 +3,20 @@
 @section('title-content', 'Profesores')
 @section('content')
 
-@if(Session::has('message'))
-<div class="alert alert-warning" id="Warning">
-    {{ session::get('message') }}
-</div>
-  @endif
- <div class="row padding">
-    <div class="col-lg-4 col-md-4">
-      <div class="">
-      @if (count($teachersList) > 0)
-        @include('forms.teacherSearch',['url'=>'teachers','link'=>'teachers'])
-      @endif
-      </div>
+  @if(Session::has('message'))
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ session::get('message') }}
     </div>
-
-    <div class="col-lg-8 col-md-8 text-right ">
+  @endif
+  @if(Session::has('message2'))
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ session::get('message2') }}
+    </div>
+  @endif
+  
+    <div class="col-lg-12 text-right ">
       {!!link_to('teachers/create', $title = '', $attributes = ['class' => 'fa fa-plus fa-3x pointer blackColor'], $secure = null)!!}
     </div>
   </div>
@@ -34,7 +33,7 @@
               <th class="column-title">Estado</th>
               <th class="column-title">identificacion</th>
               <th class="column-title">telefono</th>
-              <th class="column-title">movil</th>
+              
               <th class="column-title">genero</th>
               <th class="column-title">Direccion</th>
               <th class="column-title no-link last remove"><span class="nobr">Acción</span>
@@ -62,22 +61,24 @@
                 @endif
                 <td class=" ">{{$teachers->identity_card}}</td>
                 <td class=" ">@if($teachers->personal_phone != "") {{$teachers->personal_phone}} @else N/A @endif</td>
-                <td class=" ">@if($teachers->cellphone != "") {{$teachers->cellphone}} @else N/A @endif</td>
+                
                 <td class=" ">{{$teachers->gender}}</td>
                 <td class=" ">@if($teachers->address != "") {{$teachers->address}} @else N/A @endif</td>
                 <td class="last remove">
 
-                  {{-- {!! link_to_route('students.edit', $title = 'Ver', $parameters = $students->id, $attributes = ['class' => 'btn btn-info btn-xs']) !!} --}}
-                    {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
-                    {{-- {!! link_to_action('StudentsController@destroy', $title = 'Eliminar', $parameters = $students->id, $attributes = ['class' => 'label label-danger']) !!} --}}
+                 
+                    
                     {!!Form::open(['route'=> ['teachers.destroy', $teachers->id], 'method' => 'DELETE'])!!}
+                     
+                    {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-warning btn-xs']) !!}
+                     
+                     {!! link_to_route('teachers.show', $title = 'Materias', $parameters = $teachers->id, $attributes = ['class' => 'btn btn-success btn-xs']) !!}
+                       
                         {!!Form::submit('Eliminar',['class' => 'btn btn-danger btn-xs'])!!}
                     {!!Form::close()!!}
 
-                  {{-- {!! link_to_route('teachers.edit', $title = 'Ver', $parameters = $teachers->id, $attributes = ['class' => 'label label-info']) !!}
-                  {!! link_to_route('teachers.edit', $title = 'Editar', $parameters = $teachers->id, $attributes = ['class' => 'label label-warning']) !!}
+                  
 
-                  <a href="#" data-toggle="modal" data-target="#delete-modal"><span class="label label-danger">Eliminar</span></a> --}}
                 </td>
               </tr>
             @endforeach
@@ -121,10 +122,6 @@
             }, 5000); // <-- time in milliseconds
 
 
-    /*$(document).ready( function () {
-    $('#table_id').DataTable();
-    } );*/
-
     $(document).ready(function() {
     $('#table_id').DataTable( {
         dom: 'Bfrtip',
@@ -133,7 +130,7 @@
                 text: 'PDF',
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [ 1, 2, 3,4,5,6,7,8]
+                    columns: [ 1, 2, 3,4,5,6,7]
                 },
                 customize: function ( doc ) {
                     doc.content.splice( 1, 0, {

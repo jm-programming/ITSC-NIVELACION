@@ -18,12 +18,16 @@
 					</div>
 					<div class="panel-body">
 						@include('alerts.requets')
-						{!! Form::open(['route' => 'sections.store', 'method' => 'POST','autocomplete' => 'on']) !!}
+						{!! Form::open(['route' => 'sections.store', 'method' => 'POST']) !!}
 			                <fieldset class="col-sm-10 col-sm-offset-1">
 			                    <!-- Form Name -->
 			                    <!-- Prepended text-->
 			                    {!!Form::token()!!}
 			                    <h4>Información de sección</h4>
+							<div class="form-group col-sm-6">
+			                        <label class="control-label" for="section">Nombre de Sección</label>
+			                        <input list="sections"  class="form-control" id="section" name="section" placeholder="Numero de Sección" value="{{ old('section')}}">
+			                    </div>
 								<div class="form-group col-sm-6">
 			                        <label class="control-label" for="subjects_id">Asignatura</label>
 			                        <select id="subjects_id" name="subjects_id" class="form-control">
@@ -42,15 +46,7 @@
 			                        	@endforeach
 			                        </select>
 			                    </div>
-			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="shift">Tanda</label>
-			                        <select id="shift" name="shift" class="form-control">
-			                        	<option disabled selected value>-- select an option --</option>
-			                        	<option @if(old('shift') == 'Matutina') {{ 'selected' }} @endif>Matutina</option>
-			                        	<option @if(old('shift') == 'Nocturna') {{ 'selected' }} @endif>Nocturna</option>
-			                        </select>
-			                    </div>
-			                    <div class="form-group col-sm-6">
+								<div class="form-group col-sm-6">
 			                        <label class="control-label" for="classrooms_id">Aula</label>
 			                        <select id="classrooms_id" name="classrooms_id" class="form-control">
 			                        	<option disabled selected value> -- select an option -- </option>
@@ -61,7 +57,27 @@
 										@endforeach
 			                        </select>
 			                    </div>
-			                    <div class="form-group col-sm-3">
+								<div class="form-group col-sm-6">
+			                        <label class="control-label" for="academic_periods_id">Periodo Academico</label>
+			                        <select id="academic_periods_id" name="academic_periods_id" class="form-control">
+			                        	<option disabled selected value> -- select an option -- </option>
+			                        	@foreach($academic_period as $academic_periods)
+			                        	
+										<option value="{{$academic_periods->id}}" @if(old('academic_periods_id') == $academic_periods->id) {{ 'selected' }} @endif>{{$academic_periods->academic_period}} </option>
+			                        	
+										@endforeach
+			                        </select>
+			                    </div>
+			                    <div class="form-group col-sm-6">
+			                        <label class="control-label" for="shift">Tanda</label>
+			                        <select id="shift" name="shift" class="form-control">
+			                        	<option disabled selected value>-- select an option --</option>
+			                        	<option @if(old('shift') == 'Matutina') {{ 'selected' }} @endif>Matutina</option>
+			                        	<option @if(old('shift') == 'Nocturna') {{ 'selected' }} @endif>Nocturna</option>
+			                        </select>
+			                    </div>
+			                    
+			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="day_one">Primer dia</label>
 			                        <select id="day_one" name="day_one" class="form-control">
 			                        	<option disabled selected value>-- select an option --</option>
@@ -73,7 +89,7 @@
 			                        	<option @if(old('day_one') == 'Sabado') {{ 'selected' }} @endif>Sabado </option>
 			                        </select>
 			                    </div>
-			                    <div class="form-group col-sm-3">
+			                    <div class="form-group col-sm-6">
 			                        <label class="control-label" for="day_two">Segundo dia</label>
 			                        <select id="day_two" name="day_two" class="form-control">
 			                        	<option disabled selected value>-- select an option --</option>
@@ -85,17 +101,7 @@
 			                        	<option @if(old('day_two') == 'Sabado') {{ 'selected' }} @endif>Sabado </option>
 			                        </select>
 			                    </div>
-			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="academic_periods_id">Periodo Academico</label>
-			                        <select id="academic_periods_id" name="academic_periods_id" class="form-control">
-			                        	<option disabled selected value> -- select an option -- </option>
-			                        	@foreach($academic_period as $academic_periods)
-			                        	
-										<option value="{{$academic_periods->id}}" @if(old('academic_periods_id') == $academic_periods->id) {{ 'selected' }} @endif>{{$academic_periods->academic_period}} </option>
-			                        	
-										@endforeach
-			                        </select>
-			                    </div>
+			                    
 			                    <div class="form-group col-sm-3">
 			                        <label class="control-label" for="time_first">Hora inicio de clase</label>
 			                        <input type="time" class="form-control" id="time_first" name="time_first" pattern="" value="{{ old('time_first')}}">
@@ -106,29 +112,30 @@
 			                    </div>
 
 
-								<div class="form-group col-sm-3">
-			                        <label class="control-label" for="second_time_first">2da Hora inicio de clase</label>
+								<div class="form-group col-sm-3" >
+			                        <label class="control-label" for="second_time_first">Hora inicio de clase2</label>
 			                        <input type="time" class="form-control" id="second_time_first" name="second_time_first" value="{{ old('second_time_first')}}" pattern="">
 			                    </div>
 			                    <div class="form-group col-sm-3">
-			                        <label class="control-label" for="second_time_last">2da Hora final de clase</label>
-			                        <input type="time" class="form-control" id="second_time_last" name="second_time_last" value="{{ old('second_time_last')}}">
+			                        <label class="control-label" for="second_time_last">Hora final de clase2</label>
+			                        <input  type="time" class="form-control" id="second_time_last" name="second_time_last" value="{{ old('second_time_last')}}">
 			                    </div>
-
-
-			                    <div class="form-group col-sm-6">
-			                        <label class="control-label" for="section">Numero de Sección</label>
-			                        <input type="text" class="form-control" id="section" name="section" placeholder="Numero de Sección" value="{{ old('section')}}">
-			                    </div>
-			                    <div class="form-group col-sm-3">
+								<div class="form-group col-sm-6">
 			                        <label class="control-label" for="quota">Cupo</label>
 			                        <input type="text" class="form-control" id="quota" name="quota" value="{{ old('quota')}}">
-			                    </div>
-			                    <div class="form-group col-sm-3">
+			                    </div> 
+			                    <div class="form-group col-sm-6">
 			                    	<label class="control-label" for="status">Estatus de sección</label><br>
-			                    	<input type="radio" name="status" class="flat" id="status" value="1" checked> Activada<br>
-  									<input type="radio" name="status" class="flat" id="status" value="0"> Desactivada
+			                    	<input type="radio" name="status"  id="status" value="1" checked> Activada<br>
+  									<input type="radio" name="status"  id="status" value="0"> Desactivada
 			                    </div>
+								
+			<datalist id="sections">
+				@foreach($section as $sections)
+  				<option value='{{$sections->section}}'>Seccion Usada:{{$sections->section}}-{{$sections->academic_period}}</option>
+				@endforeach
+			</datalist>
+		
 			                    <!-- Button -->
 			                    {!! Form::submit('Crear Sección',['class' => 'btn btn-primary btn-block']) !!}
 			                </fieldset>
@@ -139,19 +146,14 @@
 			</div>
 		</div>
 	</div>
+	
 @endsection
 @section('script')
-	<script>
-		$(document).ready(function(){
-        	$('#time_first').datetimepicker({
-		        format: 'hh:mm A'
-		    });
-      	});
-		  
+<script>
+		
 		 
-        setTimeout(function() {
+        /*setTimeout(function() {
             $('#Danger').fadeToggle();
-            }, 5000); // <-- time in milliseconds
-
+            }, 5000); // <-- time in milliseconds*/
 	</script>
 @endsection

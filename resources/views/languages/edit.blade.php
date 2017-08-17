@@ -18,11 +18,11 @@
                 </div>
                 <div class="panel-body">
                     @include('alerts.requets')
-                    {{ Form::model($languages,['route'=>['languages.update', $languages->id, 'method'=>'POST']]) }}
+                    {{ Form::model($language,['route'=>['idioma_update_path', $language->id, 'method'=>'POST']]) }}
 
                         {{ method_field('PUT') }}
 						@include('forms.form_language');
-                        {!! Form::close() !!}
+                    {!! Form::close() !!}
                     </hr>
                 </div>
             </div>
